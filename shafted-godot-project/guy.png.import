@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dderbn0kh3jp"
-path="res://.godot/imported/fx_blue_hearts.png-ec3408abb8569f3c2a54784d22ff591f.ctex"
+uid="uid://bbstvrkyh26cp"
+path="res://.godot/imported/guy.png-64a8d6e0294e356486ef1e77ad36474d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/fx_blue_hearts.png"
-dest_files=["res://.godot/imported/fx_blue_hearts.png-ec3408abb8569f3c2a54784d22ff591f.ctex"]
+source_file="res://guy.png"
+dest_files=["res://.godot/imported/guy.png-64a8d6e0294e356486ef1e77ad36474d.ctex"]
 
 [params]
 
