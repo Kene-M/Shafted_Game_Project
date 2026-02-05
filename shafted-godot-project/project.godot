@@ -32,6 +32,11 @@ window/size/window_height_override=900
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="Shafted Godot Project"
