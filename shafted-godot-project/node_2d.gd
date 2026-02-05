@@ -5,8 +5,12 @@ extends Node2D
 @export var proj_speed = 1000
 
 func _ready():
-	char.connect("update_speed", _on_update_speed)
-	char.connect("fire_projectile", _on_fire_projectile)
+	var char = preload("res://character_body_2d.tscn")
+	var char_inst = char.instantiate()
+	char_inst.global_position = Vector2(0,0)
+	add_child(char_inst)
+	char_inst.connect("update_speed", _on_update_speed)
+	char_inst.connect("fire_projectile", _on_fire_projectile)
 	label.text = "0"
 	var projectile = preload("res://projectile.tscn")
 	var proj_inst = projectile.instantiate()
