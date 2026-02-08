@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dlfnst2b6em5y"]
+
+[node name="spawnAssistant" type="Node2D"]
