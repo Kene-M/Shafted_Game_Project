@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://xwdqj62ysrgh"]
+[gd_scene load_steps=4 format=3 uid="uid://di02r1k0j0kc3"]
 
-[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_q3m7n"]
-[ext_resource type="Texture2D" uid="uid://c6bjotr4lnxlk" path="res://Assets/Props/projectile.png" id="2_softn"]
+[ext_resource type="Script" uid="uid://cagnl1chgtwjw" path="res://scripts/projectile.gd" id="1_q3m7n"]
+[ext_resource type="Texture2D" uid="uid://c6bjotr4lnxlk" path="res://projectile.png" id="2_softn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
 
 [node name="Projectile" type="AnimatableBody2D"]
-collision_layer = 8
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_q3m7n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

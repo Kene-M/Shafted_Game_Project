@@ -1,10 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddmajx4tydsxe"]
 
-[ext_resource type="Script" uid="uid://c767qdvofucal" path="res://node_2d.gd" id="1_0e48y"]
-[ext_resource type="Script" uid="uid://c4iv42hviscev" path="res://character_body_2d.gd" id="1_wtcfe"]
-[ext_resource type="Texture2D" uid="uid://bbstvrkyh26cp" path="res://guy.png" id="3_epypp"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+[ext_resource type="Script" uid="uid://c767qdvofucal" path="res://scripts/node_2d.gd" id="1_6e84v"]
 
 [sub_resource type="FontFile" id="FontFile_wtcfe"]
 cache/0/16/0/ascent = 0.0
@@ -18,7 +14,7 @@ font = SubResource("FontFile_wtcfe")
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(400, 122)
-script = ExtResource("1_0e48y")
+script = ExtResource("1_6e84v")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_wtcfe")
