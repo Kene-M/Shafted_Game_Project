@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2ea81kkyf8rr"
-path="res://.godot/imported/2_Industrial_Tileset_1_Background.png-13a1b0fb81fd157037a4fc265b1ec802.ctex"
+uid="uid://iso37b7hbu1m"
+path="res://.godot/imported/Brick2-1.jpg-83d27cf33ab1d174d87d2aabe83b8286.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tilemaps/2_Industrial_Tileset_1_Background.png"
-dest_files=["res://.godot/imported/2_Industrial_Tileset_1_Background.png-13a1b0fb81fd157037a4fc265b1ec802.ctex"]
+source_file="res://Brick2-1.jpg"
+dest_files=["res://.godot/imported/Brick2-1.jpg-83d27cf33ab1d174d87d2aabe83b8286.ctex"]
 
 [params]
 

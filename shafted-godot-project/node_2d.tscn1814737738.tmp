@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddmajx4tydsxe"]
+
+[ext_resource type="Script" uid="uid://c767qdvofucal" path="res://node_2d.gd" id="1_0e48y"]
+[ext_resource type="Script" uid="uid://c4iv42hviscev" path="res://character_body_2d.gd" id="1_wtcfe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_epypp"]
+
+[sub_resource type="Gradient" id="Gradient_0hol4"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q6r6c"]
+gradient = SubResource("Gradient_0hol4")
+
+[sub_resource type="FontFile" id="FontFile_wtcfe"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_wtcfe"]
+font = SubResource("FontFile_wtcfe")
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(400, 122)
+script = ExtResource("1_0e48y")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_wtcfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_0e48y")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CharacterBody2D"]
+position = Vector2(8.34465e-07, 2.6226e-06)
+scale = Vector2(20.0227, 20)
+mesh = SubResource("SphereMesh_epypp")
+texture = SubResource("GradientTexture1D_q6r6c")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 293.0
+offset_top = 101.0
+offset_right = 587.0
+offset_bottom = 249.0
+label_settings = SubResource("LabelSettings_wtcfe")
