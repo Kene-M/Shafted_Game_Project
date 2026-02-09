@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnfpinv67jkqp"]
+[gd_scene load_steps=4 format=3 uid="uid://dqw20gnt6h074"]
 
-[ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="1_g2brh"]
+[ext_resource type="Script" uid="uid://c4iv42hviscev" path="res://scripts/character_body_2d.gd" id="1_g2brh"]
 [ext_resource type="Texture2D" uid="uid://bbstvrkyh26cp" path="res://guy.png" id="2_dn4c7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
