@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2h618jitq6ox"
-path="res://.godot/imported/vatbroken.png-5c3a2e06440b9498498a6d9a4f04ea68.ctex"
+path="res://.godot/imported/vatbroken.png-c4c3d7844713b1222d38ed5b1f267576.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tilemaps/vatbroken.png"
-dest_files=["res://.godot/imported/vatbroken.png-5c3a2e06440b9498498a6d9a4f04ea68.ctex"]
+source_file="res://Assets/Props/vatbroken.png"
+dest_files=["res://.godot/imported/vatbroken.png-c4c3d7844713b1222d38ed5b1f267576.ctex"]
 
 [params]
 

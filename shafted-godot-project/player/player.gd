@@ -9,9 +9,9 @@ func _physics_process(delta):
 	move(delta)
 
 func get_input_axis():
-	axis = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	axis.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	axis.y = int(Input.is_action_pressed("move_down")) - int(Input.is_action_pressed("move_up"))
+	axis = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
+	axis.x = int(Input.is_action_pressed("moveRight")) - int(Input.is_action_pressed("moveLeft"))
+	axis.y = int(Input.is_action_pressed("moveDown")) - int(Input.is_action_pressed("moveUp"))
 	return axis.normalized()
 
 func move(delta):

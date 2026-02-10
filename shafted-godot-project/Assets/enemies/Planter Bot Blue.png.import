@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://orcxjfg15jvy"
-path="res://.godot/imported/2_Industrial_Tileset_1B_Background.png-0cf00153c94be3e4f027a6b5b8e672b6.ctex"
+uid="uid://d2k01l2a2yyay"
+path="res://.godot/imported/Planter Bot Blue.png-c67e14f6a757c2512c539ffa600cb7e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tilemaps/2_Industrial_Tileset_1B_Background.png"
-dest_files=["res://.godot/imported/2_Industrial_Tileset_1B_Background.png-0cf00153c94be3e4f027a6b5b8e672b6.ctex"]
+source_file="res://Assets/enemies/Planter Bot Blue.png"
+dest_files=["res://.godot/imported/Planter Bot Blue.png-c67e14f6a757c2512c539ffa600cb7e2.ctex"]
 
 [params]
 

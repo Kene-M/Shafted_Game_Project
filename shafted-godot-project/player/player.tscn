@@ -1,21 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://f6c4xgxeiybu"]
 
-[ext_resource type="Texture2D" uid="uid://bkuw2l4w5sjoo" path="res://icon.svg" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dos344v38wlmm" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://d0u4onrh87pcm" path="res://Assets/Player/Character_idle3.png" id="2_rkbax"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
-radius = 60.133186
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g1dw6"]
-radius = 60.0
+radius = 13.038404
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_rkbax")
+MAX_SPEED = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_oul6g")
+texture = ExtResource("2_rkbax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rkbax")

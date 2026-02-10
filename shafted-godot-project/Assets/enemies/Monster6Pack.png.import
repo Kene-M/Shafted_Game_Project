@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bigm6fv43yvc7"
-path="res://.godot/imported/nootnootnoot.png-5445e33a82893a0e1b601ed5b260f682.ctex"
+uid="uid://cyo3fwn0anjtb"
+path="res://.godot/imported/Monster6Pack.png-274292966d421f8fab5d275764664d7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tilemaps/nootnootnoot.png"
-dest_files=["res://.godot/imported/nootnootnoot.png-5445e33a82893a0e1b601ed5b260f682.ctex"]
+source_file="res://Assets/enemies/Monster6Pack.png"
+dest_files=["res://.godot/imported/Monster6Pack.png-274292966d421f8fab5d275764664d7e.ctex"]
 
 [params]
 
