@@ -1,6 +1,4 @@
 extends Node2D
-@onready var label = $Label
-@onready var label2 = $Label2
 @export var proj_speed = 1000
 
 func _ready():
@@ -8,10 +6,14 @@ func _ready():
 	var char_inst = char.instantiate()
 	char_inst.global_position = Vector2(0,0)
 	char_inst.name = "PlayerChar"
+	char_inst.min_speed = 50
+	char_inst.max_speed = 300
+	char_inst.dash_speed = 1000
+	char_inst.scale = Vector2(0.4,0.4)
 	add_child(char_inst)
 	char_inst.connect("update_speed", _on_update_speed)
 	char_inst.connect("fire_projectile", _on_fire_projectile)
-	label.text = "0"
+
 	var projectile = preload("res://scenes/projectile.tscn")
 	var proj_inst = projectile.instantiate()
 	proj_inst.global_position = Vector2(0,0)
@@ -20,10 +22,9 @@ func _ready():
 	
 
 func _on_update_speed(speed) -> void:
-	label.text = str(speed)
+	pass
 	
 func _on_fire_projectile(direction) -> void:
-	label2.text = "_on_fire_projectile called"
 	var projectile = preload("res://scenes/projectile.tscn")
 	var proj_inst = projectile.instantiate()
 	var char = get_node("PlayerChar")
