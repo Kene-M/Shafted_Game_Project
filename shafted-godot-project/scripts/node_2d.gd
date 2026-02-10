@@ -4,7 +4,7 @@ extends Node2D
 func _ready():
 	var char = preload("res://scenes/character_body_2d.tscn")
 	var char_inst = char.instantiate()
-	char_inst.global_position = Vector2(0,0)
+	char_inst.global_position = Vector2(-70,-70)
 	char_inst.name = "PlayerChar"
 	char_inst.min_speed = 50
 	char_inst.max_speed = 300
@@ -14,10 +14,7 @@ func _ready():
 	char_inst.connect("update_speed", _on_update_speed)
 	char_inst.connect("fire_projectile", _on_fire_projectile)
 
-	var projectile = preload("res://scenes/projectile.tscn")
-	var proj_inst = projectile.instantiate()
-	proj_inst.global_position = Vector2(0,0)
-	add_child(proj_inst)
+	
 
 	
 
