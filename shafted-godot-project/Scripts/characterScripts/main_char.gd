@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var cur_direction = Vector2(0,0)
 @export var dash_ticks = 0
 @export var pre_dash_speed = 0
+@export var weapons = []
 
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2)
@@ -42,4 +43,23 @@ func _physics_process(delta):
 		var mouse_pos = get_global_mouse_position()
 		var dir_vector = global_position.direction_to(mouse_pos)
 		fire_projectile.emit(dir_vector)
+	
+	if (Input.is_action_just_pressed("equipWeaponOne")):
+		if weapons.size() == 0:
+			pass
+		else:
+			var weapon = $Weapon
+			var temp_lab = $TempWeaponLabel
+			var weapon_script = load(weapons[0])
+			weapon.set_script(weapon_script)
+			weapon.init()
+			temp_lab.text = str(weapons[0])
+			
 		
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	var type = type_string(typeof(area.item_data))
+	if type == "String":
+		weapons.append(area.item_data)
+	

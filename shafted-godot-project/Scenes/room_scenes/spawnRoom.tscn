@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=79 format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Script" uid="uid://c767qdvofucal" path="res://Scripts/node_2d.gd" id="1_o8dcf"]
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/tilemaps/tileset_gray.png" id="1_t13yj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cmc6qs8o6nns2" path="res://Scripts/characterScripts/planterRobo.gd" id="7_sue6a"]
 [ext_resource type="Texture2D" uid="uid://d2k01l2a2yyay" path="res://Assets/spriteSheetEnemy/Planter Bot Blue.png" id="8_stylq"]
 [ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Scenes/characterScenes/enemy.tscn" id="9_w7jqf"]
+[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/itemScenes/static_weapon.tscn" id="11_o8dcf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -1141,3 +1142,6 @@ tile_set = SubResource("TileSet_w8y8n")
 z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAAAGAAIAAAD3//z/AAAGAAMAAAADAAUAAAAGAAMAAAAJAAUAAAAIAAEAAAAJAPr/AAAIAAEAAAD2//r/AAAIAAEAAAD2/wUAAAAIAAEAAAA=")
 tile_set = SubResource("TileSet_b01wm")
+
+[node name="StaticWeapon" parent="." instance=ExtResource("11_o8dcf")]
+position = Vector2(145, -58)

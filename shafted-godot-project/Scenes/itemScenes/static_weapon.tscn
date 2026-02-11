@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb763t5t5kah2"]
+
+[ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://static_weapon.gd" id="1_j7qhr"]
+[ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Brick2-1.jpg" id="2_pqmv6"]
+[ext_resource type="Script" uid="uid://bptey5ngyi06u" path="res://area_2d.gd" id="3_3m13j"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
+radius = 26.1725
+
+[node name="StaticWeapon" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_fch43")
+script = ExtResource("1_j7qhr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.281247, 0.906249)
+scale = Vector2(0.0100007, 0.0138075)
+texture = ExtResource("2_pqmv6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_3m13j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fkjch")
