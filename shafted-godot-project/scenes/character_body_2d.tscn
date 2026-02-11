@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b283u6xxqqw0o"]
 
-[ext_resource type="Script" path="res://Scripts/character_body_2d.gd" id="1_g2brh"]
+[ext_resource type="Script" uid="uid://c4iv42hviscev" path="res://Scripts/character_body_2d.gd" id="1_g2brh"]
 [ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_88kja"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
@@ -32,3 +32,5 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(3, 4)
 shape = SubResource("CircleShape2D_g2brh")
+
+[node name="Node2D" type="Node2D" parent="."]

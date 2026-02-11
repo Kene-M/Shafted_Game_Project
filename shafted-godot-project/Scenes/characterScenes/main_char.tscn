@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b283u6xxqqw0o"]
+[gd_scene load_steps=5 format=3 uid="uid://bp7y0swjjmnvv"]
 
-[ext_resource type="Script" uid="uid://c4iv42hviscev" path="res://Scripts/character_body_2d.gd" id="1_g2brh"]
-[ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_88kja"]
+[ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
+[ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_tyhho"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
 radius = 31.0161
@@ -14,7 +14,7 @@ z_index = 4
 position = Vector2(-2, -2)
 collision_layer = 2
 collision_mask = 7
-script = ExtResource("1_g2brh")
+script = ExtResource("1_jt4vo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 4)
@@ -23,7 +23,7 @@ shape = SubResource("CircleShape2D_44cfe")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 3)
 scale = Vector2(-0.442, 0.462)
-texture = ExtResource("2_88kja")
+texture = ExtResource("2_tyhho")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
