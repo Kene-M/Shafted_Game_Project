@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=82 format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Script" uid="uid://c767qdvofucal" path="res://Scripts/node_2d.gd" id="1_o8dcf"]
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/tilemaps/tileset_gray.png" id="1_t13yj"]
@@ -14,9 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/itemScenes/static_sword.tscn" id="12_lty1r"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="13_rta03"]
 [ext_resource type="Script" uid="uid://lxa7hiv6q6gd" path="res://Scenes/room_scenes/item_list.gd" id="14_e6bks"]
-[ext_resource type="PackedScene" uid="uid://bp7y0swjjmnvv" path="res://Scenes/characterScenes/main_char.tscn" id="14_stylq"]
-[ext_resource type="Script" uid="uid://rooxk14mgm0f" path="res://Scenes/room_scenes/control.gd" id="14_sue6a"]
-[ext_resource type="Script" uid="uid://ivw77u2gbqrp" path="res://Scenes/room_scenes/item_list_2.gd" id="15_d528l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -1158,55 +1155,29 @@ position = Vector2(-130, 4)
 [node name="StaticChest2D" parent="." instance=ExtResource("13_rta03")]
 position = Vector2(127, 66)
 
-[node name="Control" type="Control" parent="."]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("14_sue6a")
-
-[node name="TabContainer" type="TabContainer" parent="Control"]
-z_index = 1100
-layout_mode = 2
-offset_left = -136.0
-offset_top = -56.0
-offset_right = 136.0
-offset_bottom = 85.0
-current_tab = 1
-
-[node name="Ranged" type="ItemList" parent="Control/TabContainer"]
-visible = false
+[node name="ItemList" type="ItemList" parent="."]
 z_index = 1535
-layout_mode = 2
+offset_left = -145.0
+offset_top = -68.0
+offset_right = 145.0
+offset_bottom = 65.0
+select_mode = 1
+item_count = 3
+item_0/text = "test1"
+item_1/text = "test2"
+item_2/text = "test3"
 script = ExtResource("14_e6bks")
-metadata/_tab_index = 0
 
-[node name="Melee" type="ItemList" parent="Control/TabContainer"]
-z_index = 1390
-layout_mode = 2
-script = ExtResource("15_d528l")
-metadata/_tab_index = 1
+[node name="Label" type="Label" parent="ItemList"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 79.0
+offset_right = 177.0
+offset_bottom = 120.0
+text = "LABEL"
 
-[node name="Button" type="Button" parent="Control"]
-z_index = 1095
-layout_mode = 2
-offset_left = 104.0
-offset_top = -56.0
-offset_right = 135.0
-offset_bottom = -25.0
-text = "X"
-
-[node name="MainChar" parent="." instance=ExtResource("14_stylq")]
-position = Vector2(125, 64)
-scale = Vector2(0.4, 0.4)
-min_speed = 50
-max_speed = 300
-dash_speed = 1000
-
-[connection signal="open_inventory" from="StaticChest2D" to="Control" method="_on_static_chest_2d_open_inventory"]
-[connection signal="weapon_selected" from="Control" to="MainChar" method="_on_control_weapon_selected"]
-[connection signal="item_selected" from="Control/TabContainer/Ranged" to="Control" method="_on_item_list_item_selected"]
-[connection signal="item_selected" from="Control/TabContainer/Melee" to="Control" method="_on_item_list_2_item_selected"]
-[connection signal="pressed" from="Control/Button" to="Control" method="_on_button_pressed"]
+[connection signal="close_inventory" from="StaticChest2D" to="ItemList" method="_on_static_chest_2d_close_inventory"]
+[connection signal="open_inventory" from="StaticChest2D" to="ItemList" method="_on_static_chest_2d_open_inventory"]
+[connection signal="item_clicked" from="ItemList" to="ItemList" method="_on_item_clicked"]
+[connection signal="item_selected" from="ItemList" to="ItemList" method="_on_item_selected"]
+[connection signal="multi_selected" from="ItemList" to="ItemList" method="_on_multi_selected"]

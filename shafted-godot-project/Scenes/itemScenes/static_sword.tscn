@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://da8giqygsdxm6"]
+
+[ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://static_weapon.gd" id="1_oj7s3"]
+[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://sword.png" id="2_oj7s3"]
+[ext_resource type="Script" uid="uid://b8tbn613lvno" path="res://Scripts/weaponScripts/area_2d_melee.gd" id="3_oj7s3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouxwm"]
+atlas = ExtResource("2_oj7s3")
+region = Rect2(134.481, 322.611, 594.24, 1017.54)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
+radius = 26.1725
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4nnw7"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}]
+
+[node name="StaticSword" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_fch43")
+script = ExtResource("1_oj7s3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.52588e-05, 0.975417)
+scale = Vector2(0.0550554, 0.0491642)
+texture = SubResource("AtlasTexture_ouxwm")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_oj7s3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fkjch")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4nnw7")
+animation = &"new_animation_1"

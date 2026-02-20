@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://clbxutlus034p"]
+
+[ext_resource type="Script" uid="uid://cb8bxy17vvf0a" path="res://Scenes/itemScenes/static_chest_2d.gd" id="1_8802d"]
+[ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://chess.png" id="1_e7ju4"]
+[ext_resource type="Script" uid="uid://cl6ac10hck7u5" path="res://Scripts/weaponScripts/area_2d_ranged.gd" id="2_epsig"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wp4hf"]
+radius = 24.5153
+
+[sub_resource type="LabelSettings" id="LabelSettings_8802d"]
+font_size = 8
+
+[node name="StaticChest2D" type="StaticBody2D"]
+script = ExtResource("1_8802d")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("2_epsig")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wp4hf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 2.00002)
+scale = Vector2(0.0423026, 0.0375521)
+texture = ExtResource("1_e7ju4")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -48.0
+offset_top = -18.0
+offset_right = 41.0
+offset_bottom = -1.0
+text = "press (E) to open"
+label_settings = SubResource("LabelSettings_8802d")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

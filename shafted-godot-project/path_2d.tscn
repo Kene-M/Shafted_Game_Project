@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb162mm3unpda"]
+
+[ext_resource type="Script" uid="uid://vaq01u552y0m" path="res://path_2d.gd" id="1_7n2fh"]
+[ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://path_follow_2d.gd" id="1_npvew"]
+[ext_resource type="Texture2D" uid="uid://c6bjotr4lnxlk" path="res://projectile.png" id="3_3h4et"]
+
+[sub_resource type="Curve2D" id="Curve2D_f5thg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14.445, -33.045, 0, 0, 0, 0, 38.825, 0, 0, 0, 0, 0, 15.46, 35.095)
+}
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mby7g"]
+radius = 17.6847
+
+[node name="SwingPath2D" type="Path2D"]
+curve = SubResource("Curve2D_f5thg")
+script = ExtResource("1_7n2fh")
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="."]
+position = Vector2(14.445, -33.045)
+rotation = 0.935161
+loop = false
+script = ExtResource("1_npvew")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D2"]
+texture = ExtResource("3_3h4et")
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D2/Area2D"]
+shape = SubResource("CircleShape2D_mby7g")
+
+[connection signal="swing_complete" from="PathFollow2D2" to="." method="_on_path_follow_2d_2_swing_complete"]

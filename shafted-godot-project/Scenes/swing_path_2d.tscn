@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://coeouy7para4i"]
+
+[ext_resource type="Script" uid="uid://vaq01u552y0m" path="res://path_2d.gd" id="1_5hpt8"]
+[ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://path_follow_2d.gd" id="2_fgpw5"]
+[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://sword.png" id="3_5hpt8"]
+
+[sub_resource type="Curve2D" id="Curve2D_f5thg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14.445, -33.045, 0, 0, 0, 0, 26.5297, -19.9355, 0, 0, 0, 0, 35.713, 3.77157, 0, 0, 0, 0, 29.0806, 19.9355, 0, 0, 0, 0, 15.46, 35.095)
+}
+point_count = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgpw5"]
+atlas = ExtResource("3_5hpt8")
+region = Rect2(137.396, 251.962, 585.075, 1105.14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mby7g"]
+radius = 20.999
+
+[node name="SwingPath2D" type="Path2D"]
+position = Vector2(10, -8)
+scale = Vector2(1.96007, 1.85599)
+curve = SubResource("Curve2D_f5thg")
+script = ExtResource("1_5hpt8")
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="."]
+position = Vector2(14.445, -33.045)
+rotation = 0.826052
+loop = false
+script = ExtResource("2_fgpw5")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D2"]
+z_index = 190
+position = Vector2(-0.350674, 7.41239)
+scale = Vector2(0.0246862, 0.0283822)
+texture = SubResource("AtlasTexture_fgpw5")
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D2/Area2D"]
+position = Vector2(0.346729, -0.185459)
+shape = SubResource("CircleShape2D_mby7g")
+
+[connection signal="swing_complete" from="PathFollow2D2" to="." method="_on_path_follow_2d_2_swing_complete"]
