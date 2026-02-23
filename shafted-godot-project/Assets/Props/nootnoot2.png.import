@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2k01l2a2yyay"
-path="res://.godot/imported/Planter Bot Blue.png-00e369e61deaa21fde646fe70a49e58d.ctex"
+uid="uid://h6d0tl6oqkn3"
+path="res://.godot/imported/nootnoot2.png-1bd21c185550452ff2d191610d4b1c36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/spriteSheetEnemy/Planter Bot Blue.png"
-dest_files=["res://.godot/imported/Planter Bot Blue.png-00e369e61deaa21fde646fe70a49e58d.ctex"]
+source_file="res://Assets/Props/nootnoot2.png"
+dest_files=["res://.godot/imported/nootnoot2.png-1bd21c185550452ff2d191610d4b1c36.ctex"]
 
 [params]
 

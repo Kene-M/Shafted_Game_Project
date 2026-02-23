@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Shafted Godot Project"
-run/main_scene="uid://ug4ri5fo3gnk"
-config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://Assets/tilemaps/icon.svg"
+run/main_scene="uid://cudhd55wjxhff"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://Assets/Tilesets/icon.svg"
 
 [display]
 
@@ -27,6 +27,16 @@ window/stretch/scale_mode="integer"
 [dotnet]
 
 project/assembly_name="Shafted Godot Project"
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "teal",
+"res://Enemy/": "red",
+"res://Scenes/": "orange",
+"res://Scripts/": "purple",
+"res://player/": "blue"
+}
 
 [input]
 
