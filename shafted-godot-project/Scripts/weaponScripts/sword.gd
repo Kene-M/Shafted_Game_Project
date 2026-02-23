@@ -11,9 +11,17 @@ func init():
 	parent.connect("fire_projectile", _on_fire_projectile)
 
 func _on_fire_projectile(direction) -> void:
+	var sprite = $Sprite2D2
 	var swing = load("res://Scenes/swing_path_2d.tscn")
 	var swing_inst = swing.instantiate()
+	swing_inst.attack_complete.connect(_on_attack_complete)
 	var char = get_parent()
 	add_child(swing_inst)
+	sprite.visible = false
 	swing_inst.rotation = direction.angle()
-	#await get_tree().create_timer(1).timeout
+	
+func _on_attack_complete():
+	var sprite = $Sprite2D2
+	sprite.visible = true
+	
+	
