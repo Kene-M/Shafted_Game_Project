@@ -29,3 +29,7 @@ func _on_item_list_2_item_selected(index: int) -> void:
 	var player = get_parent().get_node("MainChar")
 	player.melee_weapon = melee_list.get_item_text(index)
 	emit_signal("weapon_selected", melee_list.get_item_text(index))
+
+
+func _on_static_chest_2d_close_inventory() -> void:
+	pass # Replace with function body.
