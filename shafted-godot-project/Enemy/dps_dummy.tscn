@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ibgfyudk0ne7"]
+[gd_scene load_steps=16 format=3 uid="uid://d1mtguww1whd6"]
 
 [ext_resource type="Script" uid="uid://dthb0sq54tstc" path="res://Enemy/dps_dummy.gd" id="1_5apw2"]
 [ext_resource type="Texture2D" uid="uid://5sjt3yntv4cj" path="res://Assets/enemies/dummy/Idle(NoArmor).png" id="1_h3nyn"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bd1lfo5utd22i" path="res://Assets/enemies/dummy/hitFX/HitFX5.png" id="12_fstdt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5apw2"]
-radius = 18.110771
+radius = 18.1108
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uohcn"]
 animations = [{
@@ -83,7 +83,7 @@ shape = SubResource("CircleShape2D_5apw2")
 position = Vector2(1, 4)
 sprite_frames = SubResource("SpriteFrames_uohcn")
 animation = &"hit"
-frame_progress = 0.6802951
+frame_progress = 0.680295
 
 [node name="HitFX" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
 visible = false

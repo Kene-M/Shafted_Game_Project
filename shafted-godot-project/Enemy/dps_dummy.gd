@@ -10,12 +10,12 @@ func _ready() -> void:
 	hit_fx.animation_finished.connect(_on_hit_fx_finished)
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
 
-#func take_damage(amount: float, is_crit: bool = false) -> void:
-#	health -= amount
-#	_show_damage_number(amount, is_crit)
-#	_play_hit()
-#	if health <= 0:
-#		health = max_health
+func take_damage(amount: float, is_crit: bool = false) -> void:
+	health -= amount
+	_show_damage_number(amount, is_crit)
+	_play_hit()
+	if health <= 0:
+		health = max_health
 
 func _play_hit() -> void:
 	sprite.play("hit")

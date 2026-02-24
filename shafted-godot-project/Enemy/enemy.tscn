@@ -112,7 +112,7 @@ radius = 19.0
 radius = 64.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iifgy"]
-radius = 121.19818
+radius = 121.198
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
 collision_layer = 4
@@ -147,7 +147,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
 shape = SubResource("CircleShape2D_qi2p4")
-debug_color = Color(0.91248614, 0.17364082, 0.5929825, 0.41960785)
+debug_color = Color(0.912486, 0.173641, 0.592982, 0.419608)
 
 [node name="DeAggroRange" type="Area2D" parent="Aggro"]
 collision_layer = 0

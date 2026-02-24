@@ -15,5 +15,7 @@ func _on_fire_projectile(direction) -> void:
 	add_child(proj_inst)
 	proj_inst.direction = direction
 	proj_inst.speed = 1000
+	proj_inst.base_damage = 100
 	await get_tree().create_timer(1).timeout
-	proj_inst.queue_free()
+	if is_instance_valid(proj_inst):
+		proj_inst.queue_free()

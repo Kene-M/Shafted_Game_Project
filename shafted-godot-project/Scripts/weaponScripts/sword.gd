@@ -12,9 +12,10 @@ func init():
 
 func _on_fire_projectile(direction) -> void:
 	var sprite = $Sprite2D2
-	var swing = load("res://Scenes/swing_path_2d.tscn")
+	var swing = preload("res://Scenes/swing_path_2d.tscn")
 	var swing_inst = swing.instantiate()
 	swing_inst.attack_complete.connect(_on_attack_complete)
+	swing_inst.base_damage = 100
 	var char = get_parent()
 	add_child(swing_inst)
 	sprite.visible = false
