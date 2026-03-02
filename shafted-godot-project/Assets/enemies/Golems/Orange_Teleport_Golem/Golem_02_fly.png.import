@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhb458ri45e2g"
-path="res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"
+uid="uid://c1xdd02hbxvkn"
+path="res://.godot/imported/Golem_02_fly.png-4b0f015e175f88663fdc2903f505bed3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://chess.png"
-dest_files=["res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"]
+source_file="res://Assets/enemies/Golems/Orange_Teleport_Golem/Golem_02_fly.png"
+dest_files=["res://.godot/imported/Golem_02_fly.png-4b0f015e175f88663fdc2903f505bed3.ctex"]
 
 [params]
 

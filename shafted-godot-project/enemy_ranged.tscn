@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ej768wc4lm3y"]
+
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="1_be1o7"]
+
+[node name="Enemy" instance=ExtResource("1_be1o7")]
+speed = null
+attack_range = null
+attack_cooldown = null
+attack_damage = null

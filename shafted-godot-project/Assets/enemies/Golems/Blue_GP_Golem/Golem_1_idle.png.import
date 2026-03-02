@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhb458ri45e2g"
-path="res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"
+uid="uid://b6qmu22cmd2wo"
+path="res://.godot/imported/Golem_1_idle.png-2aa5ee069ef1ee360c3831279f53c13a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://chess.png"
-dest_files=["res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"]
+source_file="res://Assets/enemies/Golems/Blue_GP_Golem/Golem_1_idle.png"
+dest_files=["res://.godot/imported/Golem_1_idle.png-2aa5ee069ef1ee360c3831279f53c13a.ctex"]
 
 [params]
 

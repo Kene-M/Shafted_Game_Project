@@ -1,14 +1,12 @@
 extends CharacterBody2D
-
 @export var MAX_SPEED = 300
 @export var ACCELERATION = 1500
 @export var FRICTION = 1200
 @export var ATTACK_DAMAGE = 25.0
 @export var ATTACK_COOLDOWN = 0.4
 @export var ATTACK_RANGE = 25.0
-@export var CRIT_CHANCE = 0.2   # 20% crit chance
-@export var CRIT_MULTIPLIER = 2.0  # 2x damage on crit
-
+@export var CRIT_CHANCE = 0.2
+@export var CRIT_MULTIPLIER = 2.0
 @onready var axis = Vector2.ZERO
 var can_attack := true
 var is_attacking := false
@@ -28,10 +26,8 @@ func handle_attack_input():
 func perform_attack():
 	is_attacking = true
 	can_attack = false
-
 	var is_crit = randf() < CRIT_CHANCE
 	var damage = ATTACK_DAMAGE * (CRIT_MULTIPLIER if is_crit else 1.0)
-
 	var space = get_world_2d().direct_space_state
 	var query = PhysicsShapeQueryParameters2D.new()
 	var shape = CircleShape2D.new()
@@ -40,13 +36,11 @@ func perform_attack():
 	query.transform = Transform2D(0, global_position + facing * ATTACK_RANGE)
 	query.collision_mask = 4
 	query.exclude = [self]
-
 	var results = space.intersect_shape(query)
 	for result in results:
 		var body = result["collider"]
 		if body.has_method("take_damage"):
-			body.take_damage(damage, is_crit)
-
+			body.take_damage(damage, is_crit, global_position)
 	$Sprite2D.modulate = Color(1.5, 1.5, 1.5)
 	await get_tree().create_timer(0.1).timeout
 	$Sprite2D.modulate = Color(1, 1, 1)

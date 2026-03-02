@@ -10,4 +10,4 @@ func _on_path_follow_2d_2_swing_complete() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
-		body.take_damage(base_damage, false)
+		body.take_damage(base_damage, false, global_position)

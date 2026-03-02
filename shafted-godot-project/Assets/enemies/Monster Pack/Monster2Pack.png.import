@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhb458ri45e2g"
-path="res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"
+uid="uid://buf07qnlkxi0f"
+path="res://.godot/imported/Monster2Pack.png-25f6ce115ce289f5c52229e4f0420503.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://chess.png"
-dest_files=["res://.godot/imported/chess.png-13880741cf18e1df88857507e523d925.ctex"]
+source_file="res://Assets/enemies/Monster Pack/Monster2Pack.png"
+dest_files=["res://.godot/imported/Monster2Pack.png-25f6ce115ce289f5c52229e4f0420503.ctex"]
 
 [params]
 
