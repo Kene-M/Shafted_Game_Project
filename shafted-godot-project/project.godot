@@ -12,13 +12,13 @@ config_version=5
 
 config/name="Shafted Godot Project"
 run/main_scene="uid://ug4ri5fo3gnk"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Assets/tilemaps/icon.svg"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
+window/size/viewport_width=1280
+window/size/viewport_height=1280
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
