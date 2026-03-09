@@ -8,11 +8,18 @@ extends CharacterBody2D
 @export var pre_dash_speed = 0
 @export var ranged_weapons = ["none"]
 @export var melee_weapons = ["none"]
+@export var augments = []
+@export var augment_vals = {
+	AugType.Type.ATKADD: 0,
+	AugType.Type.ATKMULT: 1,
+	AugType.Type.HPADD: 0,
+	AugType.Type.HPMULT: 1
+}
 @onready var ranged_weapon = "none"
 @onready var melee_weapon = "none"
 
 signal update_speed(speed: Vector2)
-signal fire_projectile(direction: Vector2)
+signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
 
 func _physics_process(delta):
 	var direction = Input.get_vector("left","right","up","down")
@@ -45,7 +52,7 @@ func _physics_process(delta):
 	if (Input.is_action_just_pressed("fire")):
 		var mouse_pos = get_global_mouse_position()
 		var dir_vector = global_position.direction_to(mouse_pos)
-		fire_projectile.emit(dir_vector)
+		fire_projectile.emit(dir_vector, augment_vals)
 	
 	if (Input.is_action_just_pressed("equipWeaponOne")):
 		if melee_weapon == "none":
@@ -70,17 +77,32 @@ func _physics_process(delta):
 	
 			
 		
-
+func _modify_augment_vals(aug: Augment, sub_val: bool):
+	print("Modify Call")
+	var temp_data = aug.data
+	if sub_val == true:
+		temp_data = -temp_data
+	augment_vals[aug.type] += temp_data
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	var type = type_string(typeof(area.item_data))
-	if type == "String":
-		if (area.item_type == "Melee_Weapon") and (melee_weapons.has(area.item_data) == false):
-			melee_weapon = area.item_data
-			melee_weapons.append(area.item_data)
-		elif (area.item_type == "Ranged_Weapon") and (ranged_weapons.has(area.item_data) == false):
-			ranged_weapon = area.item_data
-			ranged_weapons.append(area.item_data)
+	print("AREA ENTERED")
+	match area.item_type:
+		"Melee_Weapon":
+			if melee_weapons.has(area.item_data) == false:
+				melee_weapon = area.item_data
+				melee_weapons.append(area.item_data)	
+				
+		"Ranged_Weapon":
+			if ranged_weapons.has(area.item_data) == false:
+				ranged_weapon = area.item_data
+				ranged_weapons.append(area.item_data)
+		"Augment":
+			augments.append(area.aug)
+			_modify_augment_vals(area.aug, false)
+		_:
+			pass
+		
+		
 	
 
 

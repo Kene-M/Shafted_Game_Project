@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=83 format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/Tilesets/tileset_gray.png" id="1_t13yj"]
 [ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/Background/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
 [ext_resource type="PackedScene" uid="uid://bp7y0swjjmnvv" path="res://Scenes/characterScenes/main_char.tscn" id="13_lkw8a"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/dps_dummy.tscn" id="14_74pgp"]
+[ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="15_w8muy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -1199,6 +1200,9 @@ dash_ticks = 10
 position = Vector2(-129, 30)
 
 [node name="StaticBody2D" parent="." instance=ExtResource("14_74pgp")]
+
+[node name="AttackUpStaticBody" parent="." instance=ExtResource("15_w8muy")]
+position = Vector2(76, -46)
 
 [connection signal="weapon_selected" from="Control" to="MainChar" method="_on_control_weapon_selected"]
 [connection signal="item_selected" from="Control/TabContainer/Ranged" to="Control" method="_on_item_list_item_selected"]

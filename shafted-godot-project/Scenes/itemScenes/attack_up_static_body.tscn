@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c12bugc78mp5k"]
+
+[ext_resource type="Script" uid="uid://cvxmomwfp6l0l" path="res://attack_up_aug_area_2d.gd" id="1_mvblj"]
+[ext_resource type="Texture2D" uid="uid://dltgb2b822dtq" path="res://Assets/Player/Augments/tempAttackAugment.png" id="2_tmr7w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
+radius = 13.0
+
+[node name="AttackUpStaticBody" type="StaticBody2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_mvblj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_iojf6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tmr7w")
