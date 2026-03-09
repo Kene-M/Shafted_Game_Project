@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://daloduqpthj75"]
+
+[ext_resource type="Script" uid="uid://b44wygpjs1qeo" path="res://death_menu.gd" id="1_8sm51"]
+
+[node name="DeathMenu" type="Control"]
+z_index = 1780
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -238.0
+offset_top = -128.0
+offset_right = -238.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8sm51")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 69.0
+offset_right = 284.0
+offset_bottom = 92.0
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 110.0
+offset_right = 305.0
+offset_bottom = 144.0
+text = "Restart"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

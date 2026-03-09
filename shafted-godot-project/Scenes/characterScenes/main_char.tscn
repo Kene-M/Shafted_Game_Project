@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bp7y0swjjmnvv"]
+[gd_scene load_steps=7 format=3 uid="uid://bp7y0swjjmnvv"]
 
 [ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
 [ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_tyhho"]
@@ -13,9 +13,6 @@ radius = 31.0
 [sub_resource type="AtlasTexture" id="AtlasTexture_sqtrg"]
 atlas = ExtResource("3_tyhho")
 region = Rect2(139.728, 255.562, 595.909, 1105.14)
-
-[sub_resource type="LabelSettings" id="LabelSettings_jt4vo"]
-font_size = 21
 
 [node name="MainChar" type="CharacterBody2D"]
 z_index = 4
@@ -45,11 +42,31 @@ rotation = 0.6353
 scale = Vector2(0.0493553, 0.0521537)
 texture = SubResource("AtlasTexture_sqtrg")
 
-[node name="TempWeaponLabel" type="Label" parent="."]
+[node name="InteractLabel" type="Label" parent="."]
 visible = false
-offset_right = 142.0
-offset_bottom = 59.0
-text = "No Weapon"
-label_settings = SubResource("LabelSettings_jt4vo")
+offset_left = -50.0
+offset_top = -52.0
+offset_right = 58.0
+offset_bottom = -29.0
+text = "\"E\" to interact"
+
+[node name="TempHealthBar" type="ColorRect" parent="."]
+z_index = 420
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -36.0
+color = Color(3.36915e-07, 0.649876, 0.264109, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="TempHealthBar"]
+z_index = 300
+z_as_relative = false
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 103.0
+offset_bottom = 6.0
+color = Color(0.20871, 0.20871, 0.20871, 1)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -18,4 +18,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if crit_check <= crit_chance:
 			crit = true
 			cur_damage *= crit_damage
-		body.take_damage(cur_damage, crit)
+		body.take_damage(cur_damage, crit, global_position)

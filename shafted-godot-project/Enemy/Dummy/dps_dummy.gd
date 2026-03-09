@@ -10,7 +10,7 @@ func _ready() -> void:
 	hit_fx.animation_finished.connect(_on_hit_fx_finished)
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
 
-func take_damage(amount: float, is_crit: bool = false) -> void:
+func take_damage(amount: float, is_crit: bool = false, player_pos: Vector2 = Vector2.ZERO) -> void:
 	health -= amount
 	_show_damage_number(amount, is_crit)
 	_play_hit()
