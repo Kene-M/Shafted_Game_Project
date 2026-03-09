@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=4 uid="uid://cudhd55wjxhff"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/Tilesets/tileset_gray.png" id="1_a02cp"]
-[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/enemy.tscn" id="2_5a7ea"]
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="2_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://f6c4xgxeiybu" path="res://player/player.tscn" id="2_go701"]
-[ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/dps_dummy.tscn" id="4_8j60k"]
+[ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="4_8j60k"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dxdr5"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
