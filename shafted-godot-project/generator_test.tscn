@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://vu65iiqa1fw4"]
+
+[ext_resource type="Script" uid="uid://crlnlifroakyw" path="res://generator_test.gd" id="1_hko6r"]
+[ext_resource type="PackedScene" uid="uid://cejggh7sqonh7" path="res://Scenes/room_scenes/first_room.tscn" id="2_3ekj0"]
+[ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/room_scenes/lr_connector.tscn" id="3_46kxv"]
+[ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/room_scenes/tri_connectl_lud.tscn" id="3_xqshq"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_hko6r")
+scene_start = ExtResource("2_3ekj0")
+scene_all_dirs = ExtResource("3_xqshq")
+scene_lr = ExtResource("3_46kxv")
+
+[node name="OverviewCamera" type="Camera2D" parent="."]

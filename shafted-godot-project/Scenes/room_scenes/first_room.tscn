@@ -3609,3 +3609,7 @@ tile_set = SubResource("TileSet_1ifmp")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_uvy7y")
+
+[node name="ExitWest" type="Marker2D" parent="."]
+position = Vector2(-431, -19)
+scale = Vector2(5, 5)
