@@ -16,6 +16,7 @@ var room_display_radius: float = 1500.0
 @export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
 @export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
 @export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
+@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
 
 # ─────────────────────────────────────────────
 # INTERNAL DATA
@@ -23,7 +24,6 @@ var room_display_radius: float = 1500.0
 
 var grid: Dictionary = {}
 var placed_rooms: Dictionary = {}
-var _camera_ready: bool = false
 
 const DIRECTIONS = {
 	"North": Vector2i(0, -1),
@@ -44,6 +44,7 @@ var scene_map: Dictionary = {}
 var scene_exits: Dictionary = {
 	"West":                  ["West"],
 	"East_West":             ["East", "West"],
+	"North_South":           ["North", "South"],
 	"East_North_South_West": ["East", "North", "South", "West"]
 }
 
@@ -55,6 +56,7 @@ var scene_exits: Dictionary = {
 func _ready():
 	scene_map["West"]                  = scene_start
 	scene_map["East_West"]             = scene_lr
+	scene_map["North_South"]           = scene_ud
 	scene_map["East_North_South_West"] = scene_all_dirs
 
 	var success = false
@@ -81,12 +83,7 @@ func _ready():
 		inst.free()
 
 	_place_rooms()
-
-
-func _process(_delta):
-	if not _camera_ready:
-		_camera_ready = true
-		_setup_overview_camera()
+	_setup_overview_camera.call_deferred()
 
 
 # ─────────────────────────────────────────────
@@ -114,7 +111,23 @@ func _random_walk_logic() -> bool:
 		grid[next_pos] = "normal"
 		stack.append(next_pos)
 
-	return grid.size() >= min_rooms
+	# Reject this generation if it doesn't meet room count minimum
+	if grid.size() < min_rooms:
+		return false
+
+	# Count dead ends (rooms with only 1 neighbor), excluding start
+	# We need at least 2: one for boss, one for treasure
+	var dead_end_count = 0
+	for pos in grid.keys():
+		if grid[pos] == "start":
+			continue
+		if _count_room_neighbors(pos) == 1:
+			dead_end_count += 1
+
+	if dead_end_count < 2:
+		return false
+
+	return true
 
 
 func _get_valid_open_neighbors(pos: Vector2i) -> Array:
@@ -286,7 +299,6 @@ func _setup_overview_camera():
 		print("ERROR: OverviewCamera node not found")
 		return
 
-	# Build bounding box from raw room positions first
 	var min_x: float = INF
 	var max_x: float = -INF
 	var min_y: float = INF
@@ -299,25 +311,26 @@ func _setup_overview_camera():
 		if p.y < min_y: min_y = p.y
 		if p.y > max_y: max_y = p.y
 
-	# Pad all four sides equally after finding true extents
-	min_x -= room_display_radius
-	max_x += room_display_radius
-	min_y -= room_display_radius
-	max_y += room_display_radius
+	# Pad by 30% of each axis span so edge rooms are never clipped,
+	# regardless of whether the layout is tall, wide, or square
+	var x_span = max_x - min_x
+	var y_span = max_y - min_y
+	var x_pad = max(x_span * 0.3, room_display_radius)
+	var y_pad = max(y_span * 0.3, room_display_radius)
 
-	# Center is the midpoint of the padded box
+	min_x -= x_pad
+	max_x += x_pad
+	min_y -= y_pad
+	max_y += y_pad
+
 	var center = Vector2((min_x + max_x) / 2.0, (min_y + max_y) / 2.0)
 	cam.position = center
 	cam.make_current()
 
 	var viewport_size = get_viewport().get_visible_rect().size
-	var map_width  = max_x - min_x
-	var map_height = max_y - min_y
-
-	var zoom_x = viewport_size.x / map_width
-	var zoom_y = viewport_size.y / map_height
-	# Take the smaller zoom so the larger dimension always fits fully
-	var zoom_level = min(zoom_x, zoom_y) * 0.85
+	var zoom_x = viewport_size.x / (max_x - min_x)
+	var zoom_y = viewport_size.y / (max_y - min_y)
+	var zoom_level = min(zoom_x, zoom_y) * 0.6
 	cam.zoom = Vector2(zoom_level, zoom_level)
 
 
