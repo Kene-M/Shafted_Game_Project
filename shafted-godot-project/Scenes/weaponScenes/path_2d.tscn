@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cb162mm3unpda"]
 
-[ext_resource type="Script" uid="uid://vaq01u552y0m" path="res://path_2d.gd" id="1_7n2fh"]
+[ext_resource type="Script" uid="uid://vaq01u552y0m" path="res://Scripts/weaponScripts/attackScripts/path_2d.gd" id="1_7n2fh"]
 [ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://Scripts/weaponScripts/attackScripts/path_follow_2d.gd" id="1_npvew"]
 [ext_resource type="Texture2D" uid="uid://c6bjotr4lnxlk" path="res://projectile.png" id="3_3h4et"]
 

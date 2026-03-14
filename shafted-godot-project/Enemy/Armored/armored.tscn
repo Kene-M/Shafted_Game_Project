@@ -1,6 +1,6 @@
 [gd_scene load_steps=85 format=3 uid="uid://bumh6wn4fxm5o"]
 
-[ext_resource type="Texture2D" uid="uid://bxgs5xx060d8p" path="res://Assets/enemies/Monster8Pack.png" id="1_mv0r5"]
+[ext_resource type="Texture2D" uid="uid://bxgs5xx060d8p" path="res://Assets/enemies/Monster Pack/Monster8Pack.png" id="1_mv0r5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dpai0"]
 atlas = ExtResource("1_mv0r5")
@@ -637,7 +637,7 @@ radius = 121.198
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g0sx6")
 animation = &"stun_stand"
-frame_progress = 0.34465164
+frame_progress = 0.344652
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(9, 1)

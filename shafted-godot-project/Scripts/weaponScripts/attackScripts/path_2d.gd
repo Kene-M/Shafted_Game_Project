@@ -2,6 +2,7 @@ extends Path2D
 @export var base_damage: int = 0
 @export var crit_damage: float = 1
 @export var crit_chance: float = 0
+@export var texture: Texture2D
 
 signal attack_complete()
 

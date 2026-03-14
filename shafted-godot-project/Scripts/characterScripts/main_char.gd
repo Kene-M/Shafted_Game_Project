@@ -1,13 +1,12 @@
 extends CharacterBody2D
-@export var speed = 0
 @export var min_speed = 0
 @export var max_speed = 0
 @export var dash_speed = 0
 @export var cur_direction = Vector2(0,0)
-@export var dash_ticks = 0
+@export var max_dash_ticks = 0
 @export var pre_dash_speed = 0
-@export var ranged_weapons = ["none"]
-@export var melee_weapons = ["none"]
+@export var ranged_weapons = ["res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"]
+@export var melee_weapons = ["res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"]
 @export var augments = []
 @export var augment_vals = {
 	AugType.Type.ATKADD: 0,
@@ -15,14 +14,16 @@ extends CharacterBody2D
 	AugType.Type.HPADD: 0,
 	AugType.Type.HPMULT: 1
 }
-@onready var ranged_weapon = "none"
-@onready var melee_weapon = "none"
+@onready var ranged_weapon = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
+@onready var melee_weapon = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
 @onready var in_item_area = false
 @onready var cur_item_area = null
 @onready var max_health: float = 1000
 @onready var cur_health: float = 1000
 @onready var knockback_velocity: Vector2 = Vector2.ZERO
 @onready var knockback_strength: float = 50
+@onready var dash_ticks = 0
+@onready var speed = 0
 
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
@@ -53,12 +54,14 @@ func _physics_process(delta):
 			speed += 80
 		if (dash_ticks != 0):
 			dash_ticks -= 1
-			if dash_ticks == 60:
+			print(max_dash_ticks*0.75)
+			if dash_ticks == (ceil(max_dash_ticks*(0.75))):
 				speed = pre_dash_speed
-			elif dash_ticks > 60:
+			elif dash_ticks > (ceil(max_dash_ticks*(0.75))):
 				speed = dash_speed
 		elif Input.is_action_just_pressed("dash"):
-			dash_ticks = 70
+			#print("Just Dasheda")
+			dash_ticks = max_dash_ticks
 			pre_dash_speed = speed
 			speed = dash_speed
 		velocity = direction * speed
@@ -156,7 +159,7 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 func _on_control_weapon_selected(path: String) -> void:
 	var weapon = $Weapon
 	if path == "none":
-		weapon.set_script(null)
+		weapon.set_script(null)		
 	else:
 		var weapon_script = load(path)
 		weapon.set_script(weapon_script)
