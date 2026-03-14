@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://va70fpx28g3j"
-path="res://.godot/imported/Character_idle_test.png-47664e6a8dd11008315222ac663c08aa.ctex"
+uid="uid://b1j2uuw282y7s"
+path="res://.godot/imported/s4m_ur4i_dark_metroidvania_1.2_biomes.png-8cf412546e8d2018c5fd0b8aad2e8c47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Character_idle_test.png"
-dest_files=["res://.godot/imported/Character_idle_test.png-47664e6a8dd11008315222ac663c08aa.ctex"]
+source_file="res://Assets/tilemaps/s4m_ur4i_dark_metroidvania_1.2_biomes.png"
+dest_files=["res://.godot/imported/s4m_ur4i_dark_metroidvania_1.2_biomes.png-8cf412546e8d2018c5fd0b8aad2e8c47.ctex"]
 
 [params]
 
