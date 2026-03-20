@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=35 format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/Tilesets/tileset_gray.png" id="1_t13yj"]
 [ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/Background/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://b44wygpjs1qeo" path="res://Scripts/controlScripts/death_menu.gd" id="12_oagid"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
 [ext_resource type="PackedScene" uid="uid://bp7y0swjjmnvv" path="res://Scenes/characterScenes/main_char.tscn" id="13_lkw8a"]
-[ext_resource type="Script" path="res://Scripts/temp_enemy_spawner.gd" id="13_oagid"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="14_74pgp"]
 [ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="15_w8muy"]
 
@@ -850,7 +849,6 @@ offset_left = 155.0
 offset_top = -76.0
 offset_right = 195.0
 offset_bottom = 85.0
-script = ExtResource("13_oagid")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TempEnemySpawner"]
 layout_mode = 0

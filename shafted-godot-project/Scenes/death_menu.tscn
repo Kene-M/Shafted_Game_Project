@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://daloduqpthj75"]
 
-[ext_resource type="Script" path="res://Scripts/death_menu.gd" id="1_8sm51"]
+[ext_resource type="Script" uid="uid://b44wygpjs1qeo" path="res://Scripts/controlScripts/death_menu.gd" id="1_8sm51"]
 
 [node name="DeathMenu" type="Control"]
 z_index = 1780

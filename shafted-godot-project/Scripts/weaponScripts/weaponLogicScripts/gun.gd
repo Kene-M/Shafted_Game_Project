@@ -13,6 +13,7 @@ func init():
 	new_atlas_texture.atlas = texture
 	new_atlas_texture.region = Rect2(901, 528, 998, 700)
 	sprite.texture = new_atlas_texture
+	sprite.scale = Vector2(0.04, 0.04)
 	sprite.rotation = 0
 
 func _on_fire_projectile(direction, augment_vals) -> void:
