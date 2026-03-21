@@ -1,3 +1,9 @@
 extends Area2D
-@export var item_data = "res://Scripts/weaponScripts/weaponLogicScripts/sword.gd"
-@export var item_type = "Melee_Weapon"
+@export var weapon_data: WeaponResource
+@export var item_type: String
+
+func _ready():
+	weapon_data = WeaponResource.new()
+	weapon_data.weapon_name = "Sword"
+	weapon_data.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/sword.gd"
+	item_type = "Melee_Weapon"

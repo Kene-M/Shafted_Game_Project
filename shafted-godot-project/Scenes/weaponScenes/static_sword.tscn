@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_oj7s3"]
 [ext_resource type="Texture2D" uid="uid://b8futh17f5yp5" path="res://black_sword_large.png" id="2_xw1um"]
-[ext_resource type="Script" uid="uid://c3phoilieelvo" path="res://Scripts/weaponScripts/area_2d_melee.gd" id="3_oj7s3"]
+[ext_resource type="Script" uid="uid://b8tbn613lvno" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_melee.gd" id="3_oj7s3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
 

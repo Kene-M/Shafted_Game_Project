@@ -12,7 +12,7 @@ func init():
 	parent.connect("fire_projectile", _on_fire_projectile)
 	var sprite = $Sprite2D2
 	sprite.texture = texture
-	sprite.scale = Vector2(2.75, 2.75)
+	sprite.scale = Vector2(2, 2)
 	sprite.rotation = 0
 
 func _on_fire_projectile(direction, augment_vals) -> void:

@@ -5,8 +5,8 @@ extends CharacterBody2D
 @export var cur_direction = Vector2(0,0)
 @export var max_dash_ticks = 0
 @export var pre_dash_speed = 0
-@export var ranged_weapons = ["res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"]
-@export var melee_weapons = ["res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"]
+@export var ranged_weapons = []
+@export var melee_weapons = []
 @export var augments = []
 @export var augment_vals = {
 	AugType.Type.ATKADD: 0,
@@ -14,8 +14,8 @@ extends CharacterBody2D
 	AugType.Type.HPADD: 0,
 	AugType.Type.HPMULT: 1
 }
-@onready var ranged_weapon = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
-@onready var melee_weapon = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
+@onready var ranged_weapon
+@onready var melee_weapon
 @onready var in_item_area = false
 @onready var cur_item_area = null
 @onready var max_health: float = 1000
@@ -27,6 +27,16 @@ extends CharacterBody2D
 
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
+
+
+func _ready() -> void:
+	var no_weapon = WeaponResource.new()
+	no_weapon.weapon_name = "No Weapon"
+	no_weapon.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
+	ranged_weapons.append(no_weapon)
+	melee_weapons.append(no_weapon)
+	ranged_weapon = no_weapon
+	melee_weapon = no_weapon
 
 func _physics_process(delta):
 	
@@ -47,6 +57,7 @@ func _physics_process(delta):
 		knockback_velocity = Vector2.ZERO
 		
 	#Movement Logic
+	#Get direction based on player input
 	var direction = Input.get_vector("left","right","up","down")
 	if (direction != Vector2(0,0)):
 		cur_direction = direction
@@ -60,7 +71,6 @@ func _physics_process(delta):
 			elif dash_ticks > (ceil(max_dash_ticks*(0.75))):
 				speed = dash_speed
 		elif Input.is_action_just_pressed("dash"):
-			#print("Just Dasheda")
 			dash_ticks = max_dash_ticks
 			pre_dash_speed = speed
 			speed = dash_speed
@@ -71,6 +81,7 @@ func _physics_process(delta):
 	elif (direction == Vector2(0,0)) and (speed <= min_speed):
 		velocity = Vector2(0,0)	
 	update_speed.emit(velocity)
+	$temp_vel_label.text = str(velocity)
 	move_and_slide()
 	
 	#Weapon Use Logic
@@ -79,37 +90,31 @@ func _physics_process(delta):
 		var dir_vector = global_position.direction_to(mouse_pos)
 		fire_projectile.emit(dir_vector, augment_vals)
 	if (Input.is_action_just_pressed("equipWeaponOne")):
-		if melee_weapon == "none":
-			pass
-		else:
-			var weapon = $Weapon
-			var weapon_script = load(melee_weapon)
-			weapon.set_script(weapon_script)
-			weapon.init()
+		var weapon = $Weapon
+		var weapon_script = load(melee_weapon.weapon_script)
+		weapon.set_script(weapon_script)
+		weapon.init()
 	if (Input.is_action_just_pressed("equipWeaponTwo")):
-		if ranged_weapon == "none":
-			pass
-		else:
-			var weapon = $Weapon
-			var weapon_script = load(ranged_weapon)
-			weapon.set_script(weapon_script)
-			weapon.init()
+		var weapon = $Weapon
+		var weapon_script = load(ranged_weapon.weapon_script)
+		weapon.set_script(weapon_script)
+		weapon.init()
 	
 	#Item Interaction Logic
 	if ((in_item_area == true) and (Input.is_action_just_pressed("interact"))):
 		match cur_item_area.item_type:
 			"Melee_Weapon":
-				if melee_weapons.has(cur_item_area.item_data) == false:
-					melee_weapon = cur_item_area.item_data
-					melee_weapons.append(cur_item_area.item_data)	
+				if melee_weapons.has(cur_item_area.weapon_data) == false:
+					melee_weapon = cur_item_area.weapon_data
+					melee_weapons.append(cur_item_area.weapon_data)	
 					cur_item_area.get_parent().queue_free()
 					#cur_item_area = null
 					#in_item_area = false
 					#$InteractLabel.visible = true
 			"Ranged_Weapon":
-				if ranged_weapons.has(cur_item_area.item_data) == false:
-					ranged_weapon = cur_item_area.item_data
-					ranged_weapons.append(cur_item_area.item_data)
+				if ranged_weapons.has(cur_item_area.weapon_data) == false:
+					ranged_weapon = cur_item_area.weapon_data
+					ranged_weapons.append(cur_item_area.weapon_data)
 					cur_item_area.get_parent().queue_free()
 					#cur_item_area = null
 					#in_item_area = false
@@ -156,12 +161,9 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 	cur_item_area = null		
 	
 
-func _on_control_weapon_selected(path: String) -> void:
+func _on_control_weapon_selected(weapon_data: WeaponResource) -> void:
 	var weapon = $Weapon
-	if path == "none":
-		weapon.set_script(null)		
-	else:
-		var weapon_script = load(path)
-		weapon.set_script(weapon_script)
-		weapon.init()
+	var weapon_script = load(weapon_data.weapon_script)
+	weapon.set_script(weapon_script)
+	weapon.init()
 		
