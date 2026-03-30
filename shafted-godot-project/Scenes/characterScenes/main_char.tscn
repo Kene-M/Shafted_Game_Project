@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2mxv5wl3c4pp"]
+[gd_scene format=3 uid="uid://2mxv5wl3c4pp"]
 
 [ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
 [ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_tyhho"]
@@ -12,36 +12,36 @@ radius = 31.0
 [sub_resource type="LabelSettings" id="LabelSettings_jt4vo"]
 font_size = 8
 
-[node name="MainChar" type="CharacterBody2D"]
+[node name="MainChar" type="CharacterBody2D" unique_id=1949068362]
 z_index = 4
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_jt4vo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2120441913]
 scale = Vector2(0.805, 0.805)
 shape = SubResource("CircleShape2D_44cfe")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=788260798]
 position = Vector2(-3.8147e-06, 0)
 scale = Vector2(-0.362, 0.378)
 texture = ExtResource("2_tyhho")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=142689939]
 collision_layer = 2
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1360177341]
 scale = Vector2(0.8, 0.8)
 shape = SubResource("CircleShape2D_g2brh")
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="Weapon" type="Node2D" parent="." unique_id=1094995648]
 
-[node name="Sprite2D2" type="Sprite2D" parent="Weapon"]
+[node name="Sprite2D2" type="Sprite2D" parent="Weapon" unique_id=798632357]
 position = Vector2(17.88, 4.405)
 scale = Vector2(0.04, 0.04)
 
-[node name="InteractLabel" type="Label" parent="."]
+[node name="InteractLabel" type="Label" parent="." unique_id=70434393]
 visible = false
 offset_left = -52.965
 offset_top = 21.435
@@ -49,7 +49,7 @@ offset_right = 55.035
 offset_bottom = 44.435
 text = "\"E\" to interact"
 
-[node name="TempHealthBar" type="ColorRect" parent="."]
+[node name="TempHealthBar" type="ColorRect" parent="." unique_id=1963051858]
 z_index = 420
 offset_left = -50.0
 offset_top = -40.0
@@ -57,7 +57,7 @@ offset_right = 50.0
 offset_bottom = -36.0
 color = Color(3.36915e-07, 0.649876, 0.264109, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="TempHealthBar"]
+[node name="ColorRect2" type="ColorRect" parent="TempHealthBar" unique_id=1294526443]
 z_index = 300
 z_as_relative = false
 layout_mode = 0
@@ -67,7 +67,7 @@ offset_right = 103.0
 offset_bottom = 6.0
 color = Color(0.20871, 0.20871, 0.20871, 1)
 
-[node name="temp_vel_label" type="Label" parent="."]
+[node name="temp_vel_label" type="Label" parent="." unique_id=611955854]
 offset_left = -130.0
 offset_top = -84.0
 offset_right = 6.0

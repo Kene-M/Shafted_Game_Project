@@ -19,6 +19,10 @@ run/main_scene="uid://ug4ri5fo3gnk"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Assets/Tilesets/icon.svg"
 
+[autoload]
+
+Autoload="*uid://pcp341otcce6"
+
 [display]
 
 window/size/viewport_width=1440

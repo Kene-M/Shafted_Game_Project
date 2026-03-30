@@ -14,6 +14,7 @@ extends CharacterBody2D
 	AugType.Type.HPADD: 0,
 	AugType.Type.HPMULT: 1
 }
+@onready var resource_inv: Array = [0,0,0,0,0]
 @onready var ranged_weapon
 @onready var melee_weapon
 @onready var in_item_area = false
@@ -37,6 +38,7 @@ func _ready() -> void:
 	melee_weapons.append(no_weapon)
 	ranged_weapon = no_weapon
 	melee_weapon = no_weapon
+	Autoload.main_char = self
 
 func _physics_process(delta):
 	
@@ -126,6 +128,9 @@ func _physics_process(delta):
 				#cur_item_area = null
 				#in_item_area = false
 				#$InteractLabel.visible = true
+			"Resource":
+				resource_inv[cur_item_area.type] += 1
+				cur_item_area.get_parent().queue_free()
 			_:
 				#cur_item_area = null
 				#in_item_area = false
@@ -160,10 +165,3 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 	in_item_area = false
 	cur_item_area = null		
 	
-
-func _on_control_weapon_selected(weapon_data: WeaponResource) -> void:
-	var weapon = $Weapon
-	var weapon_script = load(weapon_data.weapon_script)
-	weapon.set_script(weapon_script)
-	weapon.init()
-		
