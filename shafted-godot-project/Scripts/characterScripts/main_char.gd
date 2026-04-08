@@ -11,8 +11,9 @@ extends CharacterBody2D
 @export var augment_vals = {
 	AugType.Type.ATKADD: 0,
 	AugType.Type.ATKMULT: 1,
-	AugType.Type.HPADD: 0,
-	AugType.Type.HPMULT: 1
+	AugType.Type.HPADD: 1000,
+	AugType.Type.HPMULT: 1,
+	AugType.Type.SPDADD: 300
 }
 @onready var resource_inv: Array = [0,0,0,0,0]
 @onready var ranged_weapon
@@ -31,6 +32,7 @@ signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
 
 
 func _ready() -> void:
+	max_health = augment_vals[AugType.Type.HPADD]
 	var no_weapon = WeaponResource.new()
 	no_weapon.weapon_name = "No Weapon"
 	no_weapon.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
@@ -39,9 +41,12 @@ func _ready() -> void:
 	ranged_weapon = no_weapon
 	melee_weapon = no_weapon
 	Autoload.main_char = self
+	$TempHealthNum.text = str(max_health)
 
 func _physics_process(delta):
-	
+	max_health = augment_vals[AugType.Type.HPADD]
+	max_speed = augment_vals[AugType.Type.SPDADD]
+	$TempHealthNum.text = str(max_health)
 	#Death Logic
 	if (cur_health <= 0):
 		var death_screen_scene = load("res://Scenes/death_menu.tscn")

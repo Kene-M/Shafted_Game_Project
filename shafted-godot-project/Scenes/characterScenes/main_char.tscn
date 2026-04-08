@@ -77,6 +77,12 @@ label_settings = SubResource("LabelSettings_jt4vo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TempHealthNum" type="Label" parent="." unique_id=1873707026]
+offset_left = -20.0
+offset_top = -73.0
+offset_right = 20.0
+offset_bottom = -50.0
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

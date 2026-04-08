@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="8_od744"]
 [ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="9_p6u41"]
 [ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="11_fxevi"]
+[ext_resource type="PackedScene" uid="uid://css63x018tguw" path="res://Scenes/itemScenes/health_up_static_body.tscn" id="12_flvy5"]
+[ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="14_flvy5"]
 [ext_resource type="PackedScene" uid="uid://c4q1w3s5mk1uu" path="res://Scenes/itemScenes/resource_1.tscn" id="14_tybsy"]
+[ext_resource type="PackedScene" uid="uid://iry0wg0aucvv" path="res://Scenes/itemScenes/speed_up_static_body.tscn" id="16_cmu6b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sam6c"]
 texture = ExtResource("2_xgwkw")
@@ -1347,7 +1350,6 @@ scale = Vector2(5, 5)
 z_index = 44
 position = Vector2(4, 1)
 min_speed = 100
-max_speed = 300
 dash_speed = 700
 max_dash_ticks = 30
 
@@ -1385,5 +1387,16 @@ position = Vector2(-127, 219)
 
 [node name="StaticBody2D2" parent="." unique_id=181014022 instance=ExtResource("14_tybsy")]
 position = Vector2(-74, -114)
+
+[node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("14_flvy5")]
+position = Vector2(-211, -14)
+
+[node name="HealthUpStaticBody" parent="." unique_id=45848608 instance=ExtResource("12_flvy5")]
+position = Vector2(214, 105)
+scale = Vector2(1.655, 1.655)
+
+[node name="SpeedUpStaticBody" parent="." unique_id=1966106378 instance=ExtResource("16_cmu6b")]
+position = Vector2(328, 68)
+scale = Vector2(1.6, 1.6)
 
 [connection signal="pressed" from="MainChar/Button" to="MainChar/Button" method="_on_pressed"]

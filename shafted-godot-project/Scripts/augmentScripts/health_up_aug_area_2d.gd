@@ -3,8 +3,7 @@ extends Area2D
 @export var item_type: String = "Augment"
 
 func _ready():
-	$"../AnimatedSprite2D".play()
 	aug = Augment.new()
-	aug.aug_name = "AttackUp"
-	aug.data = 10
-	aug.type = AugType.Type.ATKADD
+	aug.aug_name = "HealthUp"
+	aug.data = 100
+	aug.type = AugType.Type.HPADD

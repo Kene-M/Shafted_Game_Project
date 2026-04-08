@@ -4,5 +4,6 @@ enum Type{
 	ATKADD,
 	ATKMULT,
 	HPADD,
-	HPMULT
+	HPMULT,
+	SPDADD
 }
