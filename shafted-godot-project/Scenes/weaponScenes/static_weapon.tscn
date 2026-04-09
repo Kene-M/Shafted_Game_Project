@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb763t5t5kah2"]
+
+[ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_j7qhr"]
+[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://sword.png" id="2_j7qhr"]
+[ext_resource type="Script" uid="uid://cl6ac10hck7u5" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_ranged.gd" id="3_j7qhr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqmv6"]
+atlas = ExtResource("2_j7qhr")
+region = Rect2(901.158, 528.426, 998.842, 700.064)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
+radius = 26.1725
+
+[node name="StaticWeapon" type="StaticBody2D"]
+collision_layer = 8
+physics_material_override = SubResource("PhysicsMaterial_fch43")
+script = ExtResource("1_j7qhr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0612583, 0.0492331)
+texture = SubResource("AtlasTexture_pqmv6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_j7qhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fkjch")

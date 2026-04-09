@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7e82j2x2ccog"]
+
+[ext_resource type="PackedScene" uid="uid://cb162mm3unpda" path="res://Scenes/weaponScenes/path_2d.tscn" id="1_8uh7m"]
+[ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://Scripts/weaponScripts/attackScripts/path_follow_2d.gd" id="2_6uqi0"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(40, 53)
+
+[node name="Path2D" parent="." instance=ExtResource("1_8uh7m")]
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
+position = Vector2(14.445, -33.045)
+rotation = 0.935161
+loop = false
+script = ExtResource("2_6uqi0")

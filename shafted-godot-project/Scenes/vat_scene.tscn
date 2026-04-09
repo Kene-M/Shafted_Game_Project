@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://fm7wb3bh125t"]
+
+[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/Props/nootnoot2.png" id="1_bwy2y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jmthm"]
+radius = 13.0
+height = 44.0
+
+[node name="VatScene" type="Node2D"]
+
+[node name="MainVat" type="StaticBody2D" parent="."]
+
+[node name="vatUnbroken" type="Sprite2D" parent="MainVat"]
+z_index = 3
+position = Vector2(11, 21)
+texture = ExtResource("1_bwy2y")
+region_enabled = true
+region_rect = Rect2(28, 6, 24, 39)
+
+[node name="VatCollision" type="CollisionShape2D" parent="MainVat"]
+position = Vector2(11, 23)
+shape = SubResource("CapsuleShape2D_jmthm")

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://coeouy7para4i"]
+
+[ext_resource type="Script" uid="uid://vaq01u552y0m" path="res://Scripts/weaponScripts/attackScripts/path_2d.gd" id="1_5hpt8"]
+[ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://Scripts/weaponScripts/attackScripts/path_follow_2d.gd" id="2_fgpw5"]
+
+[sub_resource type="Curve2D" id="Curve2D_f5thg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14.445, -33.045, 0, 0, 0, 0, 25.509295, -19.935453, 0, 0, 0, 0, 32.6519, -2.15518, 0, 0, 0, 0, 35.2028, 3.77157, 0, 0, 0, 0, 33.1621, 7.54314, 0, 0, 0, 0, 26.529667, 22.090635, 0, 0, 0, 0, 12.2445, 39.3321)
+}
+point_count = 7
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mby7g"]
+radius = 20.999
+
+[node name="SwingPath2D" type="Path2D" unique_id=820265673]
+position = Vector2(3.0000005, -4)
+scale = Vector2(1.96007, 1.85599)
+curve = SubResource("Curve2D_f5thg")
+script = ExtResource("1_5hpt8")
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="." unique_id=1450934742]
+position = Vector2(14.445, -33.045)
+rotation = 0.8698031
+loop = false
+script = ExtResource("2_fgpw5")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D2" unique_id=1568514802]
+z_index = 190
+position = Vector2(-0.359812, 10.9878)
+scale = Vector2(0.04, 0.04)
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D2" unique_id=714133217]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D2/Area2D" unique_id=317368394]
+position = Vector2(0.0228958, 0.238438)
+shape = SubResource("CircleShape2D_mby7g")
+
+[node name="Label" type="Label" parent="PathFollow2D2" unique_id=904361540]
+offset_left = 35.58693
+offset_top = -11.815155
+offset_right = 75.58693
+offset_bottom = 11.184845
+
+[connection signal="swing_complete" from="PathFollow2D2" to="." method="_on_path_follow_2d_2_swing_complete"]
+[connection signal="body_entered" from="PathFollow2D2/Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://css63x018tguw"]
+
+[ext_resource type="Script" uid="uid://kpkwnkv0dbgo" path="res://Scripts/augmentScripts/health_up_aug_area_2d.gd" id="1_ehqqf"]
+[ext_resource type="Texture2D" uid="uid://bxr4cxnoma4rb" path="res://Assets/Player/Augments/HealthUpAugment.png" id="2_ehqqf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
+radius = 13.0
+
+[node name="HealthUpStaticBody" type="StaticBody2D" unique_id=45848608]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=560987948]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_ehqqf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=69439140]
+shape = SubResource("CircleShape2D_iojf6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1938788342]
+texture = ExtResource("2_ehqqf")
