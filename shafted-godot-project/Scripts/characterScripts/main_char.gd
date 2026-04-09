@@ -32,6 +32,7 @@ signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
 
 
 func _ready() -> void:
+	$AnimatedSprite2D.play("default")
 	max_health = augment_vals[AugType.Type.HPADD]
 	var no_weapon = WeaponResource.new()
 	no_weapon.weapon_name = "No Weapon"
@@ -67,6 +68,12 @@ func _physics_process(delta):
 	#Get direction based on player input
 	var direction = Input.get_vector("left","right","up","down")
 	if (direction != Vector2(0,0)):
+		if $AnimatedSprite2D.animation == "default":
+			$AnimatedSprite2D.play("run")
+		if direction.x < 0:
+			$AnimatedSprite2D.flip_h = false
+		else:
+			$AnimatedSprite2D.flip_h = true
 		cur_direction = direction
 		if (speed < max_speed):
 			speed += 80
@@ -87,6 +94,8 @@ func _physics_process(delta):
 		velocity = cur_direction * speed
 	elif (direction == Vector2(0,0)) and (speed <= min_speed):
 		velocity = Vector2(0,0)	
+		if $AnimatedSprite2D.animation == "run":
+			$AnimatedSprite2D.play("default")
 	update_speed.emit(velocity)
 	$temp_vel_label.text = str(velocity)
 	move_and_slide()
