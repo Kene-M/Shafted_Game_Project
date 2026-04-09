@@ -1,14 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://da8giqygsdxm6"]
+[gd_scene load_steps=7 format=3 uid="uid://da8giqygsdxm6"]
 
-[ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://static_weapon.gd" id="1_oj7s3"]
-[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://sword.png" id="2_oj7s3"]
-[ext_resource type="Script" uid="uid://b8tbn613lvno" path="res://Scripts/weaponScripts/area_2d_melee.gd" id="3_oj7s3"]
+[ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_oj7s3"]
+[ext_resource type="Texture2D" uid="uid://b8futh17f5yp5" path="res://black_sword_large.png" id="2_xw1um"]
+[ext_resource type="Script" uid="uid://b8tbn613lvno" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_melee.gd" id="3_oj7s3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ouxwm"]
-atlas = ExtResource("2_oj7s3")
-region = Rect2(134.481, 322.611, 594.24, 1017.54)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
 radius = 26.1725
@@ -31,9 +27,9 @@ physics_material_override = SubResource("PhysicsMaterial_fch43")
 script = ExtResource("1_oj7s3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.52588e-05, 0.975417)
-scale = Vector2(0.0550554, 0.0491642)
-texture = SubResource("AtlasTexture_ouxwm")
+position = Vector2(-1.90735e-06, -4.76837e-07)
+scale = Vector2(1.76376, 1.66931)
+texture = ExtResource("2_xw1um")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8

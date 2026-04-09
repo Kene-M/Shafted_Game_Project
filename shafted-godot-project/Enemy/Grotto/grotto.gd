@@ -104,7 +104,7 @@ func _on_sprite_animation_finished() -> void:
 	elif sprite.animation == "attack":
 		if attack_timer <= 0.0 and target_node:
 			if target_node.has_method("take_damage"):
-				target_node.take_damage(attack_damage)
+				target_node.take_damage(attack_damage, global_position)
 			attack_timer = attack_cooldown
 		_resume_state()
 	elif sprite.animation == "death":

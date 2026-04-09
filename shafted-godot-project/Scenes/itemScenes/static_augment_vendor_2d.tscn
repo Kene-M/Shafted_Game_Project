@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dgsie3f0raai3"]
+
+[ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Brick2-1.jpg" id="1_8kkda"]
+[ext_resource type="Script" uid="uid://ecp2qeimypv3" path="res://Scenes/itemScenes/static_augment_vendor_2d.gd" id="1_g1rcx"]
+[ext_resource type="Script" uid="uid://ducmo55604f20" path="res://Scenes/itemScenes/vendor_control.gd" id="3_qv4mr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8owb"]
+radius = 26.019224
+
+[sub_resource type="LabelSettings" id="LabelSettings_qv4mr"]
+font_size = 8
+
+[node name="StaticAugmentVendor2D" type="StaticBody2D" unique_id=1769651019]
+script = ExtResource("1_g1rcx")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2146905117]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2001423277]
+shape = SubResource("CircleShape2D_i8owb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1290868704]
+scale = Vector2(0.010561339, 0.011718745)
+texture = ExtResource("1_8kkda")
+
+[node name="Label" type="Label" parent="." unique_id=86862769]
+visible = false
+offset_left = -48.0
+offset_top = -18.0
+offset_right = 41.0
+offset_bottom = -1.0
+text = "press (E) to open"
+label_settings = SubResource("LabelSettings_qv4mr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1406814644]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=11813839]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchor_left = 0.24300002
+anchor_top = 0.076000005
+anchor_right = 0.24300002
+anchor_bottom = 0.076000005
+offset_left = -153.585
+offset_top = 38.760002
+offset_right = -153.585
+offset_bottom = 38.760002
+script = ExtResource("3_qv4mr")
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=172370792]
+z_index = 1100
+layout_mode = 0
+offset_left = -136.0
+offset_top = -56.0
+offset_right = 480.66498
+offset_bottom = 295.84
+current_tab = 0
+
+[node name="Buy" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1114193868]
+z_index = 1535
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Sell" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1955432512]
+visible = false
+z_index = 1390
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=124819941]
+z_index = 1095
+layout_mode = 0
+offset_left = 448.66498
+offset_top = -56.160004
+offset_right = 479.66498
+offset_bottom = -25.160004
+text = "X"
+
+[connection signal="open_shop" from="." to="CanvasLayer/Control" method="_on_static_augment_vendor_2d_open_shop"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Buy" to="CanvasLayer/Control" method="_on_item_list_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Sell" to="CanvasLayer/Control" method="_on_item_list_2_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]

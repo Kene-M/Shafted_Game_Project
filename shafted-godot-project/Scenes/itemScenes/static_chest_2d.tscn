@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://clbxutlus034p"]
+[gd_scene format=3 uid="uid://clbxutlus034p"]
 
 [ext_resource type="Script" uid="uid://cb8bxy17vvf0a" path="res://Scenes/itemScenes/static_chest_2d.gd" id="1_8802d"]
 [ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://chess.png" id="1_e7ju4"]
-[ext_resource type="Script" uid="uid://cl6ac10hck7u5" path="res://Scripts/weaponScripts/area_2d_ranged.gd" id="2_epsig"]
+[ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="3_8802d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wp4hf"]
 radius = 24.5153
@@ -10,22 +10,21 @@ radius = 24.5153
 [sub_resource type="LabelSettings" id="LabelSettings_8802d"]
 font_size = 8
 
-[node name="StaticChest2D" type="StaticBody2D"]
+[node name="StaticChest2D" type="StaticBody2D" unique_id=253011665]
 script = ExtResource("1_8802d")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1483249394]
 collision_mask = 2
-script = ExtResource("2_epsig")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1132902099]
 shape = SubResource("CircleShape2D_wp4hf")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1005021120]
 position = Vector2(2, 2.00002)
 scale = Vector2(0.0423026, 0.0375521)
 texture = ExtResource("1_e7ju4")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1581677379]
 visible = false
 offset_left = -48.0
 offset_top = -18.0
@@ -34,5 +33,54 @@ offset_bottom = -1.0
 text = "press (E) to open"
 label_settings = SubResource("LabelSettings_8802d")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=924109590]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1374087069]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchor_left = 0.24300002
+anchor_top = 0.076000005
+anchor_right = 0.24300002
+anchor_bottom = 0.076000005
+offset_left = -153.585
+offset_top = 38.760002
+offset_right = -153.585
+offset_bottom = 38.760002
+script = ExtResource("3_8802d")
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=1650615708]
+z_index = 1100
+layout_mode = 0
+offset_left = -136.0
+offset_top = -56.0
+offset_right = 480.66498
+offset_bottom = 295.84
+current_tab = 0
+
+[node name="Ranged" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1811479180]
+z_index = 1535
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Melee" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=2114582321]
+visible = false
+z_index = 1390
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=861709779]
+z_index = 1095
+layout_mode = 0
+offset_left = 448.66498
+offset_top = -56.160004
+offset_right = 479.66498
+offset_bottom = -25.160004
+text = "X"
+
+[connection signal="open_inventory" from="." to="CanvasLayer/Control" method="_on_static_chest_2d_open_inventory"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Ranged" to="CanvasLayer/Control" method="_on_item_list_item_selected"]
+[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Melee" to="CanvasLayer/Control" method="_on_item_list_2_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]

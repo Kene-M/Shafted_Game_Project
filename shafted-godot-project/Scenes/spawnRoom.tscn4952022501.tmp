@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=82 format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Script" uid="uid://c767qdvofucal" path="res://Scripts/node_2d.gd" id="1_o8dcf"]
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/tilemaps/tileset_gray.png" id="1_t13yj"]
@@ -10,8 +10,10 @@
 [ext_resource type="Script" uid="uid://cmc6qs8o6nns2" path="res://Scripts/characterScripts/planterRobo.gd" id="7_sue6a"]
 [ext_resource type="Texture2D" uid="uid://d2k01l2a2yyay" path="res://Assets/spriteSheetEnemy/Planter Bot Blue.png" id="8_stylq"]
 [ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Scenes/characterScenes/enemy.tscn" id="9_w7jqf"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t13yj"]
+[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/itemScenes/static_weapon.tscn" id="11_o8dcf"]
+[ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/itemScenes/static_sword.tscn" id="12_lty1r"]
+[ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="13_rta03"]
+[ext_resource type="Script" uid="uid://lxa7hiv6q6gd" path="res://Scenes/room_scenes/item_list.gd" id="14_e6bks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -505,8 +507,6 @@ texture = ExtResource("3_lty1r")
 [sub_resource type="TileSet" id="TileSet_bdvps"]
 sources/0 = SubResource("TileSetAtlasSource_dxdr5")
 sources/1 = SubResource("TileSetAtlasSource_m431h")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o8dcf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wam5a"]
 radius = 14.0
@@ -1033,7 +1033,6 @@ texture = ExtResource("1_t13yj")
 sources/0 = SubResource("TileSetAtlasSource_a7ntr")
 
 [node name="SpawnRoom" type="Node2D"]
-material = SubResource("CanvasItemMaterial_t13yj")
 script = ExtResource("1_o8dcf")
 
 [node name="Wall" type="TileMapLayer" parent="."]
@@ -1060,7 +1059,6 @@ tile_map_data = PackedByteArray("AADw/wEAAAAAAAUAAADw/wIAAAAAAAMAAADw/wMAAAAAAAQ
 tile_set = SubResource("TileSet_bdvps")
 
 [node name="VatScene" parent="." instance=ExtResource("4_rta03")]
-material = SubResource("ShaderMaterial_o8dcf")
 position = Vector2(-142, -107)
 
 [node name="VatScene2" parent="." instance=ExtResource("4_rta03")]
@@ -1147,3 +1145,39 @@ tile_set = SubResource("TileSet_w8y8n")
 z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAAAGAAIAAAD3//z/AAAGAAMAAAADAAUAAAAGAAMAAAAJAAUAAAAIAAEAAAAJAPr/AAAIAAEAAAD2//r/AAAIAAEAAAD2/wUAAAAIAAEAAAA=")
 tile_set = SubResource("TileSet_b01wm")
+
+[node name="StaticWeapon" parent="." instance=ExtResource("11_o8dcf")]
+position = Vector2(128, -35)
+
+[node name="StaticSword" parent="." instance=ExtResource("12_lty1r")]
+position = Vector2(-130, 4)
+
+[node name="StaticChest2D" parent="." instance=ExtResource("13_rta03")]
+position = Vector2(127, 66)
+
+[node name="ItemList" type="ItemList" parent="."]
+z_index = 1535
+offset_left = -145.0
+offset_top = -68.0
+offset_right = 145.0
+offset_bottom = 65.0
+select_mode = 1
+item_count = 3
+item_0/text = "test1"
+item_1/text = "test2"
+item_2/text = "test3"
+script = ExtResource("14_e6bks")
+
+[node name="Label" type="Label" parent="ItemList"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 79.0
+offset_right = 177.0
+offset_bottom = 120.0
+text = "LABEL"
+
+[connection signal="close_inventory" from="StaticChest2D" to="ItemList" method="_on_static_chest_2d_close_inventory"]
+[connection signal="open_inventory" from="StaticChest2D" to="ItemList" method="_on_static_chest_2d_open_inventory"]
+[connection signal="item_clicked" from="ItemList" to="ItemList" method="_on_item_clicked"]
+[connection signal="item_selected" from="ItemList" to="ItemList" method="_on_item_selected"]
+[connection signal="multi_selected" from="ItemList" to="ItemList" method="_on_multi_selected"]

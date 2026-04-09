@@ -1,14 +1,17 @@
-[gd_scene load_steps=32 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene load_steps=35 format=4 uid="uid://c7top2b42d40m"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/Tilesets/tileset_gray.png" id="1_t13yj"]
 [ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/Background/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
 [ext_resource type="Texture2D" uid="uid://orcxjfg15jvy" path="res://Assets/Background/2_Industrial_Tileset_1B_Background.png" id="3_lty1r"]
-[ext_resource type="PackedScene" uid="uid://dueal3iqlrqdc" path="res://Enemy/Bomber/bomber.tscn" id="9_wqp11"]
-[ext_resource type="Script" uid="uid://rooxk14mgm0f" path="res://Scenes/control.gd" id="10_74pgp"]
-[ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/itemScenes/static_sword.tscn" id="10_oagid"]
-[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/itemScenes/static_weapon.tscn" id="11_74pgp"]
+[ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="10_74pgp"]
+[ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/weaponScenes/static_sword.tscn" id="10_oagid"]
+[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/weaponScenes/static_weapon.tscn" id="11_74pgp"]
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="11_yna68"]
+[ext_resource type="Script" path="res://Scenes/reset_button.gd" id="12_u87vg"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
-[ext_resource type="PackedScene" uid="uid://bp7y0swjjmnvv" path="res://Scenes/characterScenes/main_char.tscn" id="13_lkw8a"]
+[ext_resource type="PackedScene" uid="uid://2mxv5wl3c4pp" path="res://Scenes/characterScenes/main_char.tscn" id="13_lkw8a"]
+[ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="14_74pgp"]
+[ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="15_w8muy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -780,15 +783,15 @@ offset_left = -136.0
 offset_top = -56.0
 offset_right = 136.0
 offset_bottom = 85.0
-current_tab = 1
+current_tab = 0
 
 [node name="Ranged" type="ItemList" parent="Control/TabContainer"]
-visible = false
 z_index = 1535
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="Melee" type="ItemList" parent="Control/TabContainer"]
+visible = false
 z_index = 1390
 layout_mode = 2
 metadata/_tab_index = 1
@@ -803,7 +806,7 @@ offset_bottom = -25.0
 text = "X"
 
 [node name="StaticSword" parent="." instance=ExtResource("10_oagid")]
-position = Vector2(132, -35)
+position = Vector2(124, -63)
 
 [node name="StaticChest2D" parent="." instance=ExtResource("12_w8muy")]
 position = Vector2(126, 55)
@@ -815,14 +818,28 @@ position = Vector2(53, 48)
 scale = Vector2(0.495, 0.495)
 min_speed = 100
 max_speed = 200
-dash_speed = 1000
-dash_ticks = 10
+dash_speed = 500
+max_dash_ticks = 30
 
 [node name="StaticWeapon" parent="." instance=ExtResource("11_74pgp")]
-position = Vector2(-129, 30)
+position = Vector2(124, -11)
 
-[node name="bomber" parent="." instance=ExtResource("9_wqp11")]
-position = Vector2(-72, -23)
+[node name="StaticBody2D" parent="." instance=ExtResource("14_74pgp")]
+
+[node name="AttackUpStaticBody" parent="." instance=ExtResource("15_w8muy")]
+position = Vector2(85, -37)
+
+[node name="Enemy" parent="." instance=ExtResource("11_yna68")]
+position = Vector2(-121, -73)
+
+[node name="Button" type="Button" parent="."]
+z_index = 1045
+offset_left = 96.0
+offset_top = -118.0
+offset_right = 196.0
+offset_bottom = -82.0
+text = "RESET"
+script = ExtResource("12_u87vg")
 
 [connection signal="weapon_selected" from="Control" to="MainChar" method="_on_control_weapon_selected"]
 [connection signal="item_selected" from="Control/TabContainer/Ranged" to="Control" method="_on_item_list_item_selected"]
@@ -830,3 +847,4 @@ position = Vector2(-72, -23)
 [connection signal="pressed" from="Control/Button" to="Control" method="_on_button_pressed"]
 [connection signal="close_inventory" from="StaticChest2D" to="Control" method="_on_static_chest_2d_close_inventory"]
 [connection signal="open_inventory" from="StaticChest2D" to="Control" method="_on_static_chest_2d_open_inventory"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://iry0wg0aucvv"]
+
+[ext_resource type="Script" uid="uid://cfcn8psetca1e" path="res://speed_up_aug_area_2d.gd" id="1_pot4s"]
+[ext_resource type="Texture2D" uid="uid://bm3tw0m2xqpwf" path="res://Assets/Player/Augments/SpeedUpAugment.png" id="2_pot4s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
+radius = 13.0
+
+[node name="SpeedUpStaticBody" type="StaticBody2D" unique_id=45848608]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=560987948]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_pot4s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=69439140]
+shape = SubResource("CircleShape2D_iojf6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1938788342]
+texture = ExtResource("2_pot4s")
