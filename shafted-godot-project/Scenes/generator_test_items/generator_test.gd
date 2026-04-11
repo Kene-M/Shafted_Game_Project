@@ -319,12 +319,14 @@ func _assign_special_rooms():
 # grid neighbors has already been placed (guaranteeing a valid anchor exists).
 # ─────────────────────────────────────────────
 func _place_rooms():
-	print("\n------------------------------------------------------------")
-	print("PLACING ROOMS")
-	print("------------------------------------------------------------")
-	
+	# BFS starting from the origin ensures we always place a room's neighbor
+	# before or shortly after the room itself, so _calculate_position() can
+	# find the anchor it needs within a small number of retries.
 	var visit_queue: Array = [Vector2i(0, 0)]
 	var visited: Dictionary = {}
+
+	# Tracks how many times placement has been retried for each grid position.
+	# Prevents an infinite loop if a room genuinely has no placed neighbor yet.
 	var retry_count: Dictionary = {}
 
 	while visit_queue.size() > 0:
