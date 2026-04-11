@@ -62,7 +62,7 @@ func _detonate() -> void:
 	for result in results:
 		var body = result["collider"]
 		if body.has_method("take_damage"):
-			body.take_damage(explosion_damage, false, global_position)
+			body.take_damage(explosion_damage, global_position)
 
 	sprite.play("explosion_ground")
 

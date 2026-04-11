@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dgsie3f0raai3"]
+[gd_scene load_steps=0 format=3 uid="uid://dgsie3f0raai3"]
 
-[ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Brick2-1.jpg" id="1_8kkda"]
+[ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Assets/Props/Brick2-1.jpg" id="1_8kkda"]
 [ext_resource type="Script" uid="uid://ecp2qeimypv3" path="res://Scenes/itemScenes/static_augment_vendor_2d.gd" id="1_g1rcx"]
 [ext_resource type="Script" uid="uid://ducmo55604f20" path="res://Scenes/itemScenes/vendor_control.gd" id="3_qv4mr"]
 

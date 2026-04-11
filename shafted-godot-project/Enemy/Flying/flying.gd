@@ -235,6 +235,7 @@ func _fire_burst() -> void:
 		var proj = projectile_scene.instantiate()
 		proj.global_position = fire_origin
 		proj.direction = dir
+		proj.z_index = 10  # ← FIX: Make projectiles visible (render on top)
 		get_parent().add_child(proj)
 
 

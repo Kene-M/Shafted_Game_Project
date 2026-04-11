@@ -7,16 +7,23 @@ extends Node
 var min_rooms: int = 5
 var max_rooms: int = 10
 var generation_chance: int = 60
-var room_display_radius: float = 1500.0
 
 # ─────────────────────────────────────────────
 # ROOM SCENE REFERENCES — assign in Inspector
 # ─────────────────────────────────────────────
 
-@export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
-@export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
-@export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
-@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
+@export var scene_start: PackedScene
+@export var scene_all_dirs: PackedScene
+@export var scene_lr: PackedScene
+@export var scene_ud: PackedScene
+
+# ─────────────────────────────────────────────
+# ENEMY SCENES — assign in Inspector
+# ─────────────────────────────────────────────
+
+@export var enemy_scenes: Array[PackedScene] = []
+@export var min_enemies_per_room: int = 1
+@export var max_enemies_per_room: int = 3
 
 # ─────────────────────────────────────────────
 # INTERNAL DATA
@@ -24,6 +31,7 @@ var room_display_radius: float = 1500.0
 
 var grid: Dictionary = {}
 var placed_rooms: Dictionary = {}
+var player_spawn_pos: Vector2 = Vector2.ZERO
 
 const DIRECTIONS = {
 	"North": Vector2i(0, -1),
@@ -54,6 +62,10 @@ var scene_exits: Dictionary = {
 # ─────────────────────────────────────────────
 
 func _ready():
+	print("\n============================================================")
+	print("DUNGEON GENERATOR STARTING")
+	print("============================================================")
+	
 	scene_map["West"]                  = scene_start
 	scene_map["East_West"]             = scene_lr
 	scene_map["North_South"]           = scene_ud
@@ -64,26 +76,17 @@ func _ready():
 		grid.clear()
 		placed_rooms.clear()
 		for child in get_children():
-			if child is Camera2D:
-				continue
 			child.queue_free()
 		success = _random_walk_logic()
 
 	_assign_special_rooms()
 	_print_map()
+	call_deferred("_place_rooms")
 
-	# Diagnostic: confirm which markers each scene can find at runtime
-	for key in scene_map.keys():
-		var inst = scene_map[key].instantiate()
-		var found = []
-		for dir in ["North", "South", "East", "West"]:
-			if inst.find_child("Exit" + dir, true, false) != null:
-				found.append(dir)
-		print("Scene '", key, "' markers found: ", found)
-		inst.free()
 
-	_place_rooms()
-	_setup_overview_camera.call_deferred()
+## Called by game_manager to know where to put the player
+func get_player_spawn_position() -> Vector2:
+	return player_spawn_pos
 
 
 # ─────────────────────────────────────────────
@@ -111,12 +114,9 @@ func _random_walk_logic() -> bool:
 		grid[next_pos] = "normal"
 		stack.append(next_pos)
 
-	# Reject this generation if it doesn't meet room count minimum
 	if grid.size() < min_rooms:
 		return false
 
-	# Count dead ends (rooms with only 1 neighbor), excluding start
-	# We need at least 2: one for boss, one for treasure
 	var dead_end_count = 0
 	for pos in grid.keys():
 		if grid[pos] == "start":
@@ -176,7 +176,6 @@ func _assign_special_rooms():
 			dead_ends.append(pos)
 
 	if dead_ends.size() == 0:
-		print("INFO: No dead ends found — boss and treasure rooms not assigned")
 		return
 
 	var boss_pos = dead_ends[0]
@@ -192,8 +191,6 @@ func _assign_special_rooms():
 	if dead_ends.size() > 0:
 		dead_ends.shuffle()
 		grid[dead_ends[0]] = "treasure"
-	else:
-		print("INFO: Only one dead end found — no treasure room assigned")
 
 
 # ─────────────────────────────────────────────
@@ -201,10 +198,12 @@ func _assign_special_rooms():
 # ─────────────────────────────────────────────
 
 func _place_rooms():
+	print("\n------------------------------------------------------------")
+	print("PLACING ROOMS")
+	print("------------------------------------------------------------")
+	
 	var visit_queue: Array = [Vector2i(0, 0)]
 	var visited: Dictionary = {}
-	# Track retries per room to avoid an infinite loop if a room
-	# genuinely has no valid anchor at all
 	var retry_count: Dictionary = {}
 
 	while visit_queue.size() > 0:
@@ -223,8 +222,6 @@ func _place_rooms():
 			packed = _pick_best_scene(key, exits)
 
 		if packed == null:
-			print("INFO: Skipping room at ", grid_pos,
-				" — no valid scene for key '", key, "'")
 			visited[grid_pos] = true
 			continue
 
@@ -233,21 +230,20 @@ func _place_rooms():
 		if grid_pos == Vector2i(0, 0):
 			add_child(room_instance)
 			room_instance.position = Vector2.ZERO
+			print("Room at [0,0] (START): instantiated at ", room_instance.position)
 		else:
 			var snapped_pos = _calculate_position(grid_pos, room_instance)
 			if snapped_pos == null:
 				room_instance.free()
 				retry_count[grid_pos] = retry_count.get(grid_pos, 0) + 1
 				if retry_count[grid_pos] < 20:
-					# Not all neighbors placed yet — try again later
 					visit_queue.append(grid_pos)
 				else:
-					print("WARNING: Giving up on room at ", grid_pos,
-						" — no anchor found after retries")
 					visited[grid_pos] = true
 				continue
 			add_child(room_instance)
 			room_instance.position = snapped_pos
+			print("Room at ", grid_pos, " (", grid[grid_pos], "): instantiated at ", room_instance.position)
 
 		visited[grid_pos] = true
 		placed_rooms[grid_pos] = room_instance
@@ -259,6 +255,90 @@ func _place_rooms():
 			if grid.has(neighbor) and not visited.has(neighbor):
 				visit_queue.append(neighbor)
 
+	# Record player spawn position from the start room
+	var start_room = placed_rooms.get(Vector2i(0, 0))
+	if start_room:
+		player_spawn_pos = start_room.global_position
+		print("\nPlayer spawn position set to: ", player_spawn_pos)
+	else:
+		push_error("❌ Start room not found in placed_rooms!")
+	
+	print("------------------------------------------------------------")
+	call_deferred("_spawn_enemies")
+
+
+# ─────────────────────────────────────────────
+# STEP 4: SPAWN ENEMIES (WITH MARGIN FIX)
+# ─────────────────────────────────────────────
+
+# CORRECTED _spawn_enemies() FUNCTION
+# Replace your entire _spawn_enemies() function with this:
+
+func _spawn_enemies():
+	if enemy_scenes.size() == 0:
+		return
+
+	for grid_pos in placed_rooms.keys():
+		var room_type = grid[grid_pos]
+
+		# No enemies in start room or treasure room
+		if room_type in ["start", "treasure"]:
+			continue
+
+		var room = placed_rooms[grid_pos]
+
+		# Look for EnemySpawns container with Marker2D children
+		var spawns_container = room.find_child("EnemySpawns", true, false)
+		var spawn_points: Array = []
+
+		if spawns_container:
+			for child in spawns_container.get_children():
+				if child is Marker2D:
+					spawn_points.append(child.global_position)
+
+		# If no markers, generate random positions within the floor area
+		if spawn_points.size() == 0:
+			var floor_layer = room.find_child("floor", true, false)
+			if floor_layer and floor_layer is TileMapLayer:
+				var used = floor_layer.get_used_rect()
+				var tile_size = floor_layer.tile_set.tile_size as Vector2
+				
+				# Convert Rect2i to Rect2 to avoid type issues
+				var spawn_rect = Rect2(
+					Vector2(used.position),
+					Vector2(used.size)
+				)
+				
+				# Use margin to keep enemies away from walls/edges
+				var margin = 4.0
+				spawn_rect.position = spawn_rect.position + Vector2(margin, margin)
+				spawn_rect.size = spawn_rect.size - Vector2(margin * 2, margin * 2)
+				
+				var count = randi_range(min_enemies_per_room, max_enemies_per_room)
+				for i in count:
+					var rand_x = randf_range(spawn_rect.position.x, spawn_rect.position.x + spawn_rect.size.x)
+					var rand_y = randf_range(spawn_rect.position.y, spawn_rect.position.y + spawn_rect.size.y)
+					var pos = room.global_position + Vector2(rand_x, rand_y) * tile_size
+					spawn_points.append(pos)
+
+		# Spawn enemies at the chosen points
+		var enemy_count = mini(
+			randi_range(min_enemies_per_room, max_enemies_per_room),
+			spawn_points.size()
+		)
+
+		spawn_points.shuffle()
+
+		# Boss rooms get more enemies
+		if room_type == "boss":
+			enemy_count = spawn_points.size()
+
+		for i in enemy_count:
+			var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]
+			var enemy = enemy_scene.instantiate()
+			enemy.global_position = spawn_points[i]
+			room.add_child(enemy)
+
 
 func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 	for dir_name in DIRECTIONS.keys():
@@ -269,11 +349,8 @@ func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 
 		var placed_neighbor = placed_rooms[neighbor_grid_pos]
 
-		# dir_name is the direction FROM us TO the neighbor.
-		# The neighbor's exit pointing back TOWARD us is the OPPOSITE direction.
-		# Our entry pointing TOWARD the neighbor is dir_name itself.
-		var neighbor_exit_name = "Exit" + OPPOSITE[dir_name]  # was "Exit" + dir_name — WRONG
-		var our_entry_name     = "Exit" + dir_name             # was "Exit" + OPPOSITE[dir_name] — WRONG
+		var neighbor_exit_name = "Exit" + OPPOSITE[dir_name]
+		var our_entry_name     = "Exit" + dir_name
 
 		var neighbor_marker = placed_neighbor.find_child(neighbor_exit_name, true, false)
 		var our_marker      = new_instance.find_child(our_entry_name, true, false)
@@ -287,55 +364,7 @@ func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 
 
 # ─────────────────────────────────────────────
-# STEP 4: OVERVIEW CAMERA
-# ─────────────────────────────────────────────
-
-func _setup_overview_camera():
-	if placed_rooms.size() == 0:
-		return
-
-	var cam = get_node_or_null("OverviewCamera")
-	if cam == null:
-		print("ERROR: OverviewCamera node not found")
-		return
-
-	var min_x: float = INF
-	var max_x: float = -INF
-	var min_y: float = INF
-	var max_y: float = -INF
-
-	for room in placed_rooms.values():
-		var p = room.position
-		if p.x < min_x: min_x = p.x
-		if p.x > max_x: max_x = p.x
-		if p.y < min_y: min_y = p.y
-		if p.y > max_y: max_y = p.y
-
-	# Pad by 30% of each axis span so edge rooms are never clipped,
-	# regardless of whether the layout is tall, wide, or square
-	var x_span = max_x - min_x
-	var y_span = max_y - min_y
-	var x_pad = max(x_span * 0.3, room_display_radius)
-	var y_pad = max(y_span * 0.3, room_display_radius)
-
-	min_x -= x_pad
-	max_x += x_pad
-	min_y -= y_pad
-	max_y += y_pad
-
-	var center = Vector2((min_x + max_x) / 2.0, (min_y + max_y) / 2.0)
-	cam.position = center
-	cam.make_current()
-
-	var viewport_size = get_viewport().get_visible_rect().size
-	var zoom_x = viewport_size.x / (max_x - min_x)
-	var zoom_y = viewport_size.y / (max_y - min_y)
-	var zoom_level = min(zoom_x, zoom_y) * 0.6
-	cam.zoom = Vector2(zoom_level, zoom_level)
-
-
-# ─────────────────────────────────────────────
-# STEP 5: CONSOLE PRINT
+# CONSOLE PRINT
 # ─────────────────────────────────────────────
 
 func _print_map():
@@ -347,7 +376,9 @@ func _print_map():
 		if pos.y < min_y: min_y = pos.y
 		if pos.y > max_y: max_y = pos.y
 
-	print("=== DUNGEON MAP ===")
+	print("\n------------------------------------------------------------")
+	print("GENERATED DUNGEON MAP")
+	print("------------------------------------------------------------")
 	print("Rooms generated: ", grid.size())
 	print("")
 	for y in range(min_y, max_y + 1):
@@ -365,6 +396,7 @@ func _print_map():
 		print(row)
 	print("")
 	print("Legend: [*]=Start  [ ]=Normal  [B]=Boss  [T]=Treasure")
+	print("------------------------------------------------------------\n")
 
 
 # ─────────────────────────────────────────────
@@ -374,11 +406,7 @@ func _print_map():
 func _pick_best_scene(key: String, exits: Array) -> PackedScene:
 	if scene_map.has(key):
 		return scene_map[key]
-	# Use all-directions fallback for any unmatched shape, including dead ends.
-	# Dead ends will show open doorways for now — fix this when dedicated dead-end
-	# room scenes are built.
 	if scene_map.has("East_North_South_West"):
-		print("INFO: No exact scene for key '", key, "' — using all-directions fallback")
 		return scene_map["East_North_South_West"]
 	return null
 
@@ -403,200 +431,3 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 		if grid.has(pos + dir):
 			count += 1
 	return count
-
-
-""" # Base logic proof of concept with printing square brackets
-extends Node
-
-# ─────────────────────────────────────────────
-# CONFIGURATION (mirrors your @export variables from section 5.4.2)
-# ─────────────────────────────────────────────
-
-# Minimum number of rooms required for a valid generation
-var min_rooms: int = 20
-
-# Hard cap on total rooms
-var max_rooms: int = 40
-
-# Probability (1–100) that the walk branches instead of always continuing
-var generation_chance: int = 60
-
-
-# ─────────────────────────────────────────────
-# INTERNAL DATA
-# ─────────────────────────────────────────────
-
-# The logical grid: maps Vector2i(grid_x, grid_y) → room type string
-# Room types: "start", "normal", "boss", "treasure"
-var grid: Dictionary = {}
-
-# The four cardinal directions as grid offsets
-# Matches your design: N, S, E, W connectivity
-const DIRECTIONS = {
-	"N": Vector2i(0, -1),
-	"S": Vector2i(0,  1),
-	"E": Vector2i(1,  0),
-	"W": Vector2i(-1, 0)
-}
-
-
-# ─────────────────────────────────────────────
-# ENTRY POINT
-# ─────────────────────────────────────────────
-
-func _ready():
-	# Keep regenerating until we get a valid map (meets min_rooms requirement)
-	var success = false
-	while not success:
-		grid.clear()
-		success = _random_walk_logic()
-	
-	_assign_special_rooms()
-	_print_map()
-
-
-# ─────────────────────────────────────────────
-# STEP 1: RANDOM WALK (section 5.4.2 core logic)
-# ─────────────────────────────────────────────
-
-func _random_walk_logic() -> bool:
-	# Start at origin
-	var start_pos = Vector2i(0, 0)
-	grid[start_pos] = "start"
-	
-	# Stack-based walk enables backtracking (as described in your design)
-	var stack: Array = [start_pos]
-	
-	while stack.size() > 0 and grid.size() < max_rooms:
-		# Look at the current position on top of the stack
-		var current = stack.back()
-		
-		# Find all neighboring grid cells that are empty (not yet a room)
-		var open_neighbors = _get_open_neighbors(current)
-		
-		if open_neighbors.size() == 0:
-			# Dead end — backtrack by popping the stack
-			stack.pop_back()
-			continue
-		
-		# Branching chance: only expand if random roll passes
-		# This is your generation_chance variable from section 5.4.2
-		if randi_range(1, 100) > generation_chance:
-			# Failed the roll — backtrack instead of placing a room
-			stack.pop_back()
-			continue
-		
-		# Pick a random valid neighbor to expand into
-		var next_pos = open_neighbors[randi() % open_neighbors.size()]
-		
-		# Place a normal room at that position
-		grid[next_pos] = "normal"
-		
-		# Push it onto the stack so we can continue walking from here
-		stack.append(next_pos)
-	
-	# Validate: did we meet the minimum room count?
-	return grid.size() >= min_rooms
-
-
-# ─────────────────────────────────────────────
-# STEP 2: ASSIGN BOSS AND TREASURE ROOMS (section 5.4.2 post-processing)
-# ─────────────────────────────────────────────
-
-func _assign_special_rooms():
-	# Find all dead-end rooms: rooms with only 1 neighbor in the grid
-	# (exclude the start room)
-	var dead_ends: Array = []
-	for pos in grid.keys():
-		if grid[pos] == "start":
-			continue
-		if _count_room_neighbors(pos) == 1:
-			dead_ends.append(pos)
-	
-	if dead_ends.size() == 0:
-		return  # No dead ends, nothing to assign
-	
-	# Boss room = dead end farthest from start (Manhattan distance)
-	# As specified in your design: "prioritizes distance from start to maximize player traversal"
-	var boss_pos = dead_ends[0]
-	var max_dist = 0
-	for pos in dead_ends:
-		var dist = abs(pos.x) + abs(pos.y)  # Manhattan distance from origin
-		if dist > max_dist:
-			max_dist = dist
-			boss_pos = pos
-	grid[boss_pos] = "boss"
-	
-	# Treasure room = randomly assigned to one of the remaining dead ends
-	# As specified: "randomly assigned to any remaining dead-end room"
-	dead_ends.erase(boss_pos)
-	if dead_ends.size() > 0:
-		dead_ends.shuffle()  # Godot's built-in Array.shuffle() — noted in your section 5.4.2
-		grid[dead_ends[0]] = "treasure"
-
-
-# ─────────────────────────────────────────────
-# STEP 3: PRINT MAP TO CONSOLE
-# ─────────────────────────────────────────────
-
-func _print_map():
-	# Find the bounding box of the grid so we know how wide/tall to print
-	var min_x = 0
-	var max_x = 0
-	var min_y = 0
-	var max_y = 0
-	
-	for pos in grid.keys():
-		if pos.x < min_x: min_x = pos.x
-		if pos.x > max_x: max_x = pos.x
-		if pos.y < min_y: min_y = pos.y
-		if pos.y > max_y: max_y = pos.y
-	
-	print("=== DUNGEON MAP ===")
-	print("Rooms generated: ", grid.size())
-	print("")
-	
-	# Print row by row (y), column by column (x)
-	for y in range(min_y, max_y + 1):
-		var row = ""
-		for x in range(min_x, max_x + 1):
-			var pos = Vector2i(x, y)
-			if grid.has(pos):
-				var room_type = grid[pos]
-				# Notation as specified: [ ] for a room, [*] for start
-				match room_type:
-					"start":    row += "[*]"   # Starting room marked with *
-					"boss":     row += "[B]"   # Boss room
-					"treasure": row += "[T]"   # Treasure room
-					_:          row += "[ ]"   # Normal room
-			else:
-				# Empty cell — print spacing to keep alignment
-				row += "   "
-		print(row)
-	
-	print("")
-	print("Legend: [*]=Start  [ ]=Normal  [B]=Boss  [T]=Treasure")
-
-
-# ─────────────────────────────────────────────
-# HELPER FUNCTIONS
-# ─────────────────────────────────────────────
-
-# Returns a list of grid positions adjacent to 'pos' that are NOT yet in the grid
-func _get_open_neighbors(pos: Vector2i) -> Array:
-	var open = []
-	for dir in DIRECTIONS.values():
-		var neighbor = pos + dir
-		if not grid.has(neighbor):
-			open.append(neighbor)
-	return open
-
-
-# Returns how many adjacent positions ARE already rooms in the grid
-func _count_room_neighbors(pos: Vector2i) -> int:
-	var count = 0
-	for dir in DIRECTIONS.values():
-		if grid.has(pos + dir):
-			count += 1
-	return count
-"""

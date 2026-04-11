@@ -15,9 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Shafted Godot Project"
-run/main_scene="uid://ug4ri5fo3gnk"
-config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://Assets/Tilesets/icon.svg"
+run/main_scene="uid://cagh3e6vxxaqi"
+config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
