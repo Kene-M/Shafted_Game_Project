@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://iry0wg0aucvv"]
+[gd_scene load_steps=0 format=3 uid="uid://iry0wg0aucvv"]
 
-[ext_resource type="Script" uid="uid://cfcn8psetca1e" path="res://speed_up_aug_area_2d.gd" id="1_pot4s"]
+[ext_resource type="Script" uid="uid://cfcn8psetca1e" path="res://Scripts/augmentScripts/speed_up_aug_area_2d.gd" id="1_pot4s"]
 [ext_resource type="Texture2D" uid="uid://bm3tw0m2xqpwf" path="res://Assets/Player/Augments/SpeedUpAugment.png" id="2_pot4s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]

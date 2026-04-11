@@ -1,8 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://dueal3iqlrqdc"]
+[gd_scene load_steps=38 format=3 uid="uid://dueal3iqlrqdc"]
 
 [ext_resource type="Script" uid="uid://dbjjh07kv8fbe" path="res://Enemy/Bomber/bomber.gd" id="1_2s4ua"]
 [ext_resource type="Texture2D" uid="uid://cyo3fwn0anjtb" path="res://Assets/enemies/Monster Pack/Monster6Pack.png" id="1_sbfga"]
-[ext_resource type="PackedScene" uid="uid://c1mhahbkrk4sa" path="res://Enemy/Bomber/bomb.tscn" id="2_k1out"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dfwg"]
 atlas = ExtResource("1_sbfga")
@@ -264,13 +263,13 @@ scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_2s4ua")
-contact_distance = 20.0
 knockback_strength = 100.0
-bomb_scene = ExtResource("2_k1out")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fvur2")
 animation = &"explosion"
+frame = 11
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 13)

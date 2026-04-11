@@ -3,16 +3,12 @@ extends CharacterBody2D
 
 # --- Movement ---
 @export var speed: float = 120.0
-@export var contact_distance: float = 60.0
+@onready var contact_distance: float = 65.0
 @onready var nav_agent: NavigationAgent2D = $Navigation/NavigationAgent2D
 
 # --- Combat ---
 @export var explosion_damage: float = 50.0
-@export var explosion_radius: float = 70.0
 @export var knockback_strength: float = 400.0
-
-# --- Death bomb ---
-@export var bomb_scene: PackedScene
 
 # --- Health ---
 var max_health: float = 300.0
@@ -124,25 +120,14 @@ func _on_sprite_animation_finished() -> void:
 	match sprite.animation:
 		"explosion":
 			_do_explosion_damage()
-			_spawn_bomb()
 			queue_free()
 		"death":
-			_spawn_bomb()
 			queue_free()
 
 
 func _do_explosion_damage() -> void:
 	if target_node and target_node.has_method("take_damage"):
 		target_node.take_damage(explosion_damage, global_position)
-
-
-func _spawn_bomb() -> void:
-	if bomb_scene == null:
-		return
-	var bomb = bomb_scene.instantiate()
-	var offset_x: float = -30.0 if facing_right else 30.0
-	bomb.global_position = global_position + Vector2(offset_x, 0)
-	get_parent().add_child(bomb)
 
 
 # --- Navigation ---

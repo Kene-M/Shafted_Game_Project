@@ -1,13 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://da8giqygsdxm6"]
 
 [ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_oj7s3"]
-[ext_resource type="Texture2D" uid="uid://b8futh17f5yp5" path="res://black_sword_large.png" id="2_xw1um"]
+[ext_resource type="Texture2D" uid="uid://b8futh17f5yp5" path="res://Assets/Player/black_sword_large.png" id="2_xw1um"]
 [ext_resource type="Script" uid="uid://b8tbn613lvno" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_melee.gd" id="3_oj7s3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
-radius = 26.1725
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xw1um"]
+radius = 5.5492063
+height = 22.623396
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4nnw7"]
 animations = [{
@@ -37,7 +38,9 @@ collision_mask = 2
 script = ExtResource("3_oj7s3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_fkjch")
+position = Vector2(8, -8)
+rotation = 0.7665451
+shape = SubResource("CapsuleShape2D_xw1um")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4nnw7")

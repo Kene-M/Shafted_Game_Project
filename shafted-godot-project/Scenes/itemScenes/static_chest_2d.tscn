@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://clbxutlus034p"]
+[gd_scene load_steps=0 format=3 uid="uid://clbxutlus034p"]
 
 [ext_resource type="Script" uid="uid://cb8bxy17vvf0a" path="res://Scenes/itemScenes/static_chest_2d.gd" id="1_8802d"]
-[ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://chess.png" id="1_e7ju4"]
+[ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://Assets/Props/chess.png" id="1_e7ju4"]
 [ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="3_8802d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wp4hf"]

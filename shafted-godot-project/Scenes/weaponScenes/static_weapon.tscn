@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cb763t5t5kah2"]
 
 [ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_j7qhr"]
-[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://sword.png" id="2_j7qhr"]
+[ext_resource type="Texture2D" uid="uid://wbb5l6wo1n1d" path="res://Assets/Props/sword.png" id="2_j7qhr"]
 [ext_resource type="Script" uid="uid://cl6ac10hck7u5" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_ranged.gd" id="3_j7qhr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]

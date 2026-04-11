@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7e82j2x2ccog"]
+[gd_scene load_steps=3 format=3 uid="uid://c6x6i4u1550t5"]
 
 [ext_resource type="PackedScene" uid="uid://cb162mm3unpda" path="res://Scenes/weaponScenes/path_2d.tscn" id="1_8uh7m"]
 [ext_resource type="Script" uid="uid://cbs6elmi002k3" path="res://Scripts/weaponScripts/attackScripts/path_follow_2d.gd" id="2_6uqi0"]
@@ -10,6 +10,6 @@ position = Vector2(40, 53)
 
 [node name="PathFollow2D3" type="PathFollow2D" parent="Path2D"]
 position = Vector2(14.445, -33.045)
-rotation = 0.935161
+rotation = 0.93516076
 loop = false
 script = ExtResource("2_6uqi0")
