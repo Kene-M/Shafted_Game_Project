@@ -169,6 +169,7 @@ func _drop_bomb() -> void:
 		return
 	var bomb = bomb_scene.instantiate()
 	bomb.global_position = global_position + Vector2(sprite.position.x, sprite.position.y) + bomb_spawn_offset
+	bomb.z_index = 10  # ← FIX: Make bombs visible (render on top)
 	get_parent().add_child(bomb)
 	await get_tree().create_timer(0.3).timeout
 	if not is_dead:

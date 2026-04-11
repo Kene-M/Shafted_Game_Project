@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c12bugc78mp5k"]
+[gd_scene load_steps=0 format=3 uid="uid://c12bugc78mp5k"]
 
 [ext_resource type="Script" uid="uid://dy84v6y2mifsc" path="res://Scripts/attack_up_aug_area_2d.gd" id="1_mvblj"]
-[ext_resource type="Texture2D" uid="uid://u6vxo5vtvax0" path="res://orange_reticle.png" id="2_mvblj"]
+[ext_resource type="Texture2D" uid="uid://u6vxo5vtvax0" path="res://Assets/Props/orange_reticle.png" id="2_mvblj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
 radius = 13.0

@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b283u6xxqqw0o"]
+[gd_scene load_steps=4 format=3 uid="uid://dyi6voxocf8np"]
 
-[ext_resource type="Script" path="res://Scripts/character_body_2d.gd" id="1_g2brh"]
-[ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Character_idle_test.png" id="2_88kja"]
+[ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Assets/Player/Character_idle_test.png" id="2_88kja"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
 radius = 31.0161
@@ -14,7 +13,6 @@ z_index = 4
 position = Vector2(-2, -2)
 collision_layer = 2
 collision_mask = 7
-script = ExtResource("1_g2brh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 4)

@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c4q1w3s5mk1uu"]
+[gd_scene load_steps=0 format=3 uid="uid://c4q1w3s5mk1uu"]
 
-[ext_resource type="Script" uid="uid://uxhxbunjt3vf" path="res://resource_1_area.gd" id="1_5wbr0"]
-[ext_resource type="Texture2D" uid="uid://bbstvrkyh26cp" path="res://guy.png" id="1_rxm1t"]
+[ext_resource type="Script" uid="uid://uxhxbunjt3vf" path="res://Scripts/augmentScripts/resource_1_area.gd" id="1_5wbr0"]
+[ext_resource type="Texture2D" uid="uid://bbstvrkyh26cp" path="res://Assets/Props/guy.png" id="1_rxm1t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_46t42"]
 radius = 39.0
