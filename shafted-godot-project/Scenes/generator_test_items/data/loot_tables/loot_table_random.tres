@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=2 format=3 uid="uid://bdssb3eqmenlr"]
+
+[ext_resource type="Script" uid="uid://cx5vp0xyvweea" path="res://Scenes/generator_test_items/loot_table.gd" id="1_ys0sl"]
+
+[resource]
+script = ExtResource("1_ys0sl")
+items = {
+"gold_coin": 80,
+"health_potion": 20
+}
+metadata/_custom_type_script = "uid://cx5vp0xyvweea"

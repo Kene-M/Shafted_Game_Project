@@ -23,3 +23,9 @@ position = Vector2(-27, -639)
 
 [node name="ExitSouth" type="Marker2D" parent="."]
 position = Vector2(-5, 639)
+
+[node name="SpawnPoint1" type="Marker2D" parent="."]
+
+[node name="SpawnPoint2" type="Marker2D" parent="."]
+
+[node name="SpawnPoint3" type="Marker2D" parent="."]
