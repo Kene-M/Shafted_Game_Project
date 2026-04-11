@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 # --- Movement ---
 @export var speed: float = 120.0
-@export var contact_distance: float = 25.0   # how close before explosion triggers
+@export var contact_distance: float = 60.0
 @onready var nav_agent: NavigationAgent2D = $Navigation/NavigationAgent2D
 
 # --- Combat ---
@@ -69,16 +69,15 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
-	if target_node == null:
-		if nav_agent.is_navigation_finished():
-			velocity = Vector2.ZERO
-		else:
-			_move_along_nav()
-		return
+	if target_node:
+		var dist: float = global_position.distance_to(target_node.global_position)
+		if dist <= contact_distance:
+			_update_facing(target_node.global_position.x - global_position.x)
+			_set_state(State.EXPLODE)
+			return
 
-	var dist: float = global_position.distance_to(target_node.global_position)
-	if dist <= contact_distance:
-		_set_state(State.EXPLODE)
+	if nav_agent.is_navigation_finished():
+		velocity = Vector2.ZERO
 		return
 
 	_move_along_nav()
@@ -133,25 +132,14 @@ func _on_sprite_animation_finished() -> void:
 
 
 func _do_explosion_damage() -> void:
-	var space := get_world_2d().direct_space_state
-	var query := PhysicsShapeQueryParameters2D.new()
-	var shape := CircleShape2D.new()
-	shape.radius = explosion_radius
-	query.shape = shape
-	query.transform = Transform2D(0, global_position)
-	query.collision_mask = 2
-	var results := space.intersect_shape(query)
-	for result in results:
-		var body = result["collider"]
-		if body.has_method("take_damage"):
-			body.take_damage(explosion_damage, false, global_position)
+	if target_node and target_node.has_method("take_damage"):
+		target_node.take_damage(explosion_damage, global_position)
 
 
 func _spawn_bomb() -> void:
 	if bomb_scene == null:
 		return
 	var bomb = bomb_scene.instantiate()
-	# Spawn opposite to facing direction so it rolls away from death position
 	var offset_x: float = -30.0 if facing_right else 30.0
 	bomb.global_position = global_position + Vector2(offset_x, 0)
 	get_parent().add_child(bomb)
@@ -160,7 +148,8 @@ func _spawn_bomb() -> void:
 # --- Navigation ---
 func recalc_path() -> void:
 	if target_node:
-		nav_agent.target_position = target_node.global_position
+		var dir: Vector2 = (global_position - target_node.global_position).normalized()
+		nav_agent.target_position = target_node.global_position + dir * 20.0
 	else:
 		nav_agent.target_position = home_pos
 
@@ -170,10 +159,10 @@ func _on_recalculate_timer_timeout() -> void:
 
 # --- Aggro ---
 func _on_aggro_range_area_entered(area: Area2D) -> void:
-	target_node = area.owner
+	target_node = area.get_parent()
 
 func _on_de_aggro_range_area_exited(area: Area2D) -> void:
-	if area.owner == target_node:
+	if area.get_parent() == target_node:
 		target_node = null
 
 

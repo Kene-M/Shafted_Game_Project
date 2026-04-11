@@ -40,7 +40,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	# Only deal damage to the player, not walls
 	if body.has_method("take_damage"):
-		body.take_damage(damage, false, global_position)
+		body.take_damage(damage, global_position)
 	_start_death()
 
 

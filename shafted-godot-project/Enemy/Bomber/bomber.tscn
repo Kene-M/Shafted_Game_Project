@@ -249,16 +249,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cm8i5"]
-radius = 19.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k1out"]
+radius = 10.5
+height = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_04a27"]
-radius = 64.0
+radius = 93.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax24g"]
-radius = 121.198
+radius = 135.01482
 
 [node name="bomber" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_2s4ua")
@@ -271,8 +273,8 @@ sprite_frames = SubResource("SpriteFrames_fvur2")
 animation = &"explosion"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 13)
-shape = SubResource("CircleShape2D_cm8i5")
+position = Vector2(-3.5, 13)
+shape = SubResource("CapsuleShape2D_k1out")
 
 [node name="Navigation" type="Node2D" parent="."]
 
