@@ -17,10 +17,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Shafted Godot Project"
 run/main_scene="uid://cagh3e6vxxaqi"
 config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://Assets/tilemaps/icon.svg"
 
 [autoload]
 
-Autoload="*uid://pcp341otcce6"
+Autoload="*res://Scripts/globalScripts/autoload.gd"
 
 [display]
 

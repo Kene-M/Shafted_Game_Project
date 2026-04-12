@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cd582ememe5tr"]
+[gd_scene load_steps=0 format=3 uid="uid://cd582ememe5tr"]
 
 [ext_resource type="Script" uid="uid://bb1gf6b73l8h4" path="res://Enemy/Grotto/grotto.gd" id="1_lsmtn"]
 [ext_resource type="Texture2D" uid="uid://doep7jbhdi6ju" path="res://Assets/enemies/Monster Pack/Monster1Pack.png" id="2_3bvnf"]

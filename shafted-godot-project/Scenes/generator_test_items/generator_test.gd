@@ -29,11 +29,15 @@ var room_display_radius: float = 1500.0
 # Each exported variable holds a .tscn file for a specific corridor shape.
 # The generator picks the right scene based on which exits a room needs.
 # ─────────────────────────────────────────────
-
-@export var scene_start: PackedScene
-@export var scene_all_dirs: PackedScene
-@export var scene_lr: PackedScene
-@export var scene_ud: PackedScene
+# The starting room — has only a West exit (player enters from the east side of this room).
+@export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
+# A four-way room with exits in all cardinal directions (N/S/E/W).
+# Used as a fallback for any room shape that doesn't have a dedicated scene.
+@export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
+# A horizontal corridor connecting East and West only.
+@export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
+# A vertical corridor connecting North and South only.
+@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
 
 # ─────────────────────────────────────────────
 # ENEMY SCENES — assign in Inspector
@@ -42,18 +46,7 @@ var room_display_radius: float = 1500.0
 @export var enemy_scenes: Array[PackedScene] = []
 @export var min_enemies_per_room: int = 1
 @export var max_enemies_per_room: int = 3
-# The starting room — has only a West exit (player enters from the east side of this room).
-@export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
 
-# A four-way room with exits in all cardinal directions (N/S/E/W).
-# Used as a fallback for any room shape that doesn't have a dedicated scene.
-@export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
-
-# A horizontal corridor connecting East and West only.
-@export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
-
-# A vertical corridor connecting North and South only.
-@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
 
 # ─────────────────────────────────────────────
 # INTERNAL DATA
