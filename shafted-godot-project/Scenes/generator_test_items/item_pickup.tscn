@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dtlkpeqxpx2m0"]
+
+[node name="ItemPickup" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.21568628, 1, 0.078431375, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -1.0
+text = "ITEM"

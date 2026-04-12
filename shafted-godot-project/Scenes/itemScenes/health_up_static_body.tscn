@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://css63x018tguw"]
+[gd_scene load_steps=0 format=3 uid="uid://css63x018tguw"]
 
 [ext_resource type="Script" uid="uid://kpkwnkv0dbgo" path="res://Scripts/augmentScripts/health_up_aug_area_2d.gd" id="1_ehqqf"]
 [ext_resource type="Texture2D" uid="uid://bxr4cxnoma4rb" path="res://Assets/Player/Augments/HealthUpAugment.png" id="2_ehqqf"]
