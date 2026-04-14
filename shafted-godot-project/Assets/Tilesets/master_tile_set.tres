@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://ciq50xscy2coc"]
+[gd_resource type="TileSet" format=3 uid="uid://ciq50xscy2coc"]
 
 [ext_resource type="Texture2D" uid="uid://c0r8eqbi6oxvj" path="res://Assets/Tilesets/Temple Tileset.png" id="1_8n4cu"]
 
