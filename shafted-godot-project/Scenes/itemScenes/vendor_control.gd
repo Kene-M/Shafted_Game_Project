@@ -6,9 +6,9 @@ extends Control
 
 func _create_augments():
 	var aug_args = [
-			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD], 
-			["HealthUp", rng.randi_range(50,200), AugType.Type.HPADD],
-			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD]
+			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD, [3,2,0,0,0]], 
+			["HealthUp", rng.randi_range(50,200), AugType.Type.HPADD, [2,1,1,0,0]],
+			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD, [2,2,0,0,0]]
 		]
 	var tree = $TabContainer/Tree
 	var root = tree.create_item()
@@ -21,8 +21,10 @@ func _create_augments():
 		new_aug.data = aug[1]
 		new_aug.type = aug[2]
 		new_child.set_text(0, new_aug.aug_name)
+		new_child.set_metadata(0, new_aug)
 		for i in range(1,6):
-			new_child.set_text(i, str(i))
+			if aug[3][i-1] != 0:
+				new_child.set_text(i, str(aug[3][i-1]))
 		var index = buy_list.add_item(new_aug.aug_name)
 		buy_list.set_item_metadata(index, new_aug)
 		aug_args.erase(aug)
@@ -53,5 +55,11 @@ func _on_button_pressed() -> void:
 func _on_tree_cell_selected() -> void:
 	var tree = $TabContainer/Tree
 	var sel_item = tree.get_selected()
-	if sel_item:
-		print(sel_item)
+	var sel_metadata = sel_item.get_metadata(0)
+	if sel_metadata:
+		print(sel_metadata.aug_name)
+		var player = Autoload.main_char
+		player.add_augment(sel_metadata)
+		remove_child(sel_item)
+		sel_item.call_deferred('free')
+		

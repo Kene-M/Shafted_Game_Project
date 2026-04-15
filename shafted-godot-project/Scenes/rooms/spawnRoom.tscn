@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/Background/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
 [ext_resource type="Texture2D" uid="uid://orcxjfg15jvy" path="res://Assets/Background/2_Industrial_Tileset_1B_Background.png" id="3_lty1r"]
 [ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="8_u87g2"]
+[ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="9_f0ecq"]
 [ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="10_74pgp"]
 [ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/weaponScenes/static_sword.tscn" id="10_oagid"]
 [ext_resource type="Script" uid="uid://6a7mtvca31cy" path="res://Scenes/UI/reset_button.gd" id="12_u87vg"]
@@ -827,6 +828,9 @@ shape = SubResource("CircleShape2D_esb8d")
 
 [node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("8_u87g2")]
 position = Vector2(64, 54)
+
+[node name="StaticBody2D" parent="." unique_id=1260572324 instance=ExtResource("9_f0ecq")]
+position = Vector2(-107, -49)
 
 [connection signal="item_selected" from="Control/TabContainer/Ranged" to="Control" method="_on_item_list_item_selected"]
 [connection signal="item_selected" from="Control/TabContainer/Melee" to="Control" method="_on_item_list_2_item_selected"]

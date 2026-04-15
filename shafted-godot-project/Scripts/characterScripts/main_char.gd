@@ -178,4 +178,8 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 	$InteractLabel.visible = false
 	in_item_area = false
 	cur_item_area = null		
+
+func add_augment(aug: Augment):
+	augments.append(aug)
+	_modify_augment_vals(aug, false)
 	
