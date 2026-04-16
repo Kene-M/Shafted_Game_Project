@@ -36,6 +36,7 @@ label_settings = SubResource("LabelSettings_qv4mr")
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=11813839]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchor_left = 0.24300002
 anchor_top = 0.076000005
