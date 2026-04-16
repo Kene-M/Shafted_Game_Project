@@ -23,7 +23,7 @@ extends CharacterBody2D
 @onready var max_health: float = 1000
 @onready var cur_health: float = 1000
 @onready var knockback_velocity: Vector2 = Vector2.ZERO
-@onready var knockback_strength: float = 50
+@onready var knockback_strength: float = 300
 @onready var dash_ticks = 0
 @onready var speed = 0
 

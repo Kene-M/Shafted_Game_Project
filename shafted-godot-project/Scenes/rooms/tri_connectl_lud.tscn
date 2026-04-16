@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=4 uid="uid://cbv66v1y4x6u2"]
 
 [ext_resource type="Texture2D" uid="uid://c0r8eqbi6oxvj" path="res://Assets/Tilesets/Temple Tileset.png" id="1_7irx3"]
-[ext_resource type="TileSet" uid="uid://eso4kwgafpe2" path="res://Assets/Tilesets/master_tile_set.tres" id="2_t2cu7"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="2_t2cu7"]
 [ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/weaponScenes/static_sword.tscn" id="5_d0ag2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0o306"]
@@ -810,3 +810,20 @@ position = Vector2(56, 639)
 
 [node name="StaticSword" parent="." instance=ExtResource("5_d0ag2")]
 position = Vector2(0, -192)
+
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(347, 58)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-293, -193)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(13, 312)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(242, -232)
+
+[node name="Spawn5" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-43, 114)

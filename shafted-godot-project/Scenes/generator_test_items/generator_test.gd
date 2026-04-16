@@ -47,6 +47,9 @@ var room_display_radius: float = 1500.0
 @export var min_enemies_per_room: int = 1
 @export var max_enemies_per_room: int = 3
 
+# How far enemies scatter around their spawn marker (pixels)
+@export var spawn_scatter_radius: float = 80.0
+
 
 # ─────────────────────────────────────────────
 # INTERNAL DATA
@@ -407,6 +410,7 @@ func _place_rooms():
 	
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
+	call_deferred("_spawn_boundary")
 
 
 # ─────────────────────────────────────────────
@@ -416,71 +420,52 @@ func _place_rooms():
 # CORRECTED _spawn_enemies() FUNCTION
 # Replace your entire _spawn_enemies() function with this:
 
-func _spawn_enemies():
+func _spawn_enemies() -> void:
 	if enemy_scenes.size() == 0:
 		return
 
 	for grid_pos in placed_rooms.keys():
 		var room_type = grid[grid_pos]
 
-		# No enemies in start room or treasure room
+		# No enemies in start or treasure rooms
 		if room_type in ["start", "treasure"]:
 			continue
 
 		var room = placed_rooms[grid_pos]
+		var is_boss: bool = (room_type == "boss")
 
-		# Look for EnemySpawns container with Marker2D children
-		var spawns_container = room.find_child("EnemySpawns", true, false)
+		# Collect spawn points from EnemySpawns markers, fallback to room center
 		var spawn_points: Array = []
-
+		var spawns_container = room.find_child("EnemySpawns", true, false)
 		if spawns_container:
 			for child in spawns_container.get_children():
 				if child is Marker2D:
 					spawn_points.append(child.global_position)
-
-		# If no markers, generate random positions within the floor area
 		if spawn_points.size() == 0:
-			var floor_layer = room.find_child("floor", true, false)
-			if floor_layer and floor_layer is TileMapLayer:
-				var used = floor_layer.get_used_rect()
-				var tile_size = floor_layer.tile_set.tile_size as Vector2
-				
-				# Convert Rect2i to Rect2 to avoid type issues
-				var spawn_rect = Rect2(
-					Vector2(used.position),
-					Vector2(used.size)
-				)
-				
-				# Use margin to keep enemies away from walls/edges
-				var margin = 4.0
-				spawn_rect.position = spawn_rect.position + Vector2(margin, margin)
-				spawn_rect.size = spawn_rect.size - Vector2(margin * 2, margin * 2)
-				
-				var count = randi_range(min_enemies_per_room, max_enemies_per_room)
-				for i in count:
-					var rand_x = randf_range(spawn_rect.position.x, spawn_rect.position.x + spawn_rect.size.x)
-					var rand_y = randf_range(spawn_rect.position.y, spawn_rect.position.y + spawn_rect.size.y)
-					var pos = room.global_position + Vector2(rand_x, rand_y) * tile_size
-					spawn_points.append(pos)
+			spawn_points.append(room.global_position)
 
-		# Spawn enemies at the chosen points
-		var enemy_count = mini(
-			randi_range(min_enemies_per_room, max_enemies_per_room),
-			spawn_points.size()
-		)
+		# Boss rooms use all spawn points, normal rooms use min/max range
+		var enemy_count: int
+		if is_boss:
+			enemy_count = spawn_points.size()
+		else:
+			enemy_count = mini(
+				randi_range(min_enemies_per_room, max_enemies_per_room),
+				spawn_points.size()
+			)
 
 		spawn_points.shuffle()
 
-		# Boss rooms get more enemies
-		if room_type == "boss":
-			enemy_count = spawn_points.size()
-
 		for i in enemy_count:
+			var base: Vector2 = spawn_points[i]
 			var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]
 			var enemy = enemy_scene.instantiate()
-			enemy.global_position = spawn_points[i]
 			room.add_child(enemy)
-
+			# setup() sets both global_position AND home_pos correctly after add_child
+			if enemy.has_method("setup"):
+				enemy.setup(base)
+			else:
+				enemy.global_position = base
 
 # Computes the world-space position for a new room by snapping its entry marker
 # to the exit marker of the nearest already-placed neighbor.
@@ -524,11 +509,115 @@ func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 
 
 # ─────────────────────────────────────────────
-# CONSOLE PRINT
-# STEP 4: OVERVIEW CAMERA
-# Fits the camera so all placed rooms are visible at startup.
-# Deferred to ensure all room nodes have completed their own _ready() calls.
+# BOUNDARY WALLS
+# Builds a tight collision border around each room's floor area so the
+# player and enemies cannot walk into the void between or outside rooms.
+# Reads each room's floor TileMapLayer used_rect for exact floor bounds,
+# then spawns thin StaticBody2D walls on all four sides — leaving gaps
+# only at exit corridors that connect to adjacent placed rooms.
 # ─────────────────────────────────────────────
+
+func _spawn_boundary() -> void:
+	if placed_rooms.size() == 0:
+		return
+
+	var thick: float = 64.0   # wall thickness (pixels)
+	var gap: float   = 160.0  # half-width of the opening left at each exit corridor
+
+	for grid_pos in placed_rooms.keys():
+		var room: Node2D = placed_rooms[grid_pos]
+
+		# Find the floor TileMapLayer (named "floor" in all room scenes)
+		var floor_layer = room.find_child("floor", true, false)
+		if floor_layer == null:
+			floor_layer = room.find_child("Floor", true, false)
+		if floor_layer == null or not floor_layer is TileMapLayer:
+			continue
+
+		# get_used_rect() returns tile-space Rect2i.
+		# Multiply by tile_size to convert to local pixel coords.
+		var tile_size: Vector2 = Vector2(floor_layer.tile_set.tile_size)
+		var used: Rect2i = floor_layer.get_used_rect()
+		if used.size == Vector2i.ZERO:
+			continue
+
+		var local_min: Vector2 = Vector2(used.position) * tile_size
+		var local_max: Vector2 = Vector2(used.position + used.size) * tile_size
+
+		# Convert to world coords
+		var wmin: Vector2 = room.global_position + local_min
+		var wmax: Vector2 = room.global_position + local_max
+		var w: float = wmax.x - wmin.x
+		var h: float = wmax.y - wmin.y
+		var cx: float = (wmin.x + wmax.x) * 0.5
+		var cy: float = (wmin.y + wmax.y) * 0.5
+
+		# Which directions connect to another placed room?
+		var exits: Dictionary = {}
+		for dir_name in DIRECTIONS.keys():
+			if placed_rooms.has(grid_pos + DIRECTIONS[dir_name]):
+				exits[dir_name] = true
+
+		# TOP — full wall or two halves around the North exit gap
+		if not exits.has("North"):
+			_add_wall(Vector2(cx, wmin.y - thick * 0.5), Vector2(w + thick * 2.0, thick))
+		else:
+			var em = room.find_child("ExitNorth", true, false)
+			var ex: float = em.global_position.x if em else cx
+			_add_wall(Vector2((wmin.x + (ex - gap)) * 0.5, wmin.y - thick * 0.5),
+					Vector2(maxf(ex - gap - wmin.x, 0.0) + thick, thick))
+			_add_wall(Vector2(((ex + gap) + wmax.x) * 0.5, wmin.y - thick * 0.5),
+					Vector2(maxf(wmax.x - (ex + gap), 0.0) + thick, thick))
+
+		# BOTTOM — full wall or two halves around the South exit gap
+		if not exits.has("South"):
+			_add_wall(Vector2(cx, wmax.y + thick * 0.5), Vector2(w + thick * 2.0, thick))
+		else:
+			var em = room.find_child("ExitSouth", true, false)
+			var ex: float = em.global_position.x if em else cx
+			_add_wall(Vector2((wmin.x + (ex - gap)) * 0.5, wmax.y + thick * 0.5),
+					Vector2(maxf(ex - gap - wmin.x, 0.0) + thick, thick))
+			_add_wall(Vector2(((ex + gap) + wmax.x) * 0.5, wmax.y + thick * 0.5),
+					Vector2(maxf(wmax.x - (ex + gap), 0.0) + thick, thick))
+
+		# LEFT — full wall or two halves around the West exit gap
+		if not exits.has("West"):
+			_add_wall(Vector2(wmin.x - thick * 0.5, cy), Vector2(thick, h + thick * 2.0))
+		else:
+			var em = room.find_child("ExitWest", true, false)
+			var ey: float = em.global_position.y if em else cy
+			_add_wall(Vector2(wmin.x - thick * 0.5, (wmin.y + (ey - gap)) * 0.5),
+					Vector2(thick, maxf(ey - gap - wmin.y, 0.0) + thick))
+			_add_wall(Vector2(wmin.x - thick * 0.5, ((ey + gap) + wmax.y) * 0.5),
+					Vector2(thick, maxf(wmax.y - (ey + gap), 0.0) + thick))
+
+		# RIGHT — full wall or two halves around the East exit gap
+		if not exits.has("East"):
+			_add_wall(Vector2(wmax.x + thick * 0.5, cy), Vector2(thick, h + thick * 2.0))
+		else:
+			var em = room.find_child("ExitEast", true, false)
+			var ey: float = em.global_position.y if em else cy
+			_add_wall(Vector2(wmax.x + thick * 0.5, (wmin.y + (ey - gap)) * 0.5),
+					Vector2(thick, maxf(ey - gap - wmin.y, 0.0) + thick))
+			_add_wall(Vector2(wmax.x + thick * 0.5, ((ey + gap) + wmax.y) * 0.5),
+					Vector2(thick, maxf(wmax.y - (ey + gap), 0.0) + thick))
+
+
+func _add_wall(center: Vector2, size: Vector2) -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		return
+	var body := StaticBody2D.new()
+	body.collision_layer = 1  # world layer — same as tilemap walls
+	body.collision_mask  = 0
+	var shape := RectangleShape2D.new()
+	shape.size = size
+	var col := CollisionShape2D.new()
+	col.shape = shape
+	body.add_child(col)
+	add_child(body)
+	body.global_position = center
+
+
 func _setup_overview_camera():
 	if placed_rooms.size() == 0:
 		return

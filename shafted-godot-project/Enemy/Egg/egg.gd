@@ -47,8 +47,8 @@ func _on_sprite_animation_finished() -> void:
 func _hatch() -> void:
 	if hatched_enemy:
 		var enemy = hatched_enemy.instantiate()
-		enemy.global_position = global_position
 		get_parent().add_child(enemy)
+		enemy.global_position = global_position  # must be after add_child so parent offset is applied
 	queue_free()
 
 func _show_damage_number(amount: float, is_crit: bool = false) -> void:

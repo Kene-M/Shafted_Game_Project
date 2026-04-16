@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://vu65iiqa1fw4"]
+[gd_scene format=3 uid="uid://vu65iiqa1fw4"]
 
-[ext_resource type="Script" uid="uid://crlnlifroakyw" path="res://generator_test.gd" id="1_hko6r"]
+[ext_resource type="Script" uid="uid://crlnlifroakyw" path="res://Scenes/generator_test_items/generator_test.gd" id="1_hko6r"]
 [ext_resource type="PackedScene" uid="uid://cejggh7sqonh7" path="res://Scenes/rooms/first_room.tscn" id="2_3ekj0"]
 [ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/rooms/lr_connector.tscn" id="3_46kxv"]
 [ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/rooms/tri_connectl_lud.tscn" id="3_xqshq"]
@@ -10,11 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://dljpxqtl5r8rb" path="res://Enemy/Flying/flying.tscn" id="8_vrrwc"]
 [ext_resource type="PackedScene" uid="uid://mt41mrpr8263" path="res://Enemy/Kamikaze/kamikaze.tscn" id="9_sd2tx"]
 [ext_resource type="PackedScene" uid="uid://ckd1ih2g30jdw" path="res://Enemy/Slug/slug.tscn" id="10_cwimr"]
+[ext_resource type="PackedScene" uid="uid://b03h8j8p660b4" path="res://Enemy/Egg/egg.tscn" id="11_vrrwc"]
+[ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="12_sd2tx"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1383581756]
 script = ExtResource("1_hko6r")
 scene_start = ExtResource("2_3ekj0")
 scene_all_dirs = ExtResource("3_xqshq")
 scene_lr = ExtResource("3_46kxv")
 scene_ud = ExtResource("5_xqshq")
-enemy_scenes = Array[PackedScene]([ExtResource("6_ljkim"), ExtResource("7_dn3o5"), ExtResource("8_vrrwc"), ExtResource("9_sd2tx"), ExtResource("10_cwimr")])
+enemy_scenes = Array[PackedScene]([ExtResource("6_ljkim"), ExtResource("11_vrrwc"), ExtResource("8_vrrwc"), ExtResource("7_dn3o5"), ExtResource("9_sd2tx"), ExtResource("12_sd2tx"), ExtResource("10_cwimr")])
+max_enemies_per_room = 10

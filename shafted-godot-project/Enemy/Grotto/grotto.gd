@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var attack_cooldown: float = 1.0
 @export var attack_damage: float = 10.0
 @export var knockback_strength: float = 200.0
+@export var attack_hit_frame: int = 2  # frame damage fires (0-indexed, attack has 5 frames)
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -20,16 +21,22 @@ var current_health: float = 1000.0
 var is_dead: bool = false
 var is_hitting: bool = false
 var attack_timer: float = 0.0
+var _has_hit_this_swing: bool = false
 
 enum State { IDLE, WALK, ATTACK, HIT, DEATH }
 var current_state: State = State.IDLE
 
 func _ready():
-	home_pos = self.global_position
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
+	sprite.frame_changed.connect(_on_frame_changed)
 	sprite.play("idle")  # directly play instead of going through _set_state
+
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
+
 
 func _physics_process(delta):
 	if is_dead:
@@ -91,21 +98,26 @@ func _set_state(new_state: State) -> void:
 		State.ATTACK:
 			velocity = Vector2.ZERO
 			if not sprite.is_playing() or sprite.animation != "attack":
+				_has_hit_this_swing = false
 				sprite.play("attack")
 		State.HIT:
 			sprite.play("hit")
 		State.DEATH:
 			sprite.play("death")
 
+func _on_frame_changed() -> void:
+	if sprite.animation == "attack" and sprite.frame == attack_hit_frame and not _has_hit_this_swing:
+		_has_hit_this_swing = true
+		if attack_timer <= 0.0 and target_node:
+			if target_node.has_method("take_damage"):
+				target_node.take_damage(attack_damage, global_position)
+			attack_timer = attack_cooldown
+
 func _on_sprite_animation_finished() -> void:
 	if sprite.animation == "hit":
 		is_hitting = false
 		_resume_state()
 	elif sprite.animation == "attack":
-		if attack_timer <= 0.0 and target_node:
-			if target_node.has_method("take_damage"):
-				target_node.take_damage(attack_damage, global_position)
-			attack_timer = attack_cooldown
 		_resume_state()
 	elif sprite.animation == "death":
 		queue_free()
