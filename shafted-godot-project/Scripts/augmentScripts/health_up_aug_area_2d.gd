@@ -7,3 +7,4 @@ func _ready():
 	aug.aug_name = "HealthUp"
 	aug.data = 100
 	aug.type = AugType.Type.HPADD
+	aug.price = [2,1,1,0,0]
