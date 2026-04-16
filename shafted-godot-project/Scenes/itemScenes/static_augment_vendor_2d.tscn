@@ -55,24 +55,18 @@ offset_left = -136.0
 offset_top = -56.0
 offset_right = 480.66498
 offset_bottom = 295.84
-current_tab = 2
+current_tab = 0
 
-[node name="Buy" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1114193868]
-visible = false
-z_index = 1535
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Sell" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1955432512]
-visible = false
-z_index = 1390
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="Tree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=1098603136]
+[node name="BuyTree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=1098603136]
 layout_mode = 2
 columns = 6
-metadata/_tab_index = 2
+metadata/_tab_index = 0
+
+[node name="SellTree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=357642588]
+visible = false
+layout_mode = 2
+columns = 6
+metadata/_tab_index = 1
 
 [node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=124819941]
 z_index = 1095
@@ -83,10 +77,16 @@ offset_right = 479.66498
 offset_bottom = -25.160004
 text = "X"
 
+[node name="PlayerInvLabel" type="Label" parent="CanvasLayer/Control" unique_id=1830463888]
+layout_mode = 0
+offset_left = 247.665
+offset_top = -55.160004
+offset_right = 406.66498
+offset_bottom = -25.160004
+
 [connection signal="open_shop" from="." to="CanvasLayer/Control" method="_on_static_augment_vendor_2d_open_shop"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Buy" to="CanvasLayer/Control" method="_on_item_list_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Sell" to="CanvasLayer/Control" method="_on_item_list_2_item_selected"]
-[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/Tree" to="CanvasLayer/Control" method="_on_tree_cell_selected"]
+[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/BuyTree" to="CanvasLayer/Control" method="_on_buy_tree_cell_selected"]
+[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/SellTree" to="CanvasLayer/Control" method="_on_sell_tree_cell_selected"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]
