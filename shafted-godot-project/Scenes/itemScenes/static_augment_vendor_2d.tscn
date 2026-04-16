@@ -36,7 +36,6 @@ label_settings = SubResource("LabelSettings_qv4mr")
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=11813839]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchor_left = 0.24300002
 anchor_top = 0.076000005
@@ -77,12 +76,13 @@ offset_right = 479.66498
 offset_bottom = -25.160004
 text = "X"
 
-[node name="PlayerInvLabel" type="Label" parent="CanvasLayer/Control" unique_id=1830463888]
+[node name="PlayerInvTree" type="Tree" parent="CanvasLayer/Control" unique_id=1179482132]
 layout_mode = 0
-offset_left = 247.665
-offset_top = -55.160004
-offset_right = 406.66498
-offset_bottom = -25.160004
+offset_left = 483.66498
+offset_top = -25.160007
+offset_right = 639.665
+offset_bottom = 283.2631
+scale = Vector2(1, 1.04)
 
 [connection signal="open_shop" from="." to="CanvasLayer/Control" method="_on_static_augment_vendor_2d_open_shop"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

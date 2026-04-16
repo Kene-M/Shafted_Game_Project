@@ -61,19 +61,25 @@ func _populate_sell_tree():
 				new_child.set_text(j, str(i.price[j-1]))
 				new_child.set_icon(j, icon_arr[j-1])
 	
-
-func _update_inv_label():
+	
+func _update_inv_tree():
 	var player = Autoload.main_char
-	var inv_label = $PlayerInvLabel
-	var inv_str = "Your Resources: "
-	for i in player.resource_inv:
-		inv_str += str(i) + " "
-	inv_label.text = inv_str
+	var tree = $PlayerInvTree
+	tree.clear()
+	var root = tree.create_item()
+	tree.hide_root = true
+	var first_child = tree.create_item(root)
+	first_child.set_text(0, "Your Resources:")
+	for i in range(len(player.resource_inv)):
+		var new_child = tree.create_item(root)
+		new_child.set_text(0, str(player.resource_inv[i]))
+		new_child.set_icon(0, icon_arr[i])
+	
 
 func _on_static_augment_vendor_2d_open_shop() -> void:
 	self.visible = true
 	var player = Autoload.main_char
-	_update_inv_label()
+	_update_inv_tree()
 	if buy_list_set == false:
 		_create_augments()
 	_populate_sell_tree()
@@ -102,7 +108,7 @@ func _on_buy_tree_cell_selected() -> void:
 			for i in range(len(sel_metadata.price)):
 				player.resource_inv[i] -= sel_metadata.price[i]
 				sel_metadata.price[i] = sel_metadata.price[i]/2
-			_update_inv_label()
+			_update_inv_tree()
 			player.add_augment(sel_metadata)
 			_populate_sell_tree()
 			remove_child(sel_item)
@@ -119,7 +125,7 @@ func _on_sell_tree_cell_selected() -> void:
 		var player = Autoload.main_char
 		for i in range(len(sel_metadata.price)):
 			player.resource_inv[i] += sel_metadata.price[i]
-		_update_inv_label()
+		_update_inv_tree()
 		player.remove_augment(sel_metadata)
 		remove_child(sel_item)
 		sel_item.call_deferred('free')
