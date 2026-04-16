@@ -179,9 +179,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	items_in_area.append(area)
 		
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	$InteractLabel.visible = false
-	in_item_area = false
-	cur_item_area = null	
+	if len(items_in_area) == 0:
+		$InteractLabel.visible = false
+		in_item_area = false	
 	if items_in_area.has(area):
 		items_in_area.erase(area)	
 
