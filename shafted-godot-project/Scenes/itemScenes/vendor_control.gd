@@ -3,7 +3,23 @@ extends Control
 @onready var sell_list = $"TabContainer/Sell"
 @onready var rng = RandomNumberGenerator.new()
 @onready var buy_list_set = false
+@onready var icon_arr: Array = []
 
+func _ready() -> void:
+	var rec_dir = DirAccess.open("res://Assets/Props/Resources/")
+	if rec_dir:
+		rec_dir.list_dir_begin()
+		var rec_file = rec_dir.get_next()
+		while rec_file != "":
+			if not rec_dir.current_is_dir():
+				var ext = rec_file.get_extension()
+				if ext == "png":
+					var rec_path = rec_dir.get_current_dir().path_join(rec_file)
+					var texture = load(rec_path)
+					icon_arr.append(texture)
+			rec_file = rec_dir.get_next()
+		
+	
 func _create_augments():
 	var aug_args = [
 			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD, [3,2,0,0,0]], 
@@ -26,6 +42,7 @@ func _create_augments():
 		for i in range(1,6):
 			if aug[3][i-1] != 0:
 				new_child.set_text(i, str(aug[3][i-1]))
+				new_child.set_icon(i, icon_arr[i-1])
 		aug_args.erase(aug)
 	buy_list_set = true
 	
@@ -40,7 +57,9 @@ func _populate_sell_tree():
 		new_child.set_text(0, i.aug_name)
 		new_child.set_metadata(0, i)
 		for j in range(1,6):
-			new_child.set_text(j, str(i.price[j-1]))
+			if i.price[j-1] != 0:
+				new_child.set_text(j, str(i.price[j-1]))
+				new_child.set_icon(j, icon_arr[j-1])
 	
 
 func _update_inv_label():
