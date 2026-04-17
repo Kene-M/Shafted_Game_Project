@@ -1,5 +1,5 @@
 extends Node2D
-var texture = load("res://black_sword_large.png")
+var texture = load("res://Assets/Player/black_sword_large.png")
 
 
 func _ready() -> void:

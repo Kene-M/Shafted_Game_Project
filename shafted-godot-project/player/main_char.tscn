@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://2mxv5wl3c4pp"]
+[gd_scene format=3 uid="uid://2mxv5wl3c4pp"]
 
 [ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
 [ext_resource type="Texture2D" uid="uid://va70fpx28g3j" path="res://Assets/Player/Character_idle_test.png" id="2_tyhho"]
@@ -126,7 +126,7 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="MainChar" type="CharacterBody2D"]
+[node name="MainChar" type="CharacterBody2D" unique_id=106269794]
 z_index = 4
 collision_layer = 2
 collision_mask = 7
@@ -139,33 +139,33 @@ augment_vals = {
 4: 300
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=841771123]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=778592976]
 scale = Vector2(0.805, 0.805)
 shape = SubResource("CapsuleShape2D_tyhho")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1277956773]
 visible = false
 position = Vector2(-3.8147e-06, 0)
 scale = Vector2(-0.362, 0.378)
 texture = ExtResource("2_tyhho")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=244583479]
 collision_layer = 2
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1000517126]
 scale = Vector2(0.8, 0.8)
 shape = SubResource("CapsuleShape2D_sqtrg")
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="Weapon" type="Node2D" parent="." unique_id=1081861151]
 
-[node name="Sprite2D2" type="Sprite2D" parent="Weapon"]
+[node name="Sprite2D2" type="Sprite2D" parent="Weapon" unique_id=848762394]
 position = Vector2(17.88, 4.405)
 scale = Vector2(0.04, 0.04)
 
-[node name="InteractLabel" type="Label" parent="."]
+[node name="InteractLabel" type="Label" parent="." unique_id=692979061]
 visible = false
 offset_left = -52.965
 offset_top = 21.435
@@ -173,7 +173,7 @@ offset_right = 55.035
 offset_bottom = 44.435
 text = "\"E\" to interact"
 
-[node name="TempHealthBar" type="ColorRect" parent="."]
+[node name="TempHealthBar" type="ColorRect" parent="." unique_id=1947981258]
 z_index = 420
 offset_left = -50.0
 offset_top = -40.0
@@ -181,7 +181,7 @@ offset_right = 50.0
 offset_bottom = -36.0
 color = Color(3.36915e-07, 0.649876, 0.264109, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="TempHealthBar"]
+[node name="ColorRect2" type="ColorRect" parent="TempHealthBar" unique_id=233446855]
 z_index = 300
 z_as_relative = false
 layout_mode = 0
@@ -191,7 +191,7 @@ offset_right = 103.0
 offset_bottom = 6.0
 color = Color(0.20871, 0.20871, 0.20871, 1)
 
-[node name="temp_vel_label" type="Label" parent="."]
+[node name="temp_vel_label" type="Label" parent="." unique_id=1582378940]
 offset_left = -130.0
 offset_top = -84.0
 offset_right = 6.0
@@ -201,13 +201,13 @@ label_settings = SubResource("LabelSettings_jt4vo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TempHealthNum" type="Label" parent="."]
+[node name="TempHealthNum" type="Label" parent="." unique_id=2087966925]
 offset_left = -20.0
 offset_top = -73.0
 offset_right = 20.0
 offset_bottom = -50.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=621046811]
 position = Vector2(-2.3841858e-07, 5.9604645e-08)
 scale = Vector2(0.32211542, 0.3139098)
 sprite_frames = SubResource("SpriteFrames_b4b3c")

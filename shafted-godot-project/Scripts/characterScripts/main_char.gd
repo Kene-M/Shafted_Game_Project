@@ -15,15 +15,16 @@ extends CharacterBody2D
 	AugType.Type.HPMULT: 1,
 	AugType.Type.SPDADD: 300
 }
-@onready var resource_inv: Array = [0,0,0,0,0]
+@export var resource_inv: Array = [0,0,0,0,0]
 @onready var ranged_weapon
 @onready var melee_weapon
 @onready var in_item_area = false
 @onready var cur_item_area = null
+@onready var items_in_area = []
 @onready var max_health: float = 1000
 @onready var cur_health: float = 1000
 @onready var knockback_velocity: Vector2 = Vector2.ZERO
-@onready var knockback_strength: float = 50
+@onready var knockback_strength: float = 300
 @onready var dash_ticks = 0
 @onready var speed = 0
 
@@ -118,38 +119,40 @@ func _physics_process(delta):
 	
 	#Item Interaction Logic
 	if ((in_item_area == true) and (Input.is_action_just_pressed("interact"))):
-		match cur_item_area.item_type:
-			"Melee_Weapon":
-				if melee_weapons.has(cur_item_area.weapon_data) == false:
-					melee_weapon = cur_item_area.weapon_data
-					melee_weapons.append(cur_item_area.weapon_data)	
-					cur_item_area.get_parent().queue_free()
-					#cur_item_area = null
+		for i in items_in_area:
+			match i.item_type:
+				"Melee_Weapon":
+					if melee_weapons.has(i.weapon_data) == false:
+						melee_weapon = i.weapon_data
+						melee_weapons.append(i.weapon_data)	
+						i.get_parent().queue_free()
+						#i = null
+						#in_item_area = false
+						#$InteractLabel.visible = true
+				"Ranged_Weapon":
+					if ranged_weapons.has(i.weapon_data) == false:
+						ranged_weapon = i.weapon_data
+						ranged_weapons.append(i.weapon_data)
+						i.get_parent().queue_free()
+						#i = null
+						#in_item_area = false
+						#$InteractLabel.visible = true
+				"Augment":
+					augments.append(i.aug)
+					_modify_augment_vals(i.aug, false)
+					i.get_parent().queue_free()
+					#i = null
 					#in_item_area = false
 					#$InteractLabel.visible = true
-			"Ranged_Weapon":
-				if ranged_weapons.has(cur_item_area.weapon_data) == false:
-					ranged_weapon = cur_item_area.weapon_data
-					ranged_weapons.append(cur_item_area.weapon_data)
-					cur_item_area.get_parent().queue_free()
-					#cur_item_area = null
+				"Resource":
+					resource_inv[i.type] += 1
+					i.get_parent().queue_free()
+				_:
+					#i = null
 					#in_item_area = false
 					#$InteractLabel.visible = true
-			"Augment":
-				augments.append(cur_item_area.aug)
-				_modify_augment_vals(cur_item_area.aug, false)
-				cur_item_area.get_parent().queue_free()
-				#cur_item_area = null
-				#in_item_area = false
-				#$InteractLabel.visible = true
-			"Resource":
-				resource_inv[cur_item_area.type] += 1
-				cur_item_area.get_parent().queue_free()
-			_:
-				#cur_item_area = null
-				#in_item_area = false
-				#$InteractLabel.visible = true
-				pass
+					pass
+		items_in_area.clear()
 	
 func take_damage(damage: float, source_position: Vector2 = Vector2.ZERO):
 	cur_health -= damage
@@ -173,9 +176,20 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	$InteractLabel.visible = true
 	in_item_area = true
 	cur_item_area = area
+	items_in_area.append(area)
 		
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	$InteractLabel.visible = false
-	in_item_area = false
-	cur_item_area = null		
+	if items_in_area.has(area):
+		items_in_area.erase(area)	
+	if len(items_in_area) == 0:
+		$InteractLabel.visible = false
+		in_item_area = false	
+
+func add_augment(aug: Augment):
+	augments.append(aug)
+	_modify_augment_vals(aug, false)
+	
+func remove_augment(aug: Augment):
+	augments.erase(aug)
+	_modify_augment_vals(aug, true)
 	

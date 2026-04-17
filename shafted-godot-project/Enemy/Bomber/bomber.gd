@@ -28,7 +28,6 @@ var current_state: State = State.WALK
 
 
 func _ready() -> void:
-	home_pos = global_position
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 
@@ -47,6 +46,11 @@ func _ready() -> void:
 
 	sprite.speed_scale = 1.5
 	sprite.play("walk")
+
+
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
 
 
 func _physics_process(delta: float) -> void:
@@ -110,6 +114,7 @@ func _set_state(new_state: State) -> void:
 			velocity = Vector2.ZERO
 			sprite.speed_scale = 1.0
 			sprite.play("explosion")
+			_do_explosion_damage()  # deal damage immediately when explosion starts
 		State.DEATH:
 			velocity = Vector2.ZERO
 			sprite.speed_scale = 1.0
@@ -119,7 +124,6 @@ func _set_state(new_state: State) -> void:
 func _on_sprite_animation_finished() -> void:
 	match sprite.animation:
 		"explosion":
-			_do_explosion_damage()
 			queue_free()
 		"death":
 			queue_free()

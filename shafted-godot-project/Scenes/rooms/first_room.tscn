@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://cejggh7sqonh7"]
 
-[ext_resource type="TileSet" uid="uid://eso4kwgafpe2" path="res://Assets/Tilesets/master_tile_set.tres" id="1_7gatr"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_7gatr"]
 [ext_resource type="Texture2D" uid="uid://c0r8eqbi6oxvj" path="res://Assets/Tilesets/Temple Tileset.png" id="2_h8g8c"]
 [ext_resource type="Texture2D" uid="uid://p3eerxv31xg" path="res://Assets/Tilesets/rocks.png" id="3_r5hv7"]
 
@@ -968,3 +968,16 @@ tile_set = SubResource("TileSet_uvy7y")
 [node name="ExitWest" type="Marker2D" parent="."]
 position = Vector2(-431, -19)
 scale = Vector2(5, 5)
+
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(347, 0)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns"]
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-189, 424)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(0, -373)

@@ -12,7 +12,7 @@ var _is_dying: bool = false
 
 
 func _ready() -> void:
-	z_index = 1
+	
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
 
 	# Layer 3 = enemy, Mask 1 = world (walls), Mask 2 = player

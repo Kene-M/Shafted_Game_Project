@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dejoqyse5tgae"]
+[gd_scene format=3 uid="uid://dejoqyse5tgae"]
 
 [ext_resource type="Script" uid="uid://c8ehcxrx8th41" path="res://Enemy/Flying/enemy_projectile.gd" id="1_6uikd"]
 [ext_resource type="Texture2D" uid="uid://bhty3vvix08f2" path="res://Assets/enemies/Monster Pack/Monster4Pack.png" id="2_td6rc"]
@@ -75,15 +75,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3swo"]
 radius = 7.071068
 
-[node name="enemy_projectile" type="Area2D"]
+[node name="enemy_projectile" type="Area2D" unique_id=1836612822]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_6uikd")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=681827533]
 sprite_frames = SubResource("SpriteFrames_463xt")
 animation = &"death"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1745525566]
 position = Vector2(-3, -1)
 shape = SubResource("CircleShape2D_s3swo")

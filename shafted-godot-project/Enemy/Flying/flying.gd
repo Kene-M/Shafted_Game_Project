@@ -44,7 +44,6 @@ var current_state: State = State.IDLE
 
 
 func _ready() -> void:
-	home_pos = global_position
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 
@@ -80,6 +79,11 @@ func _ready() -> void:
 	deaggro.area_exited.connect(_on_de_aggro_range_area_exited)
 
 	sprite.play("idle")
+
+
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
 
 
 func _physics_process(delta: float) -> void:
@@ -233,10 +237,10 @@ func _fire_burst() -> void:
 		var angle_offset: float = deg_to_rad(offset_index * step)
 		var dir: Vector2 = base_dir.rotated(angle_offset)
 		var proj = projectile_scene.instantiate()
-		proj.global_position = fire_origin
 		proj.direction = dir
-		proj.z_index = 10  # ← FIX: Make projectiles visible (render on top)
+		proj.z_index = 10
 		get_parent().add_child(proj)
+		proj.global_position = fire_origin  # must be set AFTER add_child so parent offset is applied correctly
 
 
 func _resume_state() -> void:
