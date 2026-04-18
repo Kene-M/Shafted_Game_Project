@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="8_u87g2"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="9_f0ecq"]
 [ext_resource type="PackedScene" uid="uid://c4q1w3s5mk1uu" path="res://Scenes/itemScenes/resource_1.tscn" id="10_7owe1"]
-[ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="10_74pgp"]
 [ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/weaponScenes/static_sword.tscn" id="10_oagid"]
 [ext_resource type="PackedScene" uid="uid://hnfmgpuit1nv" path="res://Scenes/itemScenes/resource_2.tscn" id="11_l3fbt"]
+[ext_resource type="PackedScene" uid="uid://c83vxy3ryxame" path="res://Scenes/weaponScenes/static_spear.tscn" id="12_u1jld"]
 [ext_resource type="Script" uid="uid://6a7mtvca31cy" path="res://Scenes/UI/reset_button.gd" id="12_u87vg"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
 
@@ -766,44 +766,6 @@ z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAAAGAAIAAAD3//z/AAAGAAMAAAADAAUAAAAGAAMAAAAJAAUAAAAIAAEAAAAJAPr/AAAIAAEAAAD2//r/AAAIAAEAAAD2/wUAAAAIAAEAAAA=")
 tile_set = SubResource("TileSet_b01wm")
 
-[node name="Control" type="Control" parent="." unique_id=53915726]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("10_74pgp")
-
-[node name="TabContainer" type="TabContainer" parent="Control" unique_id=186492710]
-z_index = 1100
-layout_mode = 0
-offset_left = -136.0
-offset_top = -56.0
-offset_right = 136.0
-offset_bottom = 85.0
-current_tab = 0
-
-[node name="Ranged" type="ItemList" parent="Control/TabContainer" unique_id=1216141939]
-z_index = 1535
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Melee" type="ItemList" parent="Control/TabContainer" unique_id=545508169]
-visible = false
-z_index = 1390
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="Button" type="Button" parent="Control" unique_id=853290006]
-z_index = 1095
-layout_mode = 0
-offset_left = 104.0
-offset_top = -56.0
-offset_right = 135.0
-offset_bottom = -25.0
-text = "X"
-
 [node name="StaticSword" parent="." unique_id=1848321416 instance=ExtResource("10_oagid")]
 position = Vector2(124, -63)
 
@@ -852,9 +814,7 @@ position = Vector2(-113, 31)
 [node name="StaticBody2D7" parent="." unique_id=749084602 instance=ExtResource("11_l3fbt")]
 position = Vector2(-138, 44)
 
-[connection signal="item_selected" from="Control/TabContainer/Ranged" to="Control" method="_on_item_list_item_selected"]
-[connection signal="item_selected" from="Control/TabContainer/Melee" to="Control" method="_on_item_list_2_item_selected"]
-[connection signal="pressed" from="Control/Button" to="Control" method="_on_button_pressed"]
-[connection signal="close_inventory" from="StaticChest2D" to="Control" method="_on_static_chest_2d_close_inventory"]
-[connection signal="open_inventory" from="StaticChest2D" to="Control" method="_on_static_chest_2d_open_inventory"]
+[node name="StaticSpear" parent="." unique_id=650535001 instance=ExtResource("12_u1jld")]
+position = Vector2(62, -73)
+
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

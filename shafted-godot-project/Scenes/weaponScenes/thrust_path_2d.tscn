@@ -1,32 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr8abvyfb16rh"]
+[gd_scene format=3 uid="uid://dr8abvyfb16rh"]
 
 [ext_resource type="Script" uid="uid://88p23sqki8pf" path="res://Scenes/weaponScenes/path_follow_2d.gd" id="1_lkh5u"]
 [ext_resource type="Script" uid="uid://bqvg1gafte0dx" path="res://Scenes/weaponScenes/thrust_path_2d.gd" id="1_mqecv"]
 
 [sub_resource type="Curve2D" id="Curve2D_vvds0"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 46, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 72.99309, 0.23578644, 0, 0, 0, 0, 88, 0)
 }
-point_count = 3
+point_count = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2f5jc"]
-radius = 4.0
-height = 12.0
+radius = 6.999996
+height = 22.0
 
-[node name="ThrustPath2D" type="Path2D"]
+[node name="ThrustPath2D" type="Path2D" unique_id=1442120407]
+position = Vector2(-2, 0)
 curve = SubResource("Curve2D_vvds0")
 script = ExtResource("1_mqecv")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="."]
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1305477769]
 position = Vector2(7, 0)
+loop = false
 script = ExtResource("1_lkh5u")
 
-[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D" unique_id=1287851110]
+position = Vector2(-5, 0)
+rotation = 0.7853982
+scale = Vector2(1.7, 1.7)
 
-[node name="Area2D" type="Area2D" parent="PathFollow2D"]
+[node name="Area2D" type="Area2D" parent="PathFollow2D" unique_id=1473788828]
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D" unique_id=2065437683]
+position = Vector2(3, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_2f5jc")
 

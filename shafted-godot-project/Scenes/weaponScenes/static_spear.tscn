@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c83vxy3ryxame"]
+
+[ext_resource type="Texture2D" uid="uid://dikcry8fvnofv" path="res://Assets/Player/purple_spear2.png" id="1_rq8tl"]
+[ext_resource type="Script" uid="uid://cfyggkirwcwjf" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_spear.gd" id="1_tnam7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gq8gj"]
+radius = 19.0
+
+[node name="StaticSpear" type="StaticBody2D" unique_id=650535001]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=781616212]
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("1_rq8tl")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=46836585]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_tnam7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1436654796]
+shape = SubResource("CircleShape2D_gq8gj")
