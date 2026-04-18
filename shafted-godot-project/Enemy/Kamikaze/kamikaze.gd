@@ -40,7 +40,6 @@ var current_state: State = State.IDLE
 
 
 func _ready() -> void:
-	home_pos = global_position
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 
@@ -73,6 +72,11 @@ func _ready() -> void:
 	deaggro.area_exited.connect(_on_de_aggro_range_area_exited)
 
 	sprite.play("fly")
+
+
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
 
 
 func _physics_process(delta: float) -> void:
@@ -168,9 +172,9 @@ func _drop_bomb() -> void:
 		_set_state(State.IDLE)
 		return
 	var bomb = bomb_scene.instantiate()
-	bomb.global_position = global_position + Vector2(sprite.position.x, sprite.position.y) + bomb_spawn_offset
-	bomb.z_index = 10  # ← FIX: Make bombs visible (render on top)
+	bomb.z_index = 10
 	get_parent().add_child(bomb)
+	bomb.global_position = global_position + Vector2(sprite.position.x, sprite.position.y) + bomb_spawn_offset  # must be set AFTER add_child
 	await get_tree().create_timer(0.3).timeout
 	if not is_dead:
 		current_state = State.IDLE
@@ -189,7 +193,7 @@ func _do_explosion_damage() -> void:
 	for result in results:
 		var body = result["collider"]
 		if body.has_method("take_damage"):
-			body.take_damage(explosion_damage, false, global_position)
+			body.take_damage(explosion_damage,global_position)
 
 
 func _on_sprite_animation_finished() -> void:

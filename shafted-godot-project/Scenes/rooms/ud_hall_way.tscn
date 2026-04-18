@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=4 uid="uid://cg4g2nvt1s0dq"]
 
-[ext_resource type="TileSet" uid="uid://eso4kwgafpe2" path="res://Assets/Tilesets/master_tile_set.tres" id="1_aqp1q"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_aqp1q"]
 
 [node name="UDHallWay" type="Node2D"]
 
@@ -24,8 +24,16 @@ position = Vector2(-27, -639)
 [node name="ExitSouth" type="Marker2D" parent="."]
 position = Vector2(-5, 639)
 
-[node name="SpawnPoint1" type="Marker2D" parent="."]
+[node name="EnemySpawns" type="Node2D" parent="."]
 
-[node name="SpawnPoint2" type="Marker2D" parent="."]
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-35, -154)
 
-[node name="SpawnPoint3" type="Marker2D" parent="."]
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-36, 154)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-57, 447)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(-35, -410)

@@ -7,3 +7,4 @@ func _ready():
 	aug.aug_name = "SpeedUp"
 	aug.data = 25
 	aug.type = AugType.Type.SPDADD
+	aug.price = [2,2,0,0,0]

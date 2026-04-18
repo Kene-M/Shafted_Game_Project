@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c6t6xhowd3sox"]
+
+[node name="Death_room" type="Node2D" unique_id=1723337202]
+
+[node name="Map" type="TileMapLayer" parent="." unique_id=195537050]

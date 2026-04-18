@@ -36,11 +36,11 @@ var current_state: State = State.IDLE
 
 
 func _ready() -> void:
-	home_pos = global_position
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
 
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
+	sprite.frame_changed.connect(_on_frame_changed)
 
 	var recalc_timer: Timer = $Navigation/RecalculateTimer
 	recalc_timer.wait_time = 0.3
@@ -54,6 +54,11 @@ func _ready() -> void:
 	deaggro.area_exited.connect(_on_de_aggro_range_area_exited)
 
 	sprite.play("lay_prepare")
+
+
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
 
 
 func _physics_process(delta: float) -> void:
@@ -188,22 +193,25 @@ func _set_state(new_state: State) -> void:
 			sprite.play("death")
 
 
+func _on_frame_changed() -> void:
+	if sprite.animation == "attack" and sprite.frame == 4:
+		if attack_timer <= 0.0 and target_node:
+			if target_node.has_method("take_damage"):
+				target_node.take_damage(attack_damage, global_position)
+			attack_timer = attack_cooldown
+
 func _on_sprite_animation_finished() -> void:
 	match sprite.animation:
 		"fright":
 			_resume_after_fright()
 		"attack":
-			if attack_timer <= 0.0 and target_node:
-				if target_node.has_method("take_damage"):
-					target_node.take_damage(attack_damage, global_position)
-				attack_timer = attack_cooldown
 			_resume_state()
 		"lay_spawn":
 			# Chain directly into spawn at normal speed
 			current_state = State.IDLE
 			_set_state(State.SPAWN)
 		"spawn":
-			# Drop the egg, reset frightened, return to normal behavior
+			# Drop the egg, run to new location, lay again — repeat until killed
 			_spawn_egg()
 			_pick_flee_target()
 			current_state = State.IDLE
@@ -245,10 +253,9 @@ func _resume_state() -> void:
 func _spawn_egg() -> void:
 	if hatched_egg:
 		var egg = hatched_egg.instantiate()
-		# Offset behind the nester based on facing direction, dropped at feet level
-		var behind_offset: Vector2 = Vector2(-18 if facing_right else 18, 10)
-		egg.global_position = global_position + behind_offset
 		get_parent().add_child(egg)
+		var behind_offset: Vector2 = Vector2(-18 if facing_right else 18, 10)
+		egg.global_position = global_position + behind_offset  # must be set AFTER add_child
 
 
 # --- Navigation ---

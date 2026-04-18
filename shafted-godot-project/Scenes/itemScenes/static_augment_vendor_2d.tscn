@@ -1,4 +1,4 @@
-[gd_scene load_steps=0 format=3 uid="uid://dgsie3f0raai3"]
+[gd_scene format=3 uid="uid://dgsie3f0raai3"]
 
 [ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Assets/Props/Brick2-1.jpg" id="1_8kkda"]
 [ext_resource type="Script" uid="uid://ecp2qeimypv3" path="res://Scenes/itemScenes/static_augment_vendor_2d.gd" id="1_g1rcx"]
@@ -42,10 +42,10 @@ anchor_left = 0.24300002
 anchor_top = 0.076000005
 anchor_right = 0.24300002
 anchor_bottom = 0.076000005
-offset_left = -153.585
-offset_top = 38.760002
-offset_right = -153.585
-offset_bottom = 38.760002
+offset_left = 95.73999
+offset_top = 210.61002
+offset_right = 95.73999
+offset_bottom = 210.61002
 script = ExtResource("3_qv4mr")
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=172370792]
@@ -57,15 +57,15 @@ offset_right = 480.66498
 offset_bottom = 295.84
 current_tab = 0
 
-[node name="Buy" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1114193868]
-z_index = 1535
+[node name="BuyTree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=1098603136]
 layout_mode = 2
+columns = 6
 metadata/_tab_index = 0
 
-[node name="Sell" type="ItemList" parent="CanvasLayer/Control/TabContainer" unique_id=1955432512]
+[node name="SellTree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=357642588]
 visible = false
-z_index = 1390
 layout_mode = 2
+columns = 6
 metadata/_tab_index = 1
 
 [node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=124819941]
@@ -77,9 +77,17 @@ offset_right = 479.66498
 offset_bottom = -25.160004
 text = "X"
 
+[node name="PlayerInvTree" type="Tree" parent="CanvasLayer/Control" unique_id=1179482132]
+layout_mode = 0
+offset_left = 483.66498
+offset_top = -25.160007
+offset_right = 639.665
+offset_bottom = 283.2631
+scale = Vector2(1, 1.04)
+
 [connection signal="open_shop" from="." to="CanvasLayer/Control" method="_on_static_augment_vendor_2d_open_shop"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Buy" to="CanvasLayer/Control" method="_on_item_list_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/Control/TabContainer/Sell" to="CanvasLayer/Control" method="_on_item_list_2_item_selected"]
+[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/BuyTree" to="CanvasLayer/Control" method="_on_buy_tree_cell_selected"]
+[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/SellTree" to="CanvasLayer/Control" method="_on_sell_tree_cell_selected"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]
