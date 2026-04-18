@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=4 uid="uid://c7a1wkctoibje"]
+[gd_scene format=4 uid="uid://c7a1wkctoibje"]
 
-[ext_resource type="TileSet" uid="uid://duscf07c8x3n3" path="res://Assets/tilemaps/master_tile_set.tres" id="1_lly02"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_lly02"]
 
 [node name="left_down_room" type="Node2D"]
 

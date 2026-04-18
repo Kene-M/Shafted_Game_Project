@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=4 uid="uid://b33s8ohxyrgxk"]
+[gd_scene format=4 uid="uid://b33s8ohxyrgxk"]
 
-[ext_resource type="TileSet" path="res://Assets/tilemaps/master_tile_set.tres" id="1_aqp1q"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_aqp1q"]
 
 [node name="UDHallWay" type="Node2D"]
 

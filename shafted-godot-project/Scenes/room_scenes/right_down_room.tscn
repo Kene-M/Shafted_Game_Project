@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dv82tp0v5h77r"]
 
-[ext_resource type="TileSet" uid="uid://duscf07c8x3n3" path="res://Assets/tilemaps/master_tile_set.tres" id="1_oigjh"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_oigjh"]
 
 [node name="right_down_room" type="Node2D" unique_id=487138519]
 

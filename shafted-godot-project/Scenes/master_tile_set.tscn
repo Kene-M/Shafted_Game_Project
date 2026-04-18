@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://t51lo2xb6gqh"]
+[gd_scene format=3 uid="uid://t51lo2xb6gqh"]
 
 [ext_resource type="TileSet" uid="uid://eso4kwgafpe2" path="res://Assets/Tilesets/master_tile_set.tres" id="1_02qn3"]
 

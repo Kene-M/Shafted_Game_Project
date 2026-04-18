@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=4 uid="uid://bk80uojojpdws"]
+[gd_scene format=4 uid="uid://bk80uojojpdws"]
 
-[ext_resource type="TileSet" uid="uid://duscf07c8x3n3" path="res://Assets/tilemaps/master_tile_set.tres" id="1_x1e87"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_x1e87"]
 
 [node name="LeftUpDownCave1" type="Node2D"]
 
