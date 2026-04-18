@@ -5,7 +5,7 @@ extends Node2D
 @export var spawn_room_scene: PackedScene  # spawnRoom.tscn
 @export var generator_scene: PackedScene   # generator_test.tscn (or a cleaned-up dungeon.tscn)
 
-var player_scene: PackedScene = preload("res://player/main_char.tscn")
+var player_scene: PackedScene = preload("res://Scenes/characterScenes/main_char.tscn")
 var player: CharacterBody2D = null
 var current_level: Node = null
 

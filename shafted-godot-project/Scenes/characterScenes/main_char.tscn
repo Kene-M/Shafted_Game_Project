@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cw40oi4rdyrsr"]
 
 [ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
+[ext_resource type="Texture2D" uid="uid://dp83lm6jtjfrd" path="res://Assets/Player/justified_move_hand.webp" id="2_tyhho"]
 [ext_resource type="Texture2D" uid="uid://6qldfbbbagok" path="res://Assets/Player/Left-Idle-run_1.webp" id="3_tyhho"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tyhho"]
@@ -13,6 +14,30 @@ height = 49.999996
 
 [sub_resource type="LabelSettings" id="LabelSettings_jt4vo"]
 font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86cpw"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(145, 0, 145, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6vko"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(0, 0, 145, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgovr"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(435, 139, 145, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8se7y"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(145, 139, 145, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83hh1"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(0, 139, 145, 139)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t70kq"]
+atlas = ExtResource("2_tyhho")
+region = Rect2(290, 139, 145, 139)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sqtrg"]
 atlas = ExtResource("3_tyhho")
@@ -72,6 +97,29 @@ region = Rect2(360, 443, 104, 133)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b4b3c"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86cpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6vko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgovr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8se7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83hh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t70kq")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 20.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sqtrg")
@@ -206,8 +254,13 @@ offset_bottom = -50.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2052248414]
 scale = Vector2(0.32211542, 0.3139098)
 sprite_frames = SubResource("SpriteFrames_b4b3c")
-animation = &"run"
+animation = &"attack"
+frame = 5
+frame_progress = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1188072584]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

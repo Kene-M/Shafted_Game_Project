@@ -42,10 +42,10 @@ anchor_left = 0.24300002
 anchor_top = 0.076000005
 anchor_right = 0.24300002
 anchor_bottom = 0.076000005
-offset_left = -153.585
-offset_top = 38.760002
-offset_right = -153.585
-offset_bottom = 38.760002
+offset_left = 95.73999
+offset_top = 210.61002
+offset_right = 95.73999
+offset_bottom = 210.61002
 script = ExtResource("3_qv4mr")
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=172370792]
