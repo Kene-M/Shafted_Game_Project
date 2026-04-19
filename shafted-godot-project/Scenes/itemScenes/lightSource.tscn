@@ -1522,4 +1522,5 @@ tile_set = SubResource("TileSet_5l1le")
 
 [node name="PointLight2D" type="PointLight2D" parent="skull" unique_id=247848265]
 position = Vector2(-424, -438.5)
+energy = 0.5
 texture = SubResource("GradientTexture2D_3nbto")
