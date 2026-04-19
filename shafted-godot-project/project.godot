@@ -25,16 +25,18 @@ Autoload="*res://Scripts/globalScripts/autoload.gd"
 
 [display]
 
-window/size/viewport_width=1440
-window/size/viewport_height=900
-window/size/window_width_override=1440
-window/size/window_height_override=900
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="Shafted Godot Project"
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
 
 [file_customization]
 
@@ -73,21 +75,6 @@ up={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
 ]
 }
-down={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
-]
-}
-left={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
-]
-}
-right={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
-]
-}
 fire={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(228, 19),"global_position":Vector2(237, 67),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
@@ -120,8 +107,3 @@ interact={
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="item"
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0
-2d/snap/snap_2d_transforms_to_pixel=true

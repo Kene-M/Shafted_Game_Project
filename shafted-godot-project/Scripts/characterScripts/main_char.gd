@@ -193,3 +193,7 @@ func remove_augment(aug: Augment):
 	augments.erase(aug)
 	_modify_augment_vals(aug, true)
 	
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	$AnimatedSprite2D.play("default")

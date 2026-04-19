@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://c1kf42qmtrgxx"]
+[gd_scene format=4 uid="uid://c1kf42qmtrgxx"]
 
-[ext_resource type="TileSet" path="res://Assets/tilemaps/master_tile_set.tres" id="1_7gatr"]
-[ext_resource type="Texture2D" path="res://Assets/tilemaps/Temple Tileset.png" id="2_h8g8c"]
-[ext_resource type="Texture2D" path="res://Assets/tilemaps/rocks.png" id="3_r5hv7"]
+[ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_7gatr"]
+[ext_resource type="Texture2D" uid="uid://c0r8eqbi6oxvj" path="res://Assets/Tilesets/Temple Tileset.png" id="2_h8g8c"]
+[ext_resource type="Texture2D" uid="uid://p3eerxv31xg" path="res://Assets/Tilesets/rocks.png" id="3_r5hv7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sam6c"]
 texture = ExtResource("2_h8g8c")
