@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://boto2ewvw2agh"]
+
+[ext_resource type="Texture2D" uid="uid://c2q2e155ggacm" path="res://Assets/Props/Resources/resource4.png" id="1_24vlf"]
+[ext_resource type="Script" uid="uid://bo1vnfjg6vhd2" path="res://resource_4_area.gd" id="2_0crq0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vi62w"]
+radius = 11.0
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=499709857]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1904678735]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_24vlf")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=558655218]
+collision_layer = 8
+script = ExtResource("2_0crq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2142232799]
+shape = SubResource("CircleShape2D_vi62w")
