@@ -13,6 +13,8 @@ var current_level: Node = null
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
 	player = player_scene.instantiate()
+	player.dash_ticks = 10
+	player.dash_speed = 1000
 	add_child(player)
 
 	# Auto-equip sword for demo
