@@ -22,10 +22,10 @@ anchors_preset = -1
 anchor_left = 0.21700001
 anchor_right = 0.651
 anchor_bottom = 0.30200002
-offset_left = -5.480011
-offset_top = 13.0
-offset_right = 186.55994
-offset_bottom = 45.303986
+offset_left = -40.48001
+offset_top = 16.0
+offset_right = 221.0
+offset_bottom = 48.303986
 theme_override_colors/font_color = Color(0.78453696, 0.70049334, 3.85046e-07, 1)
 theme_override_fonts/font = ExtResource("1_3wf2c")
 theme_override_font_sizes/font_size = 150
@@ -49,10 +49,10 @@ texture = ExtResource("2_7htnq")
 [node name="Control" type="Control" parent="." unique_id=184053654]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 624.0
-offset_top = 278.0
-offset_right = 740.0
-offset_bottom = 547.0
+offset_left = 602.0
+offset_top = 272.0
+offset_right = 718.0
+offset_bottom = 541.0
 theme = ExtResource("2_ufv5y")
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=372151395]

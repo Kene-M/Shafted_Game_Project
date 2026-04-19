@@ -4,7 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://c7top2b42d40m" path="res://Scenes/rooms/spawnRoom.tscn" id="2_3dryh"]
 [ext_resource type="PackedScene" uid="uid://d0fsuqpmsbdu4" path="res://generator_test.tscn" id="3_wowpa"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wrm1d"]
+load_path = "res://.godot/imported/ui x3.png-6e9890918824de3c80419e0724b824e8.ctex"
+
 [node name="Game" type="Node2D" unique_id=641626127]
 script = ExtResource("1_wrm1d")
 spawn_room_scene = ExtResource("2_3dryh")
 generator_scene = ExtResource("3_wowpa")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=219208944]
+position = Vector2(201, -22)
+texture = SubResource("CompressedTexture2D_wrm1d")
+region_enabled = true
+region_rect = Rect2(1343.1819, 419.0443, 192.7273, 22.016327)
