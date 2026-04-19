@@ -187,6 +187,17 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_mepkt"]
+offsets = PackedFloat32Array(0.025974026, 0.36363637, 0.45454547, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08796865, 0.08796865, 0.08796865, 1, 0, 0, 0, 1, 0.035737246, 0.035737246, 0.035737246, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tyhho"]
+gradient = SubResource("Gradient_mepkt")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="MainChar" type="CharacterBody2D" unique_id=1949068362]
 z_index = 4
 collision_layer = 2
@@ -273,6 +284,12 @@ frame = 7
 frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1188072584]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=700468566]
+position = Vector2(0, 1.9999924)
+scale = Vector2(0.9966666, 0.9466668)
+energy = 0.5
+texture = SubResource("GradientTexture2D_tyhho")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
