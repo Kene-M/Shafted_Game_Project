@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://c2do3gy36wu2e"]
+[gd_scene format=4 uid="uid://dsxp5876ql8cv"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_yw3dk"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_2ovtw"]
