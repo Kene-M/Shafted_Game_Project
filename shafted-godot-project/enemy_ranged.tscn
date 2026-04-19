@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ej768wc4lm3y"]
+[gd_scene format=3 uid="uid://ej768wc4lm3y"]
 
 [ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="1_be1o7"]
 
