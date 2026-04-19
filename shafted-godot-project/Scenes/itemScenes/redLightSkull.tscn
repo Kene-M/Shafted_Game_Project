@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://khisjfa624de"]
+
+[ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="1_0nxon"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rylen"]
+texture = ExtResource("1_0nxon")
+texture_region_size = Vector2i(8, 8)
+42:36/0 = 0
+42:35/0 = 0
+43:35/0 = 0
+43:36/0 = 0
+44:36/0 = 0
+42:34/0 = 0
+43:34/0 = 0
+44:34/0 = 0
+44:35/0 = 0
+45:35/0 = 0
+45:36/0 = 0
+46:36/0 = 0
+46:35/0 = 0
+46:34/0 = 0
+45:34/0 = 0
+43:33/0 = 0
+44:33/0 = 0
+45:33/0 = 0
+46:33/0 = 0
+46:32/0 = 0
+45:32/0 = 0
+44:32/0 = 0
+43:32/0 = 0
+42:32/0 = 0
+42:33/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_w4n1i"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_rylen")
+
+[sub_resource type="Gradient" id="Gradient_0nxon"]
+offsets = PackedFloat32Array(0, 0.6549296)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rylen"]
+gradient = SubResource("Gradient_0nxon")
+width = 300
+height = 300
+fill = 1
+fill_from = Vector2(0.50970876, 0.47572815)
+
+[node name="RedLightSkull" type="Node2D" unique_id=1592478250]
+
+[node name="IHATEMYCHUDLIFE" type="TileMapLayer" parent="." unique_id=353647693]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 36, 0, 0, 0)
+tile_set = SubResource("TileSet_w4n1i")
+
+[node name="PointLight2D" type="PointLight2D" parent="IHATEMYCHUDLIFE" unique_id=1377177060]
+position = Vector2(4, 5)
+energy = 1.18
+texture = SubResource("GradientTexture2D_rylen")
