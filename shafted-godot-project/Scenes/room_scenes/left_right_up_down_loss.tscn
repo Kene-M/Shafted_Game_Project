@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://dsxp5876ql8cv"]
+[gd_scene format=4 uid="uid://c2do3gy36wu2e"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_yw3dk"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_2ovtw"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="4_psokb"]
 [ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_psokb"]
 [ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_ehu4v"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="7_0jt5d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jf0vv"]
 texture = ExtResource("2_2ovtw")
@@ -1510,11 +1509,6 @@ shader = ExtResource("5_psokb")
 shader_parameter/fog_color = Color(0, 0, 0, 1)
 shader_parameter/fade_direction = 3.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc8iv"]
-shader = ExtResource("7_0jt5d")
-shader_parameter/fog_color = Color(0, 0, 0, 1)
-shader_parameter/fade_direction = 2.0
-
 [node name="left_right_up_down_Loss" type="Node2D" unique_id=1413305040]
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=1258020268]
@@ -1629,11 +1623,3 @@ offset_left = 272.0
 offset_top = 1040.0
 offset_right = 352.0
 offset_bottom = 1056.0
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1909788850]
-z_index = 2
-material = SubResource("ShaderMaterial_hc8iv")
-offset_left = 688.0
-offset_top = -448.0
-offset_right = 736.0
-offset_bottom = -432.0

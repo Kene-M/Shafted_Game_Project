@@ -2,8 +2,8 @@
 extends EditorScript
 
 # just a simple map offset maker to reuse some of my hand painted rooms
-const SOURCE_SCENE = "res://Scenes/room_scenes/left_up_down_cave_2.tscn"
-const OUTPUT_SCENE = "res://Scenes/room_scenes/left_up_down_cave_3.tscn"
+const SOURCE_SCENE = "res://Scenes/room_scenes/down_deadend.tscn"
+const OUTPUT_SCENE = "res://Scenes/room_scenes/up_deadend1.tscn"
 const FLIP_H = false
 const FLIP_V = false
 const ROTATE_DEGREES = 90  # go inc by 90 deg only!!!!!!!!!!!!!!!!!!
