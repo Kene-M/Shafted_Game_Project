@@ -7,13 +7,15 @@ func _ready() -> void:
 func init():
 	var parent = get_parent()
 	parent.connect("fire_projectile", _on_fire_projectile)
-	var sprite = $Sprite2D2
-	var texture = load("res://sword.png")
-	var new_atlas_texture := AtlasTexture.new()
-	new_atlas_texture.atlas = texture
-	new_atlas_texture.region = Rect2(901, 528, 998, 700)
-	sprite.texture = new_atlas_texture
-	sprite.scale = Vector2(0.04, 0.04)
+	var sprite = $"../AnimatedSprite2D/Sprite2D2"
+	#var texture = load("res://Assets/Player/sword.png")
+	#var new_atlas_texture := AtlasTexture.new()
+	#new_atlas_texture.atlas = texture
+	#new_atlas_texture.region = Rect2(901, 528, 998, 700)
+	var texture = load("res://Assets/Player/testrifle.png")
+	sprite.texture = texture
+	sprite.scale = Vector2(3.5, 3.5)
+	sprite.position = Vector2(7, 13)
 	sprite.rotation = 0
 
 func _on_fire_projectile(direction, augment_vals) -> void:
