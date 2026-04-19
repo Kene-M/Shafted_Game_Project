@@ -71,10 +71,16 @@ func _physics_process(delta):
 	if (direction != Vector2(0,0)):
 		if $AnimatedSprite2D.animation == "default":
 			$AnimatedSprite2D.play("run")
-		if direction.x < 0:
+		if direction.x < 0 and $AnimatedSprite2D.flip_h != false:
 			$AnimatedSprite2D.flip_h = false
-		else:
+			$AnimatedSprite2D/Sprite2D2.flip_h = false
+			$AnimatedSprite2D/Sprite2D2.position.x = -$AnimatedSprite2D/Sprite2D2.position.x
+		elif direction.x > 0 and $AnimatedSprite2D.flip_h != true:
+			print("test2")
 			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D/Sprite2D2.flip_h = true
+			$AnimatedSprite2D/Sprite2D2.position.x = -$AnimatedSprite2D/Sprite2D2.position.x
+			
 		cur_direction = direction
 		if (speed < max_speed):
 			speed += 80
