@@ -26,7 +26,7 @@ func _run() -> void:
 				child.scale.y = -1
 				child.position.y += map_h
 
-			# Apply rotation and compensate position
+			# rotation and compensate position
 			match ROTATE_DEGREES:
 				90:
 					child.rotation_degrees = 90
