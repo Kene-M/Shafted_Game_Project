@@ -1,16 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://vu65iiqa1fw4"]
+[gd_scene format=3 uid="uid://dudeqhxqf6xis"]
 
 [ext_resource type="Script" uid="uid://crlnlifroakyw" path="res://Scenes/generator_test_items/generator_test.gd" id="1_iwqj7"]
 [ext_resource type="PackedScene" uid="uid://cejggh7sqonh7" path="res://Scenes/room_scenes/first_room.tscn" id="2_wiy4m"]
-[ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/room_scenes/tri_connectl_lud.tscn" id="3_osax1"]
-[ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/room_scenes/lr_connector.tscn" id="4_do6ry"]
-[ext_resource type="PackedScene" uid="uid://cg4g2nvt1s0dq" path="res://Scenes/room_scenes/ud_hall_way.tscn" id="5_mv1hs"]
+[ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/rooms/tri_connectl_lud.tscn" id="3_osax1"]
+[ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/rooms/lr_connector.tscn" id="4_do6ry"]
+[ext_resource type="PackedScene" uid="uid://cg4g2nvt1s0dq" path="res://Scenes/rooms/ud_hall_way.tscn" id="5_mv1hs"]
+[ext_resource type="PackedScene" uid="uid://ckd1ih2g30jdw" path="res://Enemy/Slug/slug.tscn" id="6_1tw1x"]
+[ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="7_fnmgj"]
+[ext_resource type="PackedScene" uid="uid://mt41mrpr8263" path="res://Enemy/Kamikaze/kamikaze.tscn" id="8_77im3"]
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="9_bvanl"]
+[ext_resource type="PackedScene" uid="uid://dljpxqtl5r8rb" path="res://Enemy/Flying/flying.tscn" id="10_w6wop"]
+[ext_resource type="PackedScene" uid="uid://b03h8j8p660b4" path="res://Enemy/Egg/egg.tscn" id="11_upugv"]
+[ext_resource type="PackedScene" uid="uid://dueal3iqlrqdc" path="res://Enemy/Bomber/bomber.tscn" id="12_jpa1s"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1055102476]
 script = ExtResource("1_iwqj7")
 scene_start = ExtResource("2_wiy4m")
 scene_all_dirs = ExtResource("3_osax1")
 scene_lr = ExtResource("4_do6ry")
 scene_ud = ExtResource("5_mv1hs")
+enemy_scenes = Array[PackedScene]([ExtResource("6_1tw1x"), ExtResource("7_fnmgj"), ExtResource("8_77im3"), ExtResource("9_bvanl"), ExtResource("10_w6wop"), ExtResource("11_upugv"), ExtResource("12_jpa1s")])
 
-[node name="OverviewCamera" type="Camera2D" parent="."]
+[node name="OverviewCamera" type="Camera2D" parent="." unique_id=952315184]

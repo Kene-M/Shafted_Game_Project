@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dueal3iqlrqdc"]
+[gd_scene format=3 uid="uid://dueal3iqlrqdc"]
 
 [ext_resource type="Script" uid="uid://dbjjh07kv8fbe" path="res://Enemy/Bomber/bomber.gd" id="1_2s4ua"]
 [ext_resource type="Texture2D" uid="uid://cyo3fwn0anjtb" path="res://Assets/enemies/Monster Pack/Monster6Pack.png" id="1_sbfga"]
@@ -253,52 +253,52 @@ radius = 10.5
 height = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_04a27"]
-radius = 93.0
+radius = 150.30379
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax24g"]
-radius = 135.01482
+radius = 164.3472
 
-[node name="bomber" type="CharacterBody2D"]
+[node name="bomber" type="CharacterBody2D" unique_id=1409204171]
 scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_2s4ua")
 knockback_strength = 100.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=43701314]
 sprite_frames = SubResource("SpriteFrames_fvur2")
 animation = &"explosion"
 frame = 11
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1893607067]
 position = Vector2(-3.5, 13)
 shape = SubResource("CapsuleShape2D_k1out")
 
-[node name="Navigation" type="Node2D" parent="."]
+[node name="Navigation" type="Node2D" parent="." unique_id=357349168]
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation" unique_id=159286499]
 debug_enabled = true
 
-[node name="RecalculateTimer" type="Timer" parent="Navigation"]
+[node name="RecalculateTimer" type="Timer" parent="Navigation" unique_id=423914418]
 wait_time = 0.1
 autostart = true
 
-[node name="Aggro" type="Node2D" parent="."]
+[node name="Aggro" type="Node2D" parent="." unique_id=91175330]
 
-[node name="AggroRange" type="Area2D" parent="Aggro"]
+[node name="AggroRange" type="Area2D" parent="Aggro" unique_id=204418228]
 position = Vector2(-2, 11)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange" unique_id=1848536556]
 shape = SubResource("CircleShape2D_04a27")
 debug_color = Color(0.912486, 0.173641, 0.592982, 0.419608)
 
-[node name="DeAggroRange" type="Area2D" parent="Aggro"]
+[node name="DeAggroRange" type="Area2D" parent="Aggro" unique_id=1455356218]
 position = Vector2(-3, 13)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" unique_id=1642202293]
 shape = SubResource("CircleShape2D_ax24g")
