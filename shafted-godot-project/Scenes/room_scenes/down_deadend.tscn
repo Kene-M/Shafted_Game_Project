@@ -1558,3 +1558,6 @@ offset_top = -640.0
 offset_right = 48.0
 offset_bottom = -599.0
 color = Color(0, 0, 0, 1)
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=648457981]
+position = Vector2(0, -639)

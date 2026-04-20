@@ -1592,3 +1592,12 @@ position = Vector2(-516, -278)
 
 [node name="RedLightSkull5" parent="." unique_id=1740790977 instance=ExtResource("6_2d63s")]
 position = Vector2(307, -21)
+
+[node name="ExitSouth" type="Marker2D" parent="." unique_id=1802407940]
+position = Vector2(-321, 633)
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=898724635]
+position = Vector2(-63, -628)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=573968816]
+position = Vector2(-631, -265)

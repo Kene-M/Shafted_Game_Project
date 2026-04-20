@@ -69,16 +69,25 @@ func _load_dungeon() -> void:
 	add_child(current_level)
 	move_child(player, get_child_count() - 1)
 
-	# The generator needs a reference to the player so it can position them
-	# Wait one frame for the generator's _ready to finish placing rooms
-	await get_tree().process_frame
-	await get_tree().process_frame
+	# Wait for the generator to signal it's fully done placing rooms
+	if current_level.has_signal("dungeon_ready"):
+		await current_level.dungeon_ready
+	else:
+		# Fallback: wait enough frames for all call_deferred chains to finish
+		for i in 5:
+			await get_tree().process_frame
 
-	# Place player at the start room's origin
+	# Place player at the start room's spawn point
 	if current_level.has_method("get_player_spawn_position"):
 		player.global_position = current_level.get_player_spawn_position()
 	else:
 		player.global_position = Vector2.ZERO
+
+	# Hand camera control to the player
+	var cam = player.find_child("Camera2D", true, false)
+	if cam:
+		cam.make_current()
+		cam.zoom = Vector2(2, 2)  # adjust zoom to taste for room view
 
 
 func _clear_current_level() -> void:
