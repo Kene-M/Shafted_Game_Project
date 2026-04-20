@@ -1,11 +1,17 @@
-extends Node
+extends Control
 
+@onready var new_game_btn: Button = $NewGameButton
+@onready var load_game_btn: Button = $LoadGameButton
+@onready var options_btn: Button = $CreditsButton
+@onready var exit_btn: Button = $ExitButton
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+const SPAWNROOM_SCENE := "res://scenes/rooms/spawnRoom.tscn"
 
+func _on_new_game_pressed() -> void:
+	get_tree().change_scene_to_file(SPAWNROOM_SCENE)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_options_pressed() -> void:
+	pass  # hook up options menu later
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()
