@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 @export var speed = 0
-@export var direction: Vector2 = Vector2(0,0)
+@export var direction = Vector2(0,0)
 @export var base_damage: int = 0
 @export var crit_damage: float = 1
 @export var crit_chance: float = 0

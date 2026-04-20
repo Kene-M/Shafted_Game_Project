@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d3t1k7i55040j"]
+
+[ext_resource type="Texture2D" uid="uid://cemkugguqrwi8" path="res://Assets/Player/testlauncher.png" id="1_hfyh5"]
+[ext_resource type="Script" uid="uid://dkb15sy6j8csh" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_launcher.gd" id="2_hfyh5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkjch"]
+radius = 26.1725
+
+[node name="StaticLauncher" type="StaticBody2D" unique_id=524716989]
+collision_layer = 8
+physics_material_override = SubResource("PhysicsMaterial_fch43")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=363030966]
+scale = Vector2(1.5934397, 1.496683)
+texture = ExtResource("1_hfyh5")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1208162694]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("2_hfyh5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1080355234]
+shape = SubResource("CircleShape2D_fkjch")
