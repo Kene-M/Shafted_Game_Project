@@ -22,9 +22,9 @@ func init():
 	sprite.texture = texture
 	sprite.scale = Vector2(3.7, 3.7)
 	if $"../AnimatedSprite2D".flip_h == false:
-		sprite.position = Vector2(4, 13)
+		sprite.position = Vector2(2, 10)
 	else:
-		sprite.position = Vector2(-4, 13)
+		sprite.position = Vector2(-2, 10)
 	sprite.rotation = 0
 
 func _on_fire_projectile(direction, augment_vals) -> void:
