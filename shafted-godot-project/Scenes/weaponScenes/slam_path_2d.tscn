@@ -57,6 +57,17 @@ animations = [{
 "speed": 13.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_mepkt"]
+offsets = PackedFloat32Array(0.025974026, 0.36363637, 0.45454547, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08796865, 0.08796865, 0.08796865, 1, 0, 0, 0, 1, 0.035737246, 0.035737246, 0.035737246, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubrik"]
+gradient = SubResource("Gradient_mepkt")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="SlamPath2D" type="Path2D" unique_id=1510085992]
 curve = SubResource("Curve2D_vf8bl")
 script = ExtResource("1_vf8bl")
@@ -84,6 +95,12 @@ scale = Vector2(2.75, 2.5)
 sprite_frames = SubResource("SpriteFrames_4f0jk")
 frame = 4
 frame_progress = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="Area2D/AnimatedSprite2D" unique_id=2127857472]
+scale = Vector2(0.29833332, 0.2883334)
+color = Color(0.9400269, 0.8623555, 1.540184e-06, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_ubrik")
 
 [connection signal="slam_complete" from="PathFollow2D" to="." method="_on_path_follow_2d_slam_complete"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
