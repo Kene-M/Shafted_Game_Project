@@ -4,3 +4,4 @@ var type: AugType.Type
 var aug_name: String
 var data: int
 var price: Array = [0,0,0,0,0]
+var resource: String

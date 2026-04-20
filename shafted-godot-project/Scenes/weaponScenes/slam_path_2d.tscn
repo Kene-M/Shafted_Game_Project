@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://buxc8r77v8u0a"]
+
+[ext_resource type="Texture2D" uid="uid://8ehvalr34mhl" path="res://Assets/Player/brown_greathammer.png" id="1_s672u"]
+[ext_resource type="Script" uid="uid://batkvd1ql6jfq" path="res://Scenes/weaponScenes/slam_path_2d.gd" id="1_vf8bl"]
+[ext_resource type="Script" uid="uid://c2j50pmymsen7" path="res://Scenes/weaponScenes/slam_path_follow_2d.gd" id="2_v38jr"]
+[ext_resource type="Texture2D" uid="uid://ddmnh5q7c8pm8" path="res://Assets/Props/fx_yellow_impact.png" id="4_ubrik"]
+
+[sub_resource type="Curve2D" id="Curve2D_vf8bl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, -13, 0, 0, 0, 0, 35, -12, 0, 0, 0, 0, 53, 0)
+}
+point_count = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v38jr"]
+radius = 28.071337
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35k10"]
+atlas = ExtResource("4_ubrik")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rmqm"]
+atlas = ExtResource("4_ubrik")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or3w2"]
+atlas = ExtResource("4_ubrik")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60npg"]
+atlas = ExtResource("4_ubrik")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l26v"]
+atlas = ExtResource("4_ubrik")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4f0jk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35k10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rmqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or3w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60npg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l26v")
+}],
+"loop": false,
+"name": &"default",
+"speed": 13.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_mepkt"]
+offsets = PackedFloat32Array(0.025974026, 0.36363637, 0.45454547, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08796865, 0.08796865, 0.08796865, 1, 0, 0, 0, 1, 0.035737246, 0.035737246, 0.035737246, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubrik"]
+gradient = SubResource("Gradient_mepkt")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="SlamPath2D" type="Path2D" unique_id=1510085992]
+curve = SubResource("Curve2D_vf8bl")
+script = ExtResource("1_vf8bl")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1475956731]
+rotation = -0.62548506
+loop = false
+script = ExtResource("2_v38jr")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D" unique_id=1455888988]
+texture = ExtResource("1_s672u")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1290290212]
+position = Vector2(53, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=104008267]
+shape = SubResource("CircleShape2D_v38jr")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=277077991]
+visible = false
+position = Vector2(9.536743e-07, 9.536743e-07)
+scale = Vector2(2.75, 2.5)
+sprite_frames = SubResource("SpriteFrames_4f0jk")
+frame = 4
+frame_progress = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="Area2D/AnimatedSprite2D" unique_id=2127857472]
+scale = Vector2(0.29833332, 0.2883334)
+color = Color(0.9400269, 0.8623555, 1.540184e-06, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_ubrik")
+
+[connection signal="slam_complete" from="PathFollow2D" to="." method="_on_path_follow_2d_slam_complete"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="Area2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

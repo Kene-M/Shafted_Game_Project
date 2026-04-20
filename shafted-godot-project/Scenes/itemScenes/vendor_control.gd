@@ -22,9 +22,9 @@ func _ready() -> void:
 	
 func _create_augments():
 	var aug_args = [
-			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD, [3,2,0,0,0]], 
-			["HealthUp", rng.randi_range(50,200), AugType.Type.HPADD, [2,1,1,0,0]],
-			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD, [2,2,0,0,0]]
+			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD, [3,2,0,0,0], "res://Assets/Player/Augments/AttackUpAugment.png"], 
+			["HealthUp", rng.randi_range(50,200), AugType.Type.HPADD, [2,1,1,0,0], "res://Assets/Player/Augments/HealthUpAugment.png"],
+			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD, [2,2,0,0,0], "res://Assets/Player/Augments/SpeedUpAugment.png"]
 		]
 	var tree = $TabContainer/BuyTree
 	var root = tree.create_item()
@@ -37,8 +37,10 @@ func _create_augments():
 		new_aug.data = aug[1]
 		new_aug.type = aug[2]
 		new_aug.price = aug[3]
+		new_aug.resource = aug[4]
 		new_child.set_text(0, new_aug.aug_name)
 		new_child.set_metadata(0, new_aug)
+		new_child.set_icon(0, load(aug[4]))
 		for i in range(1,6):
 			if aug[3][i-1] != 0:
 				new_child.set_text(i, str(aug[3][i-1]))

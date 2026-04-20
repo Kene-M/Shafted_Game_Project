@@ -21,9 +21,9 @@ func init():
 	sprite.texture = texture
 	sprite.scale = Vector2(3.9, 3.9)
 	if $"../AnimatedSprite2D".flip_h == false:
-		sprite.position = Vector2(3, 9)
+		sprite.position = Vector2(1, 7)
 	else:
-		sprite.position = Vector2(-3, 9)
+		sprite.position = Vector2(-1, 7)
 	sprite.rotation = 0
 
 func _on_fire_projectile(direction, augment_vals) -> void:
@@ -38,6 +38,9 @@ func _on_fire_projectile(direction, augment_vals) -> void:
 	proj_inst.base_damage = (60 + augment_vals[AugType.Type.ATKADD]) * augment_vals[AugType.Type.ATKMULT]
 	proj_inst.crit_damage = 1.5
 	proj_inst.crit_chance = 0.25
+	
+	
+	
 	await get_tree().create_timer(1).timeout
 	if is_instance_valid(proj_inst):
 		proj_inst.queue_free()

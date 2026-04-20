@@ -1,10 +1,38 @@
-[gd_scene load_steps=0 format=3 uid="uid://c12bugc78mp5k"]
+[gd_scene format=3 uid="uid://c12bugc78mp5k"]
 
 [ext_resource type="Script" uid="uid://dy84v6y2mifsc" path="res://Scripts/attack_up_aug_area_2d.gd" id="1_mvblj"]
-[ext_resource type="Texture2D" uid="uid://u6vxo5vtvax0" path="res://Assets/Props/orange_reticle.png" id="2_mvblj"]
+[ext_resource type="Texture2D" uid="uid://u6vxo5vtvax0" path="res://Assets/Player/Augments/AttackUpAugment.png" id="2_mvblj"]
+[ext_resource type="Texture2D" uid="uid://u4b71m0vyqpo" path="res://Assets/enemies/dummy/hitFX/HitFX1.png" id="3_dq558"]
+[ext_resource type="Texture2D" uid="uid://bwii86d7qslls" path="res://Assets/enemies/dummy/hitFX/HitFX2.png" id="4_e38jg"]
+[ext_resource type="Texture2D" uid="uid://cms6pt6cdm5i6" path="res://Assets/enemies/dummy/hitFX/HitFX3.png" id="5_tuxo0"]
+[ext_resource type="Texture2D" uid="uid://bpdeurc4n2ivi" path="res://Assets/enemies/dummy/hitFX/HitFX4.png" id="6_rop36"]
+[ext_resource type="Texture2D" uid="uid://bd1lfo5utd22i" path="res://Assets/enemies/dummy/hitFX/HitFX5.png" id="7_l1hpk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
 radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xas3k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_dq558")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e38jg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tuxo0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rop36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_l1hpk")
+}],
+"loop": true,
+"name": &"hit_fx",
+"speed": 8.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rop36"]
 
@@ -23,6 +51,13 @@ z_index = 5
 position = Vector2(0, 2.3841858e-07)
 scale = Vector2(1.5625, 1.4375)
 texture = ExtResource("2_mvblj")
+
+[node name="HitFX" type="AnimatedSprite2D" parent="Sprite2D" unique_id=2055258389]
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_xas3k")
+animation = &"hit_fx"
+autoplay = "hit_fx"
+frame_progress = 0.27069333
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=383991919]
 position = Vector2(-4.7683716e-07, 0)

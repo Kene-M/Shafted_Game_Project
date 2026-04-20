@@ -8,11 +8,15 @@ extends Node2D
 var player_scene: PackedScene = preload("res://Scenes/characterScenes/main_char.tscn")
 var player: CharacterBody2D = null
 var current_level: Node = null
-
+var pause_menu_scene:PackedScene = preload("res://Scenes/UI/pause_menu.tscn")
+var pause_menu: Control = null
 
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
 	player = player_scene.instantiate()
+	player = player_scene.instantiate()
+	print("Player scene path: ", player_scene.resource_path)
+	print("Player groups after instantiate: ", player.get_groups())
 	player.max_dash_ticks = 50
 	player.dash_speed = 1000
 	Autoload.main_char = player

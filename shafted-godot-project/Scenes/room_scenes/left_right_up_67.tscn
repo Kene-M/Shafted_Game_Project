@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_7rqkl"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="3_xful4"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="4_sp51c"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="5_cnw6a"]
-[ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_xful4"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="7_p31h2"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="5_cnw6a"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_xful4"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="7_p31h2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cnw6a"]
 texture = ExtResource("2_7rqkl")
@@ -1611,3 +1611,12 @@ color = Color(0, 0, 0, 1)
 
 [node name="dark" type="CanvasModulate" parent="." unique_id=368902068]
 color = Color(0.39498675, 0.39498675, 0.39498657, 1)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=660537415]
+position = Vector2(-640, 100)
+
+[node name="ExitEast" type="Marker2D" parent="." unique_id=1872632284]
+position = Vector2(176, 363)
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=1969230921]
+position = Vector2(70, -479)

@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://c2cuol35rtpp4" path="res://Assets/UI/dashbar.tres" id="1_ny26j"]
 [ext_resource type="Script" uid="uid://pv1bi4oeuukh" path="res://Scenes/UI/dash_fill_bar.gd" id="2_8glcj"]
 [ext_resource type="Theme" uid="uid://c7cchvf3xoq3n" path="res://Scenes/UI/DefaultTheme.tres" id="2_fdl0h"]
+[ext_resource type="Texture2D" uid="uid://dh7nsfm2la768" path="res://Assets/UI/UI_Hologram_Banner_01a_Dash_Bar.png" id="3_8glcj"]
+[ext_resource type="Texture2D" uid="uid://cuxxvp5qe5u1j" path="res://Assets/UI/UI_Hologram_Banner_01a_Health_Bar.png" id="5_ux5h0"]
+[ext_resource type="Script" uid="uid://dlpsl0j8mcjh2" path="res://Scenes/UI/health_fill_bar.gd" id="5_vsu76"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1575171312]
 
@@ -14,6 +17,7 @@ offset_bottom = 81.0
 theme_override_constants/separation = 8
 
 [node name="DashBar" type="TextureRect" parent="TopLeft" unique_id=1437358557]
+visible = false
 z_index = 6
 clip_contents = true
 layout_mode = 2
@@ -34,6 +38,30 @@ offset_left = 23.0
 offset_top = 17.0
 offset_right = 227.0
 offset_bottom = 44.0
+color = Color(0.21962553, 0.4457081, 1, 1)
+script = ExtResource("2_8glcj")
+
+[node name="DashBar2" type="TextureRect" parent="TopLeft" unique_id=733767953]
+z_index = 6
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_8glcj")
+
+[node name="DashBarFill" type="TextureRect" parent="TopLeft/DashBar2" unique_id=322756117]
+z_index = 7
+layout_mode = 0
+offset_left = 24.0
+offset_top = 19.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DashFillBar" type="ColorRect" parent="TopLeft/DashBar2" unique_id=1238632271]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 249.86
+offset_bottom = 44.34
 color = Color(0.21962553, 0.4457081, 1, 1)
 script = ExtResource("2_8glcj")
 
@@ -78,3 +106,33 @@ autowrap_mode = 2
 [node name="DismissButton" type="Button" parent="TurtorialBox/VBoxContainer" unique_id=1828671878]
 layout_mode = 2
 text = "CONTINUE"
+
+[node name="TopLeft2" type="HBoxContainer" parent="." unique_id=1709842557]
+offset_left = 15.0
+offset_top = 74.065
+offset_right = 265.0
+offset_bottom = 134.06497
+
+[node name="HealthBar" type="TextureRect" parent="TopLeft2" unique_id=810044272]
+z_index = 6
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_ux5h0")
+
+[node name="DashBarFill" type="TextureRect" parent="TopLeft2/HealthBar" unique_id=1547942581]
+z_index = 7
+layout_mode = 0
+offset_left = 24.0
+offset_top = 19.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthFillBar" type="ColorRect" parent="TopLeft2/HealthBar" unique_id=1346390797]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 249.86
+offset_bottom = 44.34
+color = Color(0.7330286, 0, 0, 1)
+script = ExtResource("5_vsu76")

@@ -49,7 +49,9 @@ var room_display_radius: float = 1500.0
 
 # How far enemies scatter around their spawn marker (pixels)
 @export var spawn_scatter_radius: float = 80.0
-
+signal dungeon_ready
+var current_room_pos: Vector2i = Vector2i(0, 0)
+var is_transitioning: bool = false
 
 # ─────────────────────────────────────────────
 # INTERNAL DATA
@@ -411,6 +413,7 @@ func _place_rooms():
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
 	call_deferred("_spawn_boundary")
+	call_deferred("_setup_room_system")
 
 
 # ─────────────────────────────────────────────
@@ -760,6 +763,149 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 		if grid.has(pos + dir):
 			count += 1
 	return count
+
+# ─────────────────────────────────────────────
+# ROOM VISIBILITY + EXIT TRIGGERS
+# ─────────────────────────────────────────────
+
+func _setup_room_system() -> void:
+	# Hide all rooms except the start room
+	for grid_pos in placed_rooms.keys():
+		placed_rooms[grid_pos].visible = (grid_pos == Vector2i(0, 0))
+	
+	# Spawn exit triggers on every placed room
+	for grid_pos in placed_rooms.keys():
+		_add_exit_triggers(grid_pos)
+	
+	# Disable the overview camera — player camera takes over
+	var overview_cam = get_node_or_null("OverviewCamera")
+	if overview_cam:
+		overview_cam.enabled = false
+	
+	print("Room system ready. Start room visible, all triggers placed.")
+	emit_signal("dungeon_ready")
+
+
+func _add_exit_triggers(grid_pos: Vector2i) -> void:
+	var room = placed_rooms[grid_pos]
+	
+	for dir_name in DIRECTIONS.keys():
+		var neighbor_pos = grid_pos + DIRECTIONS[dir_name]
+		
+		# Only add a trigger if there's actually a room on the other side
+		if not placed_rooms.has(neighbor_pos):
+			continue
+		
+		# Only add if the exit marker exists in this room scene
+		var marker = room.find_child("Exit" + dir_name, true, false)
+		if marker == null:
+			continue
+		
+		var trigger = Area2D.new()
+		trigger.name = "ExitTrigger_" + dir_name
+		trigger.collision_layer = 0
+		trigger.collision_mask = 2  # layer 2 = player (matches your MainChar collision_layer)
+		
+		var shape = CollisionShape2D.new()
+		var rect = RectangleShape2D.new()
+		# Wide flat zone — tall for E/W exits, wide for N/S exits
+		rect.size = Vector2(32, 160) if dir_name in ["East", "West"] else Vector2(160, 32)
+		shape.shape = rect
+		trigger.add_child(shape)
+		room.add_child(trigger)
+		trigger.global_position = marker.global_position
+		
+		trigger.set_meta("from_grid", grid_pos)
+		trigger.set_meta("to_grid", neighbor_pos)
+		trigger.set_meta("direction", dir_name)
+		print("  Trigger added: ", dir_name, " at ", marker.global_position, " mask=", trigger.collision_mask)
+		trigger.body_entered.connect(_on_exit_triggered.bind(trigger))
+
+
+func _on_exit_triggered(body: Node2D, trigger: Area2D) -> void:
+	print("EXIT TRIGGER FIRED — body: ", body.name, " groups: ", body.get_groups())
+	if is_transitioning:
+		print("  → blocked: already transitioning")
+		return
+	if not body.is_in_group("player"):
+		print("  → blocked: not in player group")
+		return
+	var to_grid: Vector2i = trigger.get_meta("to_grid")
+	var direction: String = trigger.get_meta("direction")
+	print("  → transitioning to ", to_grid, " via ", direction)
+	is_transitioning = true
+	_transition_to_room(to_grid, direction)
+
+
+func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void:
+	#is_transitioning = true
+	var player = Autoload.main_char
+	var overlay = _get_or_create_overlay()
+	
+	# Fade out
+	var tween_out = create_tween()
+	tween_out.tween_property(overlay, "color:a", 1.0, 0.35)
+	await tween_out.finished
+	
+	# Swap room visibility
+	placed_rooms[current_room_pos].visible = false
+	var new_room = placed_rooms[to_grid]
+	new_room.visible = true
+	
+	# Reposition player at the entry side of the new room
+	var entry_dir = OPPOSITE[came_from_direction]
+	var entry_marker = new_room.find_child("Exit" + entry_dir, true, false)
+	
+	if entry_marker:
+		var inward = Vector2.ZERO
+		match entry_dir:
+			"East":  inward = Vector2(-200, 0)
+			"West":  inward = Vector2(200, 0)
+			"North": inward = Vector2(0, 200)
+			"South": inward = Vector2(0, -200)
+		player.global_position = entry_marker.global_position + inward
+	else:
+		player.global_position = new_room.global_position
+	
+	current_room_pos = to_grid
+	
+		# Fade back in
+	var tween_in = create_tween()
+	tween_in.tween_property(overlay, "color:a", 0.0, 0.35)
+	await tween_in.finished
+	
+	# Briefly disable triggers in new room to prevent immediate re-trigger
+	for child in new_room.get_children():
+		if child.name.begins_with("ExitTrigger_"):
+			child.set_deferred("monitoring", false)
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	for child in new_room.get_children():
+		if child.name.begins_with("ExitTrigger_"):
+			child.set_deferred("monitoring", true)
+	
+	is_transitioning = false
+
+
+func _get_or_create_overlay() -> ColorRect:
+	# Reuse if already created
+	var existing = get_tree().get_first_node_in_group("transition_overlay")
+	if existing:
+		return existing
+	
+	# Create a CanvasLayer so the overlay always renders on top of everything
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100
+	get_tree().root.add_child(canvas)
+	
+	var rect = ColorRect.new()
+	rect.color = Color(0, 0, 0, 0)
+	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rect.add_to_group("transition_overlay")
+	canvas.add_child(rect)
+	return rect
 
 
 
