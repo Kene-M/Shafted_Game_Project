@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3t1k7i55040j"]
 
-[ext_resource type="Texture2D" uid="uid://cemkugguqrwi8" path="res://Assets/Player/testlauncher.png" id="1_hfyh5"]
+[ext_resource type="Texture2D" uid="uid://c2jboo3yguxcu" path="res://Assets/Player/testlauncherstatic.png" id="1_hfyh5"]
 [ext_resource type="Script" uid="uid://dkb15sy6j8csh" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_launcher.gd" id="2_hfyh5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
