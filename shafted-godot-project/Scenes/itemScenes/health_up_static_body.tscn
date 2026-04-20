@@ -53,4 +53,5 @@ texture = ExtResource("2_ehqqf")
 scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_p4qr8")
 animation = &"hit_fx"
+autoplay = "hit_fx"
 frame_progress = 0.91639966

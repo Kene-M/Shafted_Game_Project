@@ -53,4 +53,5 @@ texture = ExtResource("2_pot4s")
 scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_oieid")
 animation = &"hit_fx"
+autoplay = "hit_fx"
 frame_progress = 0.34125188
