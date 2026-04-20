@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dltgb2b822dtq"
-path="res://.godot/imported/tempAttackAugment.png-74601ac4604341f9dcf4666e7b52a318.ctex"
+uid="uid://u6vxo5vtvax0"
+path="res://.godot/imported/AttackUpAugment.png-6c0720f0732284415ce0efb6886868e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Player/Augments/tempAttackAugment.png"
-dest_files=["res://.godot/imported/tempAttackAugment.png-74601ac4604341f9dcf4666e7b52a318.ctex"]
+source_file="res://Assets/Player/Augments/AttackUpAugment.png"
+dest_files=["res://.godot/imported/AttackUpAugment.png-6c0720f0732284415ce0efb6886868e4.ctex"]
 
 [params]
 

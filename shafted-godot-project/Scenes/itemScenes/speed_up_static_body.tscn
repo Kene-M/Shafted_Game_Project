@@ -1,10 +1,38 @@
-[gd_scene load_steps=0 format=3 uid="uid://iry0wg0aucvv"]
+[gd_scene format=3 uid="uid://iry0wg0aucvv"]
 
 [ext_resource type="Script" uid="uid://cfcn8psetca1e" path="res://Scripts/augmentScripts/speed_up_aug_area_2d.gd" id="1_pot4s"]
-[ext_resource type="Texture2D" uid="uid://bm3tw0m2xqpwf" path="res://Assets/Player/Augments/SpeedUpAugment.png" id="2_pot4s"]
+[ext_resource type="Texture2D" uid="uid://pyj8gk70eufu" path="res://Assets/Player/Augments/SpeedUpAugment.png" id="2_pot4s"]
+[ext_resource type="Texture2D" uid="uid://u4b71m0vyqpo" path="res://Assets/enemies/dummy/hitFX/HitFX1.png" id="3_xt3xc"]
+[ext_resource type="Texture2D" uid="uid://bwii86d7qslls" path="res://Assets/enemies/dummy/hitFX/HitFX2.png" id="4_hqe5g"]
+[ext_resource type="Texture2D" uid="uid://cms6pt6cdm5i6" path="res://Assets/enemies/dummy/hitFX/HitFX3.png" id="5_5y3d1"]
+[ext_resource type="Texture2D" uid="uid://bpdeurc4n2ivi" path="res://Assets/enemies/dummy/hitFX/HitFX4.png" id="6_ir64j"]
+[ext_resource type="Texture2D" uid="uid://bd1lfo5utd22i" path="res://Assets/enemies/dummy/hitFX/HitFX5.png" id="7_3tek5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
 radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oieid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xt3xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hqe5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5y3d1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ir64j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3tek5")
+}],
+"loop": true,
+"name": &"hit_fx",
+"speed": 8.0
+}]
 
 [node name="SpeedUpStaticBody" type="StaticBody2D" unique_id=45848608]
 
@@ -17,4 +45,12 @@ script = ExtResource("1_pot4s")
 shape = SubResource("CircleShape2D_iojf6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1938788342]
+z_index = 5
+scale = Vector2(1.23, 1.23)
 texture = ExtResource("2_pot4s")
+
+[node name="HitFX" type="AnimatedSprite2D" parent="Sprite2D" unique_id=1453995436]
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_oieid")
+animation = &"hit_fx"
+frame_progress = 0.34125188

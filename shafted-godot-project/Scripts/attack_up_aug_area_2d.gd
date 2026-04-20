@@ -9,3 +9,4 @@ func _ready():
 	aug.data = 10
 	aug.type = AugType.Type.ATKADD
 	aug.price = [3,2,0,0,0]
+	aug.resource = "res://Assets/Player/Augments/AttackUpAugment.png" 
