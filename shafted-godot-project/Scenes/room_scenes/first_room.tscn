@@ -2445,17 +2445,6 @@ shader = ExtResource("7_3r7sd")
 shader_parameter/fog_color = Color(0, 0, 0, 1)
 shader_parameter/fade_direction = 2.0
 
-[sub_resource type="Gradient" id="Gradient_mepkt"]
-offsets = PackedFloat32Array(0.22352941, 0.84705883)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wqdid"]
-gradient = SubResource("Gradient_mepkt")
-width = 150
-height = 150
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-
 [node name="firstRoom" type="Node2D" unique_id=790480780]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=627275729]
@@ -2536,7 +2525,3 @@ offset_top = -64.0
 offset_right = -384.0
 offset_bottom = -26.0
 color = Color(0, 0, 0, 1)
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=927708049]
-position = Vector2(-9, 9)
-texture = SubResource("GradientTexture2D_wqdid")
