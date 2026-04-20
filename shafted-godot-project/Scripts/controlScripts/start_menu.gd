@@ -11,6 +11,9 @@ func _on_new_game_pressed() -> void:
 	print("New Game pressed")
 	get_tree().change_scene_to_file(GAME_SCENE)
 
+func _on_load_game_pressed() -> void:
+	pass # never hook up (your sins won't be forgiven)
+
 func _on_options_pressed() -> void:
 	pass  # hook up options menu later
 
