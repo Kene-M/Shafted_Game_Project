@@ -34,7 +34,6 @@ func _on_fire_projectile(direction, augment_vals) -> void:
 	proj_inst.global_position = char.global_position
 	get_tree().current_scene.add_child(proj_inst)
 	proj_inst.direction = direction
-	print("DIR: ", direction)
 	proj_inst.speed = 1000
 	proj_inst.base_damage = (60 + augment_vals[AugType.Type.ATKADD]) * augment_vals[AugType.Type.ATKMULT]
 	proj_inst.crit_damage = 1.5
