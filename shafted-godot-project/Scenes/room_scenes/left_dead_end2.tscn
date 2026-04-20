@@ -2,6 +2,9 @@
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_w3goq"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_px2l7"]
+[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_lxyqs"]
+[ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_be2v2"]
+[ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="5_mitc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y68ei"]
 texture = ExtResource("2_px2l7")
@@ -1490,6 +1493,11 @@ texture_region_size = Vector2i(8, 8)
 [sub_resource type="TileSet" id="TileSet_lxyqs"]
 sources/0 = SubResource("TileSetAtlasSource_y68ei")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c18cn"]
+shader = ExtResource("3_lxyqs")
+shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/fade_direction = 1.0
+
 [node name="down_deadend" type="Node2D" unique_id=841232228]
 
 [node name="Wall" type="TileMapLayer" parent="." unique_id=1798421256]
@@ -1501,6 +1509,12 @@ tile_set = ExtResource("1_w3goq")
 [node name="Wallsides" type="TileMapLayer" parent="Wall" unique_id=1755186799]
 z_index = -1
 tile_map_data = PackedByteArray("AADb/2MAAAAIAAwAAADc/2IAAAAIAAwAAADe/2EAAAAKAAwAAADg/2AAAAAKAAwAAADh/0QAAAAMAAwAAADi/0MAAAAMAAwAAADi/18AAAAJAAwAAADj/0IAAAAJAAwAAADj/14AAAAKAAwAAADk/0EAAAAKAAwAAADk/10AAAAKAAwAAADl/0AAAAAKAAwAAADm/zsAAAAIAAwAAADm/zwAAAAKAAwAAADm/z0AAAAIAAwAAADm/z4AAAAMAAwAAADm/z8AAAAJAAwAAADm/1kAAAAIAAwAAADm/1oAAAAIAAwAAADm/1sAAAAKAAwAAADm/1wAAAAMAAwAAADn/zkAAAAMAAwAAADn/zoAAAAIAAwAAADn/1cAAAALAAwAAADn/1gAAAAKAAwAAADo/zYAAAAKAAwAAADo/zcAAAAMAAwAAADo/zgAAAAIAAwAAADp/zUAAAAIAAwAAADp/1YAAAAIAAwAAADq/zQAAAAMAAwAAADr/zMAAAAMAAwAAADr/1UAAAAKAAwAAADs/zIAAAALAAwAAADt/zEAAAALAAwAAADu/zAAAAAJAAwAAADu/1QAAAAMAAwAAADv/y8AAAAKAAwAAADw/y4AAAAJAAwAAADx/y0AAAAJAAwAAADx/1MAAAAKAAwAAADy/ywAAAAMAAwAAADy/14AAAAOAA4AAGDy/18AAAALAAwAAADz/ysAAAALAAwAAADz/1IAAAALAAwAAAD0/18AAAAOAA4AAGD0/2AAAAAMAAwAAAD1/yoAAAAMAAwAAAD1/1EAAAAKAAwAAAD2/ygAAAAMAAwAAAD2/ykAAAALAAwAAAD2/1AAAAAKAAwAAAD3/ycAAAAIAAwAAAD4/yQAAAAJAAwAAAD4/yUAAAAJAAwAAAD4/yYAAAALAAwAAAD4/08AAAAJAAwAAAD5/yEAAAAJAAwAAAD5/yIAAAAJAAwAAAD5/yMAAAAKAAwAAAD5/2AAAAAOAA4AAGD5/2EAAAAKAAwAAAD6/xsAAAAIAAwAAAD6/xwAAAAIAAwAAAD6/x0AAAAIAAwAAAD6/x4AAAAIAAwAAAD6/x8AAAAJAAwAAAD6/yAAAAAKAAwAAAD7/04AAAAMAAwAAAD9/2EAAAAOAA4AAGD9/2IAAAALAAwAAAAAAD4AAAAKAAwAAAABAE0AAAALAAwAAAABAGIAAAAOAA4AAGABAGMAAAAIAAwAAAABAGQAAAALAAwAAAABAGUAAAAKAAwAAAABAGYAAAAKAAwAAAABAGcAAAALAAwAAAABAGgAAAAMAAwAAAADAD4AAAAOAA4AAGADAD8AAAALAAwAAAADAEwAAAAJAAwAAAAFAEsAAAAMAAwAAAAHAEoAAAAJAAwAAAAIAEAAAAAKAAwAAAAIAEgAAAALAAwAAAAIAEkAAAALAAwAAAAJAEEAAAAKAAwAAAAJAEIAAAAJAAwAAAAJAEUAAAAJAAwAAAAJAEYAAAAIAAwAAAAJAEcAAAAMAAwAAAAKAEMAAAAIAAwAAAAKAEQAAAAIAAwAAAAcAFkAAAANAA4AAFAcAFoAAAAKAAwAAAAdAFsAAAAJAAwAAAAdAFwAAAAIAAwAAAAeAF0AAAAJAAwAAAAfAF4AAAAMAAwAAAA=")
+tile_set = ExtResource("1_w3goq")
+
+[node name="WallMoss" type="TileMapLayer" parent="Wall/Wallsides" unique_id=1053789038]
+top_level = true
+z_index = 1
+tile_map_data = PackedByteArray("AAAcAPP/AAAJAAAAAAAeAPb/AAAKAAAAAAAdAPX/AAAFAAAAAAAnAPr/AAAFAAAAAAAkAPn/AAADAAAAAAAhAPj/AAAHAAAAAAAgAPf/AAAFAAAAAAAbAPL/AAAKAAAAAAAZAPD/AAAKAAAAAAAXAO7/AAAJAAAAAAAWAO3/AAAKAAAAAAAVAOz/AAAFAAAAAAATAOr/AAAFAAAAAAAPAOj/AAAJAAAAAAANAOf/AAAHAAAAAAAIAOb/AAAHAAAAAAAHAOX/AAADAAAAAAAGAOT/AAAEAAAAAAAGAAkAAAAGAAAAAAADAAoAAAAGAAAAAAAEAAoAAAAIAAAAAAACAAkAAAAHAAAAAAAAAAkAAAAJAAAAAAD//wgAAAAKAAAAAAD+/wgAAAAEAAAAAAD8/wUAAAAGAAAAAAD7/wMAAAAEAAAAAAD6/wEAAAAEAAAAAAD5//v/AAAGAAAAAAD4//j/AAAHAAAAAAD3//b/AAAFAAAAAAD1//P/AAAFAAAAAADz/+7/AAAGAAAAAAD0//H/AAAKAAAAAADy/+v/AAAGAAAAAADw/+f/AAAGAAAAAADt/+b/AAAEAAAAAADs/+b/AAAIAAAAAADr/+b/AAAJAAAAAADq/+T/AAAHAAAAAADo/+L/AAAKAAAAAADn/+D/AAAHAAAAAADl/9z/AAAHAAAAAADk/wEAAAAFAAAAAADj/wEAAAAJAAAAAADh/wEAAAAEAAAAAADg/wEAAAAFAAAAAADs/x0AAAAJAAAAAAA=")
 tile_set = ExtResource("1_w3goq")
 
 [node name="flooring" type="TileMapLayer" parent="." unique_id=814208789]
@@ -1523,7 +1537,35 @@ tile_map_data = PackedByteArray("AAD//xQAAAAKAAgAAAAMAA0AAAAKAAgAAAAIAA8AAAAMAAg
 tile_set = ExtResource("1_w3goq")
 
 [node name="mystery" type="TileMapLayer" parent="flooring/Moss/Props" unique_id=1163140624]
-tile_map_data = PackedByteArray("AAD2//D/AAAuAB8AAAD3/+3/AAAuAB8AAAD4/+X/AAAuAB8AAADx/+H/AAAuAB8AAADw/+L/AAAuAB8AAADt/+X/AAAuAB8AAAD0//z/AAAuAB8AAADn/wcAAAAuAB8AAADk/wkAAAAuAB8AAAD6/woAAAAuAB8AAADz/xYAAAAuAB8AAAD0/yAAAAAuAB8AAAD//yAAAAAuAB8AAAAAACAAAAAuAB8AAAALACAAAAAuAB8AAAAVABcAAAAuAB8AAAAIABEAAAAuAB8AAAAaAAsAAAAuAB8AAAAJAAQAAAAuAB8AAAAJAAUAAAAuAB8AAAAeAAEAAAAuAB8AAAATAPT/AAAuAB8AAAAXAOr/AAAuAB8AAAAQAOX/AAAuAB8AAAAZAOL/AAAuAB8AAAAbAOj/AAAuAB8AAAA=")
+z_index = 1
+tile_map_data = PackedByteArray("AAASAPL/AAAuAB8AAAAZAPb/AAAuAB8AAAAMABMAAAAuAB8AAAD8/xoAAAAuAB8AAADx/xgAAAAuAB8AAADy/xAAAAAuAB8AAADy/w8AAAAuAB8AAADq//7/AAAuAB8AAADq/+//AAAuAB8AAADq/+f/AAAuAB8AAAA=")
 tile_set = SubResource("TileSet_lxyqs")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=613341686]
+
+[node name="dark" type="CanvasModulate" parent="." unique_id=741815328]
+color = Color(0.39498675, 0.39498675, 0.39498657, 1)
+
+[node name="End1" type="ColorRect" parent="." unique_id=1716048390]
+z_index = 2
+material = SubResource("ShaderMaterial_c18cn")
+offset_left = 666.0
+offset_top = -96.0
+offset_right = 720.0
+offset_bottom = 22.0
+color = Color(0, 0, 0, 1)
+
+[node name="LightSource" parent="." unique_id=500962514 instance=ExtResource("4_be2v2")]
+position = Vector2(-250, -198)
+
+[node name="LightSource2" parent="." unique_id=1228982198 instance=ExtResource("4_be2v2")]
+position = Vector2(-350, 128)
+
+[node name="LightSource3" parent="." unique_id=1679182686 instance=ExtResource("4_be2v2")]
+position = Vector2(-60, 291)
+
+[node name="RedLightSkull" parent="." unique_id=1592478250 instance=ExtResource("5_mitc6")]
+position = Vector2(197, -286)
+
+[node name="LightSource4" parent="." unique_id=675305519 instance=ExtResource("4_be2v2")]
+position = Vector2(470, 126)
