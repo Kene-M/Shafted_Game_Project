@@ -40,20 +40,8 @@ func _on_fire_projectile(direction, augment_vals) -> void:
 	proj_inst.crit_damage = 1.5
 	proj_inst.crit_chance = 0.25
 	
-	var test_projectile = preload("res://Scenes/weaponScenes/projectile.tscn")
-	var test_proj_inst = test_projectile.instantiate()
-	test_proj_inst.global_position = char.global_position
-	get_tree().current_scene.add_child(test_proj_inst)
-	
-	test_proj_inst.direction = direction.rotated(deg_to_rad(10))
-	test_proj_inst.speed = 1000
-	test_proj_inst.base_damage = (60 + augment_vals[AugType.Type.ATKADD]) * augment_vals[AugType.Type.ATKMULT]
-	test_proj_inst.crit_damage = 1.5
-	test_proj_inst.crit_chance = 0.25
-	
 	
 	
 	await get_tree().create_timer(1).timeout
 	if is_instance_valid(proj_inst):
 		proj_inst.queue_free()
-		test_proj_inst.queue_free()
