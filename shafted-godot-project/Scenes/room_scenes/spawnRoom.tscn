@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://ug4ri5fo3gnk"]
+[gd_scene format=4 uid="uid://ug4ri5fo3gnk"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/tilemaps/tileset_gray.png" id="1_t13yj"]
 [ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/tilemaps/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
