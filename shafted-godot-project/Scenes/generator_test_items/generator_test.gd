@@ -833,11 +833,12 @@ func _on_exit_triggered(body: Node2D, trigger: Area2D) -> void:
 	var to_grid: Vector2i = trigger.get_meta("to_grid")
 	var direction: String = trigger.get_meta("direction")
 	print("  → transitioning to ", to_grid, " via ", direction)
+	is_transitioning = true
 	_transition_to_room(to_grid, direction)
 
 
 func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void:
-	is_transitioning = true
+	#is_transitioning = true
 	var player = Autoload.main_char
 	var overlay = _get_or_create_overlay()
 	
@@ -858,20 +859,31 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 	if entry_marker:
 		var inward = Vector2.ZERO
 		match entry_dir:
-			"East":  inward = Vector2(-80, 0)
-			"West":  inward = Vector2(80, 0)
-			"North": inward = Vector2(0, 80)
-			"South": inward = Vector2(0, -80)
+			"East":  inward = Vector2(-200, 0)
+			"West":  inward = Vector2(200, 0)
+			"North": inward = Vector2(0, 200)
+			"South": inward = Vector2(0, -200)
 		player.global_position = entry_marker.global_position + inward
 	else:
 		player.global_position = new_room.global_position
 	
 	current_room_pos = to_grid
 	
-	# Fade back in
+		# Fade back in
 	var tween_in = create_tween()
 	tween_in.tween_property(overlay, "color:a", 0.0, 0.35)
 	await tween_in.finished
+	
+	# Briefly disable triggers in new room to prevent immediate re-trigger
+	for child in new_room.get_children():
+		if child.name.begins_with("ExitTrigger_"):
+			child.set_deferred("monitoring", false)
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	for child in new_room.get_children():
+		if child.name.begins_with("ExitTrigger_"):
+			child.set_deferred("monitoring", true)
 	
 	is_transitioning = false
 
