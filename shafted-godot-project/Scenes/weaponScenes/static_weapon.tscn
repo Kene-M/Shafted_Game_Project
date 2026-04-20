@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cb763t5t5kah2"]
 
 [ext_resource type="Script" uid="uid://ctlo56obmdb0h" path="res://Scripts/weaponScripts/static_weapon.gd" id="1_j7qhr"]
-[ext_resource type="Texture2D" uid="uid://1w71jy3if1na" path="res://Assets/Player/testrifle.png" id="2_rpjo6"]
+[ext_resource type="Texture2D" uid="uid://byh2fsmyql01b" path="res://Assets/Player/testgun.png" id="2_rpjo6"]
 [ext_resource type="Script" uid="uid://cl6ac10hck7u5" path="res://Scripts/weaponScripts/weaponItemScripts/area_2d_ranged.gd" id="3_j7qhr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fch43"]
@@ -15,7 +15,7 @@ physics_material_override = SubResource("PhysicsMaterial_fch43")
 script = ExtResource("1_j7qhr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=363030966]
-scale = Vector2(1.5934397, 1.496683)
+scale = Vector2(3.1092198, 2.4983416)
 texture = ExtResource("2_rpjo6")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1208162694]
