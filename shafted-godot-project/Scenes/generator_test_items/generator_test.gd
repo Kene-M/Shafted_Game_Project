@@ -44,6 +44,7 @@ var room_display_radius: float = 1500.0
 # ─────────────────────────────────────────────
 
 @export var enemy_scenes: Array[PackedScene] = []
+@export var boss_enemy_scene: PackedScene
 @export var min_enemies_per_room: int = 1
 @export var max_enemies_per_room: int = 3
 
@@ -140,23 +141,6 @@ func _ready():
 ## Called by game_manager to know where to put the player
 func get_player_spawn_position() -> Vector2:
 	return player_spawn_pos
-	# Diagnostic loop: confirm which Exit markers each scene actually exposes at runtime.
-	# This catches mismatches between scene_exits declarations and real scene contents.
-	for key in scene_map.keys():
-		var inst = scene_map[key].instantiate()
-		var found = []
-		for dir in ["North", "South", "East", "West"]:
-			if inst.find_child("Exit" + dir, true, false) != null:
-				found.append(dir)
-		print("Scene '", key, "' markers found: ", found)
-		inst.free()
-
-	# Instantiate and position every room node in world space.
-	_place_rooms()
-
-	# Defer camera setup until after all room nodes have finished processing
-	# their _ready() callbacks — prevents a one-frame stale bounding box.
-	_setup_overview_camera.call_deferred()
 
 
 # ─────────────────────────────────────────────
@@ -424,6 +408,24 @@ func _place_rooms():
 # Replace your entire _spawn_enemies() function with this:
 
 func _spawn_enemies() -> void:
+	# Spawn boss in the start room for testing
+	if boss_enemy_scene != null:
+		var start_room = placed_rooms.get(Vector2i(0, 0))
+		if start_room:
+			var spawn_points: Array = []
+			var spawns_container = start_room.find_child("EnemySpawns", true, false)
+			if spawns_container:
+				for child in spawns_container.get_children():
+					if child is Marker2D:
+						spawn_points.append(child.global_position)
+			var boss_spawn: Vector2 = spawn_points[0] if spawn_points.size() > 0 else start_room.global_position
+			var boss = boss_enemy_scene.instantiate()
+			start_room.add_child(boss)
+			if boss.has_method("setup"):
+				boss.setup(boss_spawn)
+			else:
+				boss.global_position = boss_spawn
+
 	if enemy_scenes.size() == 0:
 		return
 

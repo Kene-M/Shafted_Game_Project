@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ckd1ih2g30jdw" path="res://Enemy/Slug/slug.tscn" id="10_cwimr"]
 [ext_resource type="PackedScene" uid="uid://b03h8j8p660b4" path="res://Enemy/Egg/egg.tscn" id="11_vrrwc"]
 [ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="12_sd2tx"]
+[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="13_golem"]
 
 [node name="Node2D" type="Node2D" unique_id=1383581756]
 script = ExtResource("1_hko6r")
@@ -20,4 +21,5 @@ scene_all_dirs = ExtResource("3_xqshq")
 scene_lr = ExtResource("3_46kxv")
 scene_ud = ExtResource("5_xqshq")
 enemy_scenes = Array[PackedScene]([ExtResource("6_ljkim"), ExtResource("11_vrrwc"), ExtResource("8_vrrwc"), ExtResource("7_dn3o5"), ExtResource("9_sd2tx"), ExtResource("12_sd2tx"), ExtResource("10_cwimr")])
+boss_enemy_scene = ExtResource("13_golem")
 max_enemies_per_room = 10

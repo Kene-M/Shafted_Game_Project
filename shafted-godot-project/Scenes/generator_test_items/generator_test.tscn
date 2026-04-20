@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/rooms/tri_connectl_lud.tscn" id="3_osax1"]
 [ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/rooms/lr_connector.tscn" id="4_do6ry"]
 [ext_resource type="PackedScene" uid="uid://cg4g2nvt1s0dq" path="res://Scenes/rooms/ud_hall_way.tscn" id="5_mv1hs"]
+[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="6_osax1"]
 
 [node name="Node2D" type="Node2D" unique_id=56409940]
 script = ExtResource("1_iwqj7")
@@ -12,5 +13,7 @@ scene_start = ExtResource("2_wiy4m")
 scene_all_dirs = ExtResource("3_osax1")
 scene_lr = ExtResource("4_do6ry")
 scene_ud = ExtResource("5_mv1hs")
+enemy_scenes = Array[PackedScene]([ExtResource("6_osax1")])
+boss_enemy_scene = ExtResource("6_osax1")
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]
