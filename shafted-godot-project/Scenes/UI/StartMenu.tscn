@@ -116,3 +116,6 @@ theme_override_font_sizes/font_size = 45
 text = "exit"
 
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/NewGameButton" to="Control/PanelContainer/VBoxContainer" method="_on_new_game_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/LoadGameButton" to="Control/PanelContainer/VBoxContainer" method="_on_load_game_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/CreditsButton" to="Control/PanelContainer/VBoxContainer" method="_on_options_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/ExitButton" to="Control/PanelContainer/VBoxContainer" method="_on_exit_pressed"]
