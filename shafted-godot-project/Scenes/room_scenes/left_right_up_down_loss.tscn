@@ -1623,3 +1623,15 @@ offset_left = 272.0
 offset_top = 1040.0
 offset_right = 352.0
 offset_bottom = 1056.0
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=342865592]
+position = Vector2(712, -446)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=1676181657]
+position = Vector2(-934, 32)
+
+[node name="ExitEast" type="Marker2D" parent="." unique_id=529277261]
+position = Vector2(982, 85)
+
+[node name="ExitSouth" type="Marker2D" parent="." unique_id=69546242]
+position = Vector2(313, 1052)

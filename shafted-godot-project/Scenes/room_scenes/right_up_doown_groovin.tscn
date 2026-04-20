@@ -1596,3 +1596,9 @@ position = Vector2(-63, 332)
 
 [node name="LightSource5" parent="." unique_id=51209469 instance=ExtResource("5_ujdux")]
 position = Vector2(89, -296)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=714670334]
+position = Vector2(-423, -66)
+
+[node name="ExitEast" type="Marker2D" parent="." unique_id=929547997]
+position = Vector2(405, -46)

@@ -1611,3 +1611,12 @@ color = Color(0, 0, 0, 1)
 
 [node name="dark" type="CanvasModulate" parent="." unique_id=368902068]
 color = Color(0.39498675, 0.39498675, 0.39498657, 1)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=660537415]
+position = Vector2(-638, 101)
+
+[node name="ExitEast" type="Marker2D" parent="." unique_id=1872632284]
+position = Vector2(168, 360)
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=1969230921]
+position = Vector2(69, -470)

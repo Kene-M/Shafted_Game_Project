@@ -1557,9 +1557,9 @@ color = Color(0, 0, 0, 1)
 z_index = 2
 material = SubResource("ShaderMaterial_ljjr1")
 offset_left = 601.0
-offset_top = -567.0
+offset_top = -572.0
 offset_right = 640.0
-offset_bottom = -432.0
+offset_bottom = -437.0
 color = Color(0, 0, 0, 1)
 
 [node name="LightSource" parent="." unique_id=268281186 instance=ExtResource("2_hxk1d")]
@@ -1573,3 +1573,9 @@ position = Vector2(285, -112)
 
 [node name="RedLightSkull" parent="." unique_id=1592478250 instance=ExtResource("5_cucid")]
 position = Vector2(-136, 254)
+
+[node name="ExitEast" type="Marker2D" parent="." unique_id=1732059090]
+position = Vector2(629, -500)
+
+[node name="ExitSouth" type="Marker2D" parent="." unique_id=998052378]
+position = Vector2(-170, 622)
