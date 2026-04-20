@@ -105,29 +105,29 @@ region = Rect2(259, 447, 103, 135)
 atlas = ExtResource("4_m2oj5")
 region = Rect2(362, 447, 103, 135)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tyhho"]
-atlas = ExtResource("3_tyhho")
-region = Rect2(256, 310, 104, 133)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4b3c"]
 atlas = ExtResource("3_tyhho")
-region = Rect2(360, 310, 104, 133)
+region = Rect2(258, 313, 101, 134)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6eiou"]
 atlas = ExtResource("3_tyhho")
-region = Rect2(48, 443, 104, 133)
+region = Rect2(360, 313, 101, 134)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ye4l"]
 atlas = ExtResource("3_tyhho")
-region = Rect2(152, 443, 104, 133)
+region = Rect2(54, 447, 101, 134)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtcmf"]
 atlas = ExtResource("3_tyhho")
-region = Rect2(256, 443, 104, 133)
+region = Rect2(156, 447, 101, 134)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ne63"]
 atlas = ExtResource("3_tyhho")
-region = Rect2(360, 443, 104, 133)
+region = Rect2(258, 447, 101, 134)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2uhq"]
+atlas = ExtResource("3_tyhho")
+region = Rect2(360, 447, 101, 134)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b4b3c"]
 animations = [{
@@ -214,9 +214,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tyhho")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_b4b3c")
 }, {
 "duration": 1.0,
@@ -230,6 +227,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4ne63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2uhq")
 }],
 "loop": true,
 "name": &"run",
@@ -321,8 +321,8 @@ offset_bottom = -50.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2052248414]
 scale = Vector2(0.32211542, 0.3139098)
 sprite_frames = SubResource("SpriteFrames_b4b3c")
-animation = &"no_arms_run"
-frame_progress = 0.92523736
+animation = &"run"
+frame_progress = 0.6964346
 
 [node name="Sprite2D2" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1070289555]
 position = Vector2(37.265, 10.93)
