@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Shafted Godot Project"
-run/main_scene="uid://cagh3e6vxxaqi"
+run/main_scene="uid://m3w7wo260m5y"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Assets/tilemaps/icon.svg"
 

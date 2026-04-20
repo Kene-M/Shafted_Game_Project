@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://qr4pfeto7n2x" path="res://Assets/UI/background.png" id="2_7htnq"]
 [ext_resource type="Theme" uid="uid://c7cchvf3xoq3n" path="res://Scenes/UI/DefaultTheme.tres" id="2_ufv5y"]
 [ext_resource type="Texture2D" uid="uid://b1kxksyjocg4p" path="res://Assets/UI/label.PNG" id="3_0d5ky"]
-[ext_resource type="Script" uid="uid://dyksbvfkhdtpg" path="res://Scripts/globalScripts/save_manager.gd" id="6_kit3o"]
+[ext_resource type="Script" uid="uid://covnqmbvy3gch" path="res://Scripts/controlScripts/start_menu.gd" id="6_kit3o"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7htnq"]
 texture = ExtResource("3_0d5ky")
