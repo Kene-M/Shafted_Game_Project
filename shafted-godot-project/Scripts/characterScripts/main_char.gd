@@ -40,6 +40,7 @@ func _equip_weapon(weapon: WeaponResource):
 	weapon_node.init()
 
 func _ready() -> void:
+	add_to_group("player")
 	$AnimatedSprite2D.play("default")
 	max_health = augment_vals[AugType.Type.HPADD]
 	var no_weapon = WeaponResource.new()

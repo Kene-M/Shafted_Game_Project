@@ -818,16 +818,21 @@ func _add_exit_triggers(grid_pos: Vector2i) -> void:
 		trigger.set_meta("from_grid", grid_pos)
 		trigger.set_meta("to_grid", neighbor_pos)
 		trigger.set_meta("direction", dir_name)
+		print("  Trigger added: ", dir_name, " at ", marker.global_position, " mask=", trigger.collision_mask)
 		trigger.body_entered.connect(_on_exit_triggered.bind(trigger))
 
 
 func _on_exit_triggered(body: Node2D, trigger: Area2D) -> void:
+	print("EXIT TRIGGER FIRED — body: ", body.name, " groups: ", body.get_groups())
 	if is_transitioning:
+		print("  → blocked: already transitioning")
 		return
 	if not body.is_in_group("player"):
+		print("  → blocked: not in player group")
 		return
 	var to_grid: Vector2i = trigger.get_meta("to_grid")
 	var direction: String = trigger.get_meta("direction")
+	print("  → transitioning to ", to_grid, " via ", direction)
 	_transition_to_room(to_grid, direction)
 
 
