@@ -117,6 +117,16 @@ func _physics_process(delta):
 	#Weapon Use Logic
 	if (Input.is_action_just_pressed("fire")):
 		var mouse_pos = get_global_mouse_position()
+		print("MOUSE POS: ", mouse_pos)
+		if mouse_pos.x < 0 and $AnimatedSprite2D.flip_h != false:
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D/Sprite2D2.flip_h = false
+			$AnimatedSprite2D/Sprite2D2.position.x = -$AnimatedSprite2D/Sprite2D2.position.x
+		elif mouse_pos.x > 0 and $AnimatedSprite2D.flip_h != true:
+			print("test2")
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D/Sprite2D2.flip_h = true
+			$AnimatedSprite2D/Sprite2D2.position.x = -$AnimatedSprite2D/Sprite2D2.position.x
 		var dir_vector = global_position.direction_to(mouse_pos)
 		fire_projectile.emit(dir_vector, augment_vals)
 	if (Input.is_action_just_pressed("equipWeaponOne")):

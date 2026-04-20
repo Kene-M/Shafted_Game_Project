@@ -26,7 +26,8 @@ func _on_fire_projectile(direction, augment_vals) -> void:
 	var projectile = preload("res://Scenes/weaponScenes/projectile.tscn")
 	var proj_inst = projectile.instantiate()
 	var char = get_parent()
-	add_child(proj_inst)
+	proj_inst.global_position = char.global_position
+	get_tree().current_scene.add_child(proj_inst)
 	proj_inst.direction = direction
 	proj_inst.speed = 1000
 	proj_inst.base_damage = (60 + augment_vals[AugType.Type.ATKADD]) * augment_vals[AugType.Type.ATKMULT]
