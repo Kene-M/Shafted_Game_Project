@@ -27,6 +27,7 @@ extends CharacterBody2D
 @onready var knockback_strength: float = 300
 @onready var dash_ticks = 0
 @onready var speed = 0
+@onready var cur_run: String = "run"
 
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
@@ -76,7 +77,7 @@ func _physics_process(delta):
 	var direction = Input.get_vector("left","right","up","down")
 	if (direction != Vector2(0,0)):
 		if $AnimatedSprite2D.animation == "default":
-			$AnimatedSprite2D.play("run")
+			$AnimatedSprite2D.play(cur_run)
 		if direction.x < 0 and $AnimatedSprite2D.flip_h != false:
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D/Sprite2D2.flip_h = false
@@ -108,7 +109,7 @@ func _physics_process(delta):
 		velocity = cur_direction * speed
 	elif (direction == Vector2(0,0)) and (speed <= min_speed):
 		velocity = Vector2(0,0)	
-		if $AnimatedSprite2D.animation == "run":
+		if $AnimatedSprite2D.animation == cur_run:
 			$AnimatedSprite2D.play("default")
 	update_speed.emit(velocity)
 	$temp_vel_label.text = str(velocity)

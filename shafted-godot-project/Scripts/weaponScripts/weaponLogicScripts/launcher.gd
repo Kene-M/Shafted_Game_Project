@@ -14,6 +14,8 @@ func init():
 	#new_atlas_texture.atlas = texture
 	#new_atlas_texture.region = Rect2(901, 528, 998, 700)
 	var texture = load("res://Assets/Player/testlauncher.png")
+	var char = get_parent()
+	char.cur_run = "no_arms_run"
 	sprite.texture = texture
 	sprite.scale = Vector2(3.5, 3.5)
 	if $"../AnimatedSprite2D".flip_h == false:
