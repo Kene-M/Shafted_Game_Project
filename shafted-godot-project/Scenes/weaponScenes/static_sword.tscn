@@ -9,19 +9,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xw1um"]
 radius = 20.808651
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_4nnw7"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation_1",
-"speed": 5.0
-}]
-
 [node name="StaticSword" type="StaticBody2D" unique_id=1415412196]
 physics_material_override = SubResource("PhysicsMaterial_fch43")
 script = ExtResource("1_oj7s3")
@@ -39,7 +26,3 @@ script = ExtResource("3_oj7s3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2032259654]
 rotation = 0.7665451
 shape = SubResource("CircleShape2D_xw1um")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1184974620]
-sprite_frames = SubResource("SpriteFrames_4nnw7")
-animation = &"new_animation_1"

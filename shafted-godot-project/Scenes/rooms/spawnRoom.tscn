@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
 [ext_resource type="PackedScene" uid="uid://d3t1k7i55040j" path="res://Scenes/weaponScenes/static_launcher.tscn" id="13_um6xd"]
 [ext_resource type="PackedScene" uid="uid://msdrq45ugub1" path="res://Scenes/weaponScenes/static_shotgun.tscn" id="14_7uwhw"]
+[ext_resource type="PackedScene" uid="uid://6800ia8nxotg" path="res://Scenes/weaponScenes/static_hammer.tscn" id="15_jstli"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -828,5 +829,8 @@ position = Vector2(70, -23)
 
 [node name="StaticShotgun" parent="." unique_id=1575903012 instance=ExtResource("14_7uwhw")]
 position = Vector2(6, -68)
+
+[node name="StaticHammer" parent="." unique_id=1509081610 instance=ExtResource("15_jstli")]
+position = Vector2(-32, 71)
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
