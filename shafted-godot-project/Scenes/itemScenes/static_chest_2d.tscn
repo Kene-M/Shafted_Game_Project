@@ -1,4 +1,4 @@
-[gd_scene load_steps=0 format=3 uid="uid://clbxutlus034p"]
+[gd_scene format=3 uid="uid://clbxutlus034p"]
 
 [ext_resource type="Script" uid="uid://cb8bxy17vvf0a" path="res://Scenes/itemScenes/static_chest_2d.gd" id="1_8802d"]
 [ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://Assets/Props/chess.png" id="1_e7ju4"]
@@ -43,10 +43,10 @@ anchor_left = 0.24300002
 anchor_top = 0.076000005
 anchor_right = 0.24300002
 anchor_bottom = 0.076000005
-offset_left = -153.585
-offset_top = 38.760002
-offset_right = -153.585
-offset_bottom = 38.760002
+offset_left = 136.08499
+offset_top = 244.125
+offset_right = 136.08499
+offset_bottom = 244.125
 script = ExtResource("3_8802d")
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=1650615708]

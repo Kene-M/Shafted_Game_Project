@@ -32,6 +32,11 @@ signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
 signal dash_changed(max_tick: float, tick: float)
 
+func _equip_weapon(weapon: WeaponResource):
+	var weapon_node = $Weapon
+	var weapon_script = load(weapon.weapon_script)
+	weapon_node.set_script(weapon_script)
+	weapon_node.init()
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("default")
@@ -134,6 +139,7 @@ func _physics_process(delta):
 						melee_weapon = i.weapon_data
 						melee_weapons.append(i.weapon_data)	
 						i.get_parent().queue_free()
+						_equip_weapon(melee_weapon)
 						#i = null
 						#in_item_area = false
 						#$InteractLabel.visible = true
@@ -142,6 +148,7 @@ func _physics_process(delta):
 						ranged_weapon = i.weapon_data
 						ranged_weapons.append(i.weapon_data)
 						i.get_parent().queue_free()
+						_equip_weapon(ranged_weapon)
 						#i = null
 						#in_item_area = false
 						#$InteractLabel.visible = true
