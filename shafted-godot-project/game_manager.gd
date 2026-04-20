@@ -15,6 +15,7 @@ func _ready() -> void:
 	player = player_scene.instantiate()
 	player.max_dash_ticks = 50
 	player.dash_speed = 1000
+	Autoload.main_char = player
 	add_child(player)
 
 	# Auto-equip sword for demo

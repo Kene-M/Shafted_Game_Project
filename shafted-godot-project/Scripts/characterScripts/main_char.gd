@@ -30,6 +30,7 @@ extends CharacterBody2D
 
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
+signal dash_changed(max_tick: float, tick: float)
 
 
 func _ready() -> void:
@@ -86,11 +87,12 @@ func _physics_process(delta):
 			speed += 80
 		if (dash_ticks != 0):
 			dash_ticks -= 1
-			print(max_dash_ticks*0.75)
+			print("DASH: ", dash_ticks)
 			if dash_ticks == (ceil(max_dash_ticks*(0.75))):
 				speed = pre_dash_speed
 			elif dash_ticks > (ceil(max_dash_ticks*(0.75))):
 				speed = dash_speed
+			dash_changed.emit(max_dash_ticks, dash_ticks)
 		elif Input.is_action_just_pressed("dash"):
 			dash_ticks = max_dash_ticks
 			pre_dash_speed = speed

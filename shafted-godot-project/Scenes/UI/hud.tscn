@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fyjk4e1y4pet"]
 
 [ext_resource type="Texture2D" uid="uid://c2cuol35rtpp4" path="res://Assets/UI/dashbar.tres" id="1_ny26j"]
+[ext_resource type="Script" uid="uid://pv1bi4oeuukh" path="res://Scenes/UI/dash_fill_bar.gd" id="2_8glcj"]
 [ext_resource type="Theme" uid="uid://c7cchvf3xoq3n" path="res://Scenes/UI/DefaultTheme.tres" id="2_fdl0h"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1575171312]
@@ -13,15 +14,28 @@ offset_bottom = 81.0
 theme_override_constants/separation = 8
 
 [node name="DashBar" type="TextureRect" parent="TopLeft" unique_id=1437358557]
+z_index = 6
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_ny26j")
 
 [node name="DashBarFill" type="TextureRect" parent="TopLeft/DashBar" unique_id=807008029]
+z_index = 7
 layout_mode = 0
+offset_left = 24.0
+offset_top = 19.0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="DashFillBar" type="ColorRect" parent="TopLeft/DashBar" unique_id=44263549]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 17.0
+offset_right = 227.0
+offset_bottom = 44.0
+color = Color(0.21962553, 0.4457081, 1, 1)
+script = ExtResource("2_8glcj")
 
 [node name="TopRight" type="HBoxContainer" parent="." unique_id=1698290631]
 anchors_preset = 1

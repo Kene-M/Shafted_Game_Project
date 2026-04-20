@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cd7slt682gpw4" path="res://Scripts/characterScripts/main_char.gd" id="1_jt4vo"]
 [ext_resource type="Texture2D" uid="uid://bkfubcpqn6ywl" path="res://Assets/Player/justified_move_hand_1.webp" id="2_tyhho"]
 [ext_resource type="Texture2D" uid="uid://6qldfbbbagok" path="res://Assets/Player/Left-Idle-run_1.webp" id="3_tyhho"]
+[ext_resource type="PackedScene" uid="uid://fyjk4e1y4pet" path="res://Scenes/UI/hud.tscn" id="4_sqtrg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tyhho"]
 radius = 16.149069
@@ -296,6 +297,8 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_tyhho")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=927977310]
+
+[node name="HUD" parent="." unique_id=1575171312 instance=ExtResource("4_sqtrg")]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
