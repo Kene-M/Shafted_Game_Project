@@ -14,7 +14,6 @@ var pause_menu: Control = null
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
 	player = player_scene.instantiate()
-	player = player_scene.instantiate()
 	print("Player scene path: ", player_scene.resource_path)
 	print("Player groups after instantiate: ", player.get_groups())
 	player.max_dash_ticks = 50
@@ -41,26 +40,34 @@ func _ready() -> void:
 		cam.make_current()
 		cam.zoom = Vector2(1, 1)
 
+	var loading := save_manager.is_loading_run
+	if loading:
+		save_manager.load_game()
+		
 	# Load the spawn room first
-	_load_spawn_room()
+	_load_spawn_room(loading)
 
+	# Reset flag AFTER everything is done
+	save_manager.is_loading_run = false
 
-func _load_spawn_room() -> void:
+func _load_spawn_room(is_loading: bool) -> void:
 	_clear_current_level()
 
 	current_level = spawn_room_scene.instantiate()
 	add_child(current_level)
-	# Move player below current_level in tree so they render on top
+
+	# Move player on top
 	move_child(player, get_child_count() - 1)
 
-	# Place player at the spawnpoint marker
-	var spawn_marker = current_level.find_child("spawnpoint", true, false)
-	if spawn_marker:
-		player.global_position = spawn_marker.global_position
-	else:
-		player.global_position = current_level.global_position
+	# Only set spawn position if NOT loading
+	if not is_loading:
+		var spawn_marker = current_level.find_child("spawnpoint", true, false)
+		if spawn_marker:
+			player.global_position = spawn_marker.global_position
+		else:
+			player.global_position = current_level.global_position
 
-	# Connect the dungeon entrance trigger
+	# Connect dungeon entrance
 	var entrance = current_level.find_child("DungeonEntrance", true, false)
 	if entrance and entrance is Area2D:
 		entrance.body_entered.connect(_on_dungeon_entrance_entered)

@@ -2,6 +2,7 @@ extends Node
 
 const PROGRESS_PATH = "user://player_progress.json"
 const RUN_PATH = "user://current_run.json"
+var is_loading_run: bool = false
 
 # ============================================================
 # MAIN FUNCTIONS

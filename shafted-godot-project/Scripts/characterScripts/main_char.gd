@@ -44,7 +44,8 @@ func _ready() -> void:
 	add_to_group("player")
 	$AnimatedSprite2D.play("default")
 	max_health = augment_vals[AugType.Type.HPADD]
-	cur_health = max_health
+	if not save_manager.is_loading_run:
+		cur_health = max_health
 	var no_weapon = WeaponResource.new()
 	no_weapon.weapon_name = "No Weapon"
 	no_weapon.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
