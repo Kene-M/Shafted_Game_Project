@@ -13,9 +13,13 @@ var current_level: Node = null
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
 	player = player_scene.instantiate()
+	player.max_dash_ticks = 50
+	player.dash_speed = 1000
+	Autoload.main_char = player
 	add_child(player)
 
 	# Auto-equip sword for demo
+	"""
 	var sword_res = WeaponResource.new()
 	sword_res.weapon_name = "Sword"
 	sword_res.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/sword.gd"
@@ -25,6 +29,7 @@ func _ready() -> void:
 	var weapon_script = load(sword_res.weapon_script)
 	weapon.set_script(weapon_script)
 	weapon.init()
+	"""
 
 	# Set up camera on the player
 	var cam = player.find_child("Camera2D", true, false)

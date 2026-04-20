@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://7ycuduwxs3q6"]
+
+[ext_resource type="Script" uid="uid://bhybgrp63nui5" path="res://Scripts/weaponScripts/attackScripts/launcher_projectile.gd" id="1_rq8yc"]
+[ext_resource type="Texture2D" uid="uid://cml6uaosxo1mw" path="res://Assets/Props/launcher_red_flame.png" id="2_r2krx"]
+[ext_resource type="Script" uid="uid://c2jxxbo0d2n3i" path="res://Scenes/weaponScenes/projectile_sprite.gd" id="3_l3pd4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
+radius = 29.274563
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yr2qt"]
+radius = 29.017237
+
+[sub_resource type="Gradient" id="Gradient_rq8yc"]
+offsets = PackedFloat32Array(0.025974026, 0.36363637, 0.45454547, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08796865, 0.08796865, 0.08796865, 1, 0, 0, 0, 1, 0.035737246, 0.035737246, 0.035737246, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x3r0h"]
+gradient = SubResource("Gradient_rq8yc")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="LauncherProjectile" type="AnimatableBody2D" unique_id=1155953414]
+collision_layer = 8
+script = ExtResource("1_rq8yc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1215596481]
+shape = SubResource("CircleShape2D_qxf0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1079859365]
+position = Vector2(-3.8146973e-06, 1.9073486e-06)
+scale = Vector2(3.458195, 3.0191653)
+texture = ExtResource("2_r2krx")
+script = ExtResource("3_l3pd4")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1043880149]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1856319082]
+shape = SubResource("CircleShape2D_yr2qt")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1784207380]
+position = Vector2(3.8146973e-06, 7.6293945e-06)
+scale = Vector2(0.7341666, 0.7441666)
+color = Color(0.84263474, 3.5616756e-06, 4.813075e-07, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_x3r0h")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

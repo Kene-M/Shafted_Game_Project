@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://c7top2b42d40m"]
 
 [ext_resource type="Texture2D" uid="uid://bo2n3nm8gcdj3" path="res://Assets/Tilesets/tileset_gray.png" id="1_t13yj"]
-[ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/Background/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
-[ext_resource type="Texture2D" uid="uid://orcxjfg15jvy" path="res://Assets/Background/2_Industrial_Tileset_1B_Background.png" id="3_lty1r"]
+[ext_resource type="Texture2D" uid="uid://c2ea81kkyf8rr" path="res://Assets/tilemaps/2_Industrial_Tileset_1_Background.png" id="2_o8dcf"]
+[ext_resource type="Texture2D" uid="uid://orcxjfg15jvy" path="res://Assets/tilemaps/2_Industrial_Tileset_1B_Background.png" id="3_lty1r"]
 [ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="8_u87g2"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="9_f0ecq"]
 [ext_resource type="PackedScene" uid="uid://c4q1w3s5mk1uu" path="res://Scenes/itemScenes/resource_1.tscn" id="10_7owe1"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://hnfmgpuit1nv" path="res://Scenes/itemScenes/resource_2.tscn" id="11_l3fbt"]
 [ext_resource type="PackedScene" uid="uid://c83vxy3ryxame" path="res://Scenes/weaponScenes/static_spear.tscn" id="12_u1jld"]
 [ext_resource type="Script" uid="uid://6a7mtvca31cy" path="res://Scenes/UI/reset_button.gd" id="12_u87vg"]
+[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/weaponScenes/static_weapon.tscn" id="12_um6xd"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
+[ext_resource type="PackedScene" uid="uid://d3t1k7i55040j" path="res://Scenes/weaponScenes/static_launcher.tscn" id="13_um6xd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -816,5 +818,11 @@ position = Vector2(-138, 44)
 
 [node name="StaticSpear" parent="." unique_id=650535001 instance=ExtResource("12_u1jld")]
 position = Vector2(62, -73)
+
+[node name="StaticWeapon" parent="." unique_id=1771989361 instance=ExtResource("12_um6xd")]
+position = Vector2(131, -7)
+
+[node name="StaticLauncher" parent="." unique_id=524716989 instance=ExtResource("13_um6xd")]
+position = Vector2(70, -23)
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://qr4pfeto7n2x" path="res://Assets/UI/background.png" id="2_7htnq"]
 [ext_resource type="Theme" uid="uid://c7cchvf3xoq3n" path="res://Scenes/UI/DefaultTheme.tres" id="2_ufv5y"]
 [ext_resource type="Texture2D" uid="uid://b1kxksyjocg4p" path="res://Assets/UI/label.PNG" id="3_0d5ky"]
+[ext_resource type="Script" uid="uid://covnqmbvy3gch" path="res://Scripts/controlScripts/start_menu.gd" id="6_kit3o"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7htnq"]
 texture = ExtResource("3_0d5ky")
@@ -22,10 +23,10 @@ anchors_preset = -1
 anchor_left = 0.21700001
 anchor_right = 0.651
 anchor_bottom = 0.30200002
-offset_left = -5.480011
-offset_top = 13.0
-offset_right = 186.55994
-offset_bottom = 45.303986
+offset_left = -40.48001
+offset_top = 16.0
+offset_right = 221.0
+offset_bottom = 48.303986
 theme_override_colors/font_color = Color(0.78453696, 0.70049334, 3.85046e-07, 1)
 theme_override_fonts/font = ExtResource("1_3wf2c")
 theme_override_font_sizes/font_size = 150
@@ -39,20 +40,20 @@ script = ExtResource("1_d3352")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=759745571]
 position = Vector2(-463, -7)
-motion_mirroring = Vector2(1280, 0)
+motion_mirroring = Vector2(1440, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1754325837]
-position = Vector2(577.00006, 441.16)
-scale = Vector2(0.667, 0.8959999)
+position = Vector2(720, 450)
+scale = Vector2(0.75, 1.006)
 texture = ExtResource("2_7htnq")
 
 [node name="Control" type="Control" parent="." unique_id=184053654]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 624.0
-offset_top = 278.0
-offset_right = 740.0
-offset_bottom = 547.0
+offset_left = 602.0
+offset_top = 272.0
+offset_right = 718.0
+offset_bottom = 541.0
 theme = ExtResource("2_ufv5y")
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=372151395]
@@ -78,6 +79,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=659828753]
 layout_mode = 2
+script = ExtResource("6_kit3o")
 
 [node name="NewGameButton" type="Button" parent="Control/PanelContainer/VBoxContainer" unique_id=1954203587]
 layout_mode = 2
@@ -112,3 +114,5 @@ size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_3wf2c")
 theme_override_font_sizes/font_size = 45
 text = "exit"
+
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/NewGameButton" to="Control/PanelContainer/VBoxContainer" method="_on_new_game_pressed"]
