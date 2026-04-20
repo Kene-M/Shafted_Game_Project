@@ -15,6 +15,9 @@ func init():
 	var texture = load("res://Assets/Player/testrifle.png")
 	var char = get_parent()
 	char.cur_run = "no_arms_run"
+	if $"../AnimatedSprite2D".animation == "run":
+		$"../AnimatedSprite2D".play(char.cur_run)
+	sprite.visible = true
 	sprite.texture = texture
 	sprite.scale = Vector2(3.9, 3.9)
 	if $"../AnimatedSprite2D".flip_h == false:

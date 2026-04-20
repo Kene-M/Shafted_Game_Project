@@ -1,5 +1,6 @@
 extends Node2D
 var last_used = Time.get_ticks_msec()
+var texture = load("res://Assets/Player/testlauncher.png")
 
 func _ready() -> void:
 	var parent = get_parent()
@@ -13,9 +14,11 @@ func init():
 	#var new_atlas_texture := AtlasTexture.new()
 	#new_atlas_texture.atlas = texture
 	#new_atlas_texture.region = Rect2(901, 528, 998, 700)
-	var texture = load("res://Assets/Player/testlauncher.png")
 	var char = get_parent()
 	char.cur_run = "no_arms_run"
+	if $"../AnimatedSprite2D".animation == "run":
+		$"../AnimatedSprite2D".play(char.cur_run)
+	sprite.visible = true
 	sprite.texture = texture
 	sprite.scale = Vector2(3.7, 3.7)
 	if $"../AnimatedSprite2D".flip_h == false:

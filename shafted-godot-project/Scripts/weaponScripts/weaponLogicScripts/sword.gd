@@ -10,10 +10,13 @@ func init():
 	var parent = get_parent()
 	parent.connect("fire_projectile", _on_fire_projectile)
 	var sprite = $"../AnimatedSprite2D/Sprite2D2"
+	sprite.visible = true
 	sprite.texture = texture
 	sprite.scale = Vector2(4.7,4.7)
 	var char = get_parent()
 	char.cur_run = "run"
+	if $"../AnimatedSprite2D".animation == "no_arms_run":
+		$"../AnimatedSprite2D".play(char.cur_run)
 	if $"../AnimatedSprite2D".flip_h == false:
 		sprite.position = Vector2(37, 11)
 	else:
