@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://4h5420tkbapp"]
+
+[ext_resource type="Script" uid="uid://d2acjys5cx0y0" path="res://shotgun_projectile.gd" id="1_rnj6w"]
+[ext_resource type="Texture2D" uid="uid://bfh6dod7jm8ok" path="res://Assets/Props/yellow_projectile.png" id="2_6iyvx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
+radius = 15.033297
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yr2qt"]
+radius = 15.033297
+
+[sub_resource type="Gradient" id="Gradient_mepkt"]
+offsets = PackedFloat32Array(0.025974026, 0.36363637, 0.45454547, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08796865, 0.08796865, 0.08796865, 1, 0, 0, 0, 1, 0.035737246, 0.035737246, 0.035737246, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x3r0h"]
+gradient = SubResource("Gradient_mepkt")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ShotgunProjectile" type="AnimatableBody2D" unique_id=1155953414]
+collision_layer = 8
+script = ExtResource("1_rnj6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1215596481]
+shape = SubResource("CircleShape2D_qxf0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1079859365]
+scale = Vector2(1.6665977, 1.5095825)
+texture = ExtResource("2_6iyvx")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1043880149]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1856319082]
+shape = SubResource("CircleShape2D_yr2qt")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=441573820]
+scale = Vector2(0.29833332, 0.2883334)
+color = Color(0.9400269, 0.8623555, 1.540184e-06, 1)
+energy = 0.5
+texture = SubResource("GradientTexture2D_x3r0h")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

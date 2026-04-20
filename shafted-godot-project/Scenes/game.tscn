@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cagh3e6vxxaqi"]
+[gd_scene format=3 uid="uid://bjfn8il50yd42"]
 
 [ext_resource type="Script" uid="uid://cpngnd2oha47j" path="res://game_manager.gd" id="1_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://c7top2b42d40m" path="res://Scenes/rooms/spawnRoom.tscn" id="2_3dryh"]
-[ext_resource type="PackedScene" uid="uid://vu65iiqa1fw4" path="res://generator_test.tscn" id="3_wowpa"]
+[ext_resource type="PackedScene" uid="uid://vu65iiqa1fw4" path="res://Scenes/generator_test_items/generator_test.tscn" id="3_wowpa"]
 
 [node name="Game" type="Node2D" unique_id=641626127]
 script = ExtResource("1_wrm1d")

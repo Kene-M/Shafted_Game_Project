@@ -2,8 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_inqhw"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_mcidp"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_fl1oi"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_nda8l"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_fl1oi"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_nda8l"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="5_kq4k7"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="6_787g7"]
 
@@ -1591,3 +1591,12 @@ position = Vector2(389, -97)
 
 [node name="LightSource4" parent="." unique_id=658598083 instance=ExtResource("5_kq4k7")]
 position = Vector2(-33, -34)
+
+[node name="ExitNorth" type="Marker2D" parent="." unique_id=1339972454]
+position = Vector2(-519, -639)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=63427668]
+position = Vector2(-640, 268)
+
+[node name="ExitSouth" type="Marker2D" parent="." unique_id=1096295383]
+position = Vector2(412, 639)

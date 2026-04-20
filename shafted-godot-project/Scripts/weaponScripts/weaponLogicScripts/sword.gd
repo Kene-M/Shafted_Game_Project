@@ -1,6 +1,6 @@
 extends Node2D
 var texture = load("res://Assets/Player/black_sword_large.png")
-var last_used = Time.get_ticks_msec()
+var last_used = 0
 
 
 
@@ -10,8 +10,13 @@ func init():
 	var parent = get_parent()
 	parent.connect("fire_projectile", _on_fire_projectile)
 	var sprite = $"../AnimatedSprite2D/Sprite2D2"
+	sprite.visible = true
 	sprite.texture = texture
 	sprite.scale = Vector2(4.7,4.7)
+	var char = get_parent()
+	char.cur_run = "run"
+	if $"../AnimatedSprite2D".animation == "no_arms_run":
+		$"../AnimatedSprite2D".play(char.cur_run)
 	if $"../AnimatedSprite2D".flip_h == false:
 		sprite.position = Vector2(37, 11)
 	else:
@@ -21,7 +26,7 @@ func init():
 
 func _on_fire_projectile(direction, augment_vals) -> void:
 	print(Time.get_ticks_msec() - last_used)
-	if Time.get_ticks_msec() - last_used > 350:
+	if (Time.get_ticks_msec() - last_used > 350) or last_used == 0:
 		last_used = Time.get_ticks_msec()
 		var sprite = $"../AnimatedSprite2D/Sprite2D2"
 		var player = Autoload.main_char
