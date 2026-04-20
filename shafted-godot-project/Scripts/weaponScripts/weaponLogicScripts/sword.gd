@@ -1,6 +1,6 @@
 extends Node2D
 var texture = load("res://Assets/Player/black_sword_large.png")
-var last_used = Time.get_ticks_msec()
+var last_used = 0
 
 
 
@@ -26,7 +26,7 @@ func init():
 
 func _on_fire_projectile(direction, augment_vals) -> void:
 	print(Time.get_ticks_msec() - last_used)
-	if Time.get_ticks_msec() - last_used > 350:
+	if (Time.get_ticks_msec() - last_used > 350) or last_used == 0:
 		last_used = Time.get_ticks_msec()
 		var sprite = $"../AnimatedSprite2D/Sprite2D2"
 		var player = Autoload.main_char
