@@ -2,8 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_x1e87"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_2bopm"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_m1mix"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_hgaaf"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_m1mix"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_hgaaf"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="5_lo58y"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="6_2d63s"]
 
@@ -1594,10 +1594,11 @@ position = Vector2(-516, -278)
 position = Vector2(307, -21)
 
 [node name="ExitSouth" type="Marker2D" parent="." unique_id=1802407940]
-position = Vector2(-321, 633)
+position = Vector2(-318, 639)
 
 [node name="ExitNorth" type="Marker2D" parent="." unique_id=898724635]
-position = Vector2(-63, -628)
+position = Vector2(-62.00003, -639)
+rotation = -0.7853982
 
 [node name="ExitWest" type="Marker2D" parent="." unique_id=573968816]
-position = Vector2(-631, -265)
+position = Vector2(-640, -265)

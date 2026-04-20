@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_2ovtw"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="3_vlrcv"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="4_psokb"]
-[ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_psokb"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_ehu4v"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_psokb"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_ehu4v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jf0vv"]
 texture = ExtResource("2_2ovtw")
@@ -1625,13 +1625,13 @@ offset_right = 352.0
 offset_bottom = 1056.0
 
 [node name="ExitNorth" type="Marker2D" parent="." unique_id=342865592]
-position = Vector2(712, -446)
+position = Vector2(711, -447)
 
 [node name="ExitWest" type="Marker2D" parent="." unique_id=1676181657]
-position = Vector2(-934, 32)
+position = Vector2(-944, 36)
 
 [node name="ExitEast" type="Marker2D" parent="." unique_id=529277261]
-position = Vector2(982, 85)
+position = Vector2(991, 85)
 
 [node name="ExitSouth" type="Marker2D" parent="." unique_id=69546242]
-position = Vector2(313, 1052)
+position = Vector2(312, 1055)
