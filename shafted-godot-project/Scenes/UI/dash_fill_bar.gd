@@ -1,5 +1,5 @@
 extends ColorRect
-const max_x: int = 204
+const max_x: float = 228.86
 
 func _ready():
 	Autoload.main_char.dash_changed.connect(_on_dash_changed)

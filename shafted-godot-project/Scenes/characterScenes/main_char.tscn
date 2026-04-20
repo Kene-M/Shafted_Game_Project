@@ -252,13 +252,6 @@ z_index = 4
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_jt4vo")
-augment_vals = {
-0: 0,
-1: 1,
-2: 50,
-3: 1,
-4: 300
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2120441913]
 scale = Vector2(0.805, 0.805)
