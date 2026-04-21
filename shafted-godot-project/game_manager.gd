@@ -39,7 +39,7 @@ func _ready() -> void:
 	var cam = player.find_child("Camera2D", true, false)
 	if cam:
 		cam.make_current()
-		cam.zoom = Vector2(1, 1)
+		cam.zoom = Vector2(0.8, 0.8)
 
 	# Load the spawn room first
 	_load_spawn_room()

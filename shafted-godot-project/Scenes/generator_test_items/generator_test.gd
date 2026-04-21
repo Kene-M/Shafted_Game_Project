@@ -24,6 +24,7 @@ var generation_chance: int = 60
 # Acts as the minimum padding (in world units) added around the room bounding box.
 var room_display_radius: float = 1500.0
 
+"""
 # ─────────────────────────────────────────────
 # ROOM SCENE REFERENCES — assign in Inspector
 # Each exported variable holds a .tscn file for a specific corridor shape.
@@ -38,6 +39,63 @@ var room_display_radius: float = 1500.0
 @export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
 # A vertical corridor connecting North and South only.
 @export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
+"""
+
+# ─────────────────────────────────────────────
+# ROOM SCENE REFERENCES — assign in Inspector
+# Each exported variable holds a .tscn file for a specific corridor shape.
+# The generator picks the right scene based on which exits a room needs.
+# Keys refer to the sorted exit combination string used in scene_map.
+# ─────────────────────────────────────────────
+
+# ── OLD / BASE ROOMS ──
+# The starting room — West exit only (player enters from the east side).
+@export var scene_start: PackedScene                    # first_room.tscn             key: "West"
+# Four-way room — all cardinal exits. Used as fallback for unmatched shapes.
+@export var scene_all_dirs: PackedScene                 # tri_connectl_lud.tscn        key: "East_North_South_West"
+# Horizontal corridor — East and West exits only.
+@export var scene_lr: PackedScene                       # lr_connector.tscn            key: "East_West" (variant 1)
+# Vertical corridor — North and South exits only.
+@export var scene_ud: PackedScene                       # ud_hall_way.tscn             key: "North_South"
+
+# ── NEW DEAD-END ROOMS ──
+# Dead end with a single South exit (opens downward).
+@export var scene_up_deadend: PackedScene               # up_deadend.tscn              key: "South"
+# Dead end with a single North exit (opens upward).
+@export var scene_down_deadend: PackedScene             # down_deadend.tscn            key: "North"
+# Dead end with a single West exit — variant 1.
+@export var scene_right_deadend: PackedScene            # right_deadend.tscn           key: "West" (variant 2)
+# Dead end with a single East exit — variant 1.
+@export var scene_left_dead_end: PackedScene            # left_dead_end.tscn           key: "East" (variant 1)
+# Dead end with a single East exit — variant 2.
+@export var scene_left_dead_end2: PackedScene           # left_dead_end2.tscn          key: "East" (variant 2)
+# Dedicated boss room — West exit only (same key as start/right_deadend but reserved for boss).
+@export var scene_boss_room: PackedScene                # boss_room.tscn               key: "West" (boss variant)
+
+# ── NEW CORNER ROOMS ──
+# Corner room with North and West exits — variant 1.
+@export var scene_right_up_room: PackedScene            # right_up_room.tscn           key: "North_West" (variant 1)
+# Corner room with North and West exits — variant 2.
+@export var scene_left_up_room: PackedScene             # left_up_room.tscn            key: "North_West" (variant 2)
+# Corner room with East and South exits.
+@export var scene_right_down_room: PackedScene          # right_down_room.tscn         key: "East_South"
+# Corner room with West and South exits.
+@export var scene_left_down_room: PackedScene           # left_down_room.tscn          key: "West_South"
+
+# ── NEW CORRIDOR / MULTI-EXIT ROOMS ──
+# Horizontal-style corridor — East and West exits, variant 2.
+@export var scene_right_up_doown_groovin: PackedScene   # right_up_doown_groovin.tscn  key: "East_West" (variant 2)
+# Horizontal-style corridor — East and West exits, variant 3.
+@export var scene_left_right_down_trololol: PackedScene # left_right_down_trololol.tscn key: "East_West" (variant 3)
+# Three-way room — North, South, and West exits — variant 1.
+@export var scene_left_up_down_cave1: PackedScene       # left_up_down_cave1.tscn      key: "North_South_West" (variant 1)
+# Three-way room — North, South, and West exits — variant 2.
+@export var scene_left_up_down_cave_2: PackedScene      # left_up_down_cave_2.tscn     key: "North_South_West" (variant 2)
+# Three-way room — North, East, and West exits.
+@export var scene_left_right_up_67: PackedScene         # left_right_up_67.tscn        key: "North_East_West"
+# Four-way room — all cardinal exits, variant 2.
+@export var scene_left_right_up_down_loss: PackedScene  # left_right_up_down_loss.tscn key: "East_North_South_West" (variant 2)
+
 
 # ─────────────────────────────────────────────
 # ENEMY SCENES — assign in Inspector
@@ -50,6 +108,8 @@ var room_display_radius: float = 1500.0
 # How far enemies scatter around their spawn marker (pixels)
 @export var spawn_scatter_radius: float = 80.0
 signal dungeon_ready
+
+# TRANSITION EDIT
 var current_room_pos: Vector2i = Vector2i(0, 0)
 var is_transitioning: bool = false
 
@@ -90,6 +150,7 @@ const OPPOSITE = {
 # Populated in _ready() after the @export variables are set by the Inspector.
 var scene_map: Dictionary = {}
 
+"""
 # Declares which exit directions each scene key supports.
 # The key is a sorted, underscore-joined string of the exit names the scene provides.
 # This is used to match a room's required connections to the right scene.
@@ -97,6 +158,25 @@ var scene_exits: Dictionary = {
 	"West":                  ["West"],
 	"East_West":             ["East", "West"],
 	"North_South":           ["North", "South"],
+	"East_North_South_West": ["East", "North", "South", "West"]
+}
+"""
+# Declares which exit directions each scene key supports.
+# Keys are sorted, underscore-joined strings of exit direction names.
+# Used by the walk to verify a neighbor can connect back before expanding.
+# Every unique combination across old and new rooms is listed here.
+var scene_exits: Dictionary = {
+	"North":                 ["North"],
+	"South":                 ["South"],
+	"East":                  ["East"],
+	"West":                  ["West"],
+	"East_South":            ["East", "South"],
+	"East_West":             ["East", "West"],
+	"North_South":           ["North", "South"],
+	"North_West":            ["North", "West"],
+	"West_South":            ["South", "West"],
+	"North_East_West":       ["East", "North", "West"],
+	"North_South_West":      ["North", "South", "West"],
 	"East_North_South_West": ["East", "North", "South", "West"]
 }
 
@@ -111,10 +191,30 @@ func _ready():
 	# Wire up the scene_map now that @export references are available.
 	# Each key matches a possible _get_connection_key() result so _pick_best_scene()
 	# can look up the right PackedScene directly.
+	"""
 	scene_map["West"]                  = scene_start
 	scene_map["East_West"]             = scene_lr
 	scene_map["North_South"]           = scene_ud
 	scene_map["East_North_South_West"] = scene_all_dirs
+	"""
+	# ── Single-scene keys — one exact scene per combination ──
+	scene_map["North_South"]      = scene_ud
+	scene_map["East_South"]       = scene_right_down_room
+	scene_map["North_East_West"]  = scene_left_right_up_67
+	scene_map["West_South"]       = scene_left_down_room
+
+	# ── Multi-variant keys — multiple scenes share the same exit combination.
+	# _pick_best_scene() will randomly select from the pool each time,
+	# giving visual variety across runs without any extra logic at the call site.
+	# Each pool is stored as an Array under the same key used by _get_connection_key().
+	scene_map["West"]                  = [scene_start, scene_right_deadend]
+	scene_map["East"]                  = [scene_left_dead_end, scene_left_dead_end2]
+	scene_map["North"]                 = [scene_down_deadend]
+	scene_map["South"]                 = [scene_up_deadend]
+	scene_map["North_West"]            = [scene_right_up_room, scene_left_up_room]
+	scene_map["East_West"]             = [scene_lr, scene_right_up_doown_groovin, scene_left_right_down_trololol]
+	scene_map["North_South_West"]      = [scene_left_up_down_cave1, scene_left_up_down_cave_2]
+	scene_map["East_North_South_West"] = [scene_all_dirs, scene_left_right_up_down_loss]
 
 	# Keep regenerating until a valid layout is produced.
 	# "Valid" means: enough rooms AND at least two dead ends for boss/treasure.
@@ -413,6 +513,7 @@ func _place_rooms():
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
 	call_deferred("_spawn_boundary")
+	# TRANSITION EDIT
 	call_deferred("_setup_room_system")
 
 
@@ -719,7 +820,7 @@ func _print_map():
 # HELPERS
 # Small, single-purpose functions that keep the steps above readable.
 # ─────────────────────────────────────────────
-
+"""
 # Selects the best-matching PackedScene for a room based on its connection key.
 # If no exact match exists, falls back to the all-directions scene — this handles
 # any shape the current scene library doesn't have a dedicated room for.
@@ -733,7 +834,31 @@ func _pick_best_scene(key: String, exits: Array) -> PackedScene:
 		return scene_map["East_North_South_West"]
 
 	return null
-
+"""
+# Selects a PackedScene for a room based on its connection key.
+# scene_map values may be a single PackedScene OR an Array of PackedScenes
+# (for keys where multiple room variants share the same exit combination).
+# When multiple variants exist, one is chosen randomly for visual variety.
+# If no exact match exists, falls back to the all-directions scene pool.
+func _pick_best_scene(key: String, exits: Array) -> PackedScene:
+	if scene_map.has(key):
+		var entry = scene_map[key]
+		# If it's an Array, pick a random variant from the pool
+		if entry is Array and entry.size() > 0:
+			return entry[randi() % entry.size()]
+		# Otherwise it's a direct PackedScene reference
+		if entry is PackedScene:
+			return entry
+	# No exact match — fall back to the all-directions pool
+	if scene_map.has("East_North_South_West"):
+		var fallback = scene_map["East_North_South_West"]
+		if fallback is Array and fallback.size() > 0:
+			return fallback[randi() % fallback.size()]
+		if fallback is PackedScene:
+			return fallback
+	return null
+	
+	
 
 # Returns which directions from grid_pos lead to another occupied grid cell.
 # This directly represents which exits the room at that position must have.
@@ -767,6 +892,7 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 # ─────────────────────────────────────────────
 # ROOM VISIBILITY + EXIT TRIGGERS
 # ─────────────────────────────────────────────
+# TRANSITION EDIT
 
 func _setup_room_system() -> void:
 	# Hide all rooms except the start room
@@ -785,6 +911,8 @@ func _setup_room_system() -> void:
 	print("Room system ready. Start room visible, all triggers placed.")
 	emit_signal("dungeon_ready")
 
+
+# TRANSITION EDIT
 
 func _add_exit_triggers(grid_pos: Vector2i) -> void:
 	var room = placed_rooms[grid_pos]
@@ -821,6 +949,8 @@ func _add_exit_triggers(grid_pos: Vector2i) -> void:
 		print("  Trigger added: ", dir_name, " at ", marker.global_position, " mask=", trigger.collision_mask)
 		trigger.body_entered.connect(_on_exit_triggered.bind(trigger))
 
+
+# TRANSITION EDIT
 
 func _on_exit_triggered(body: Node2D, trigger: Area2D) -> void:
 	print("EXIT TRIGGER FIRED — body: ", body.name, " groups: ", body.get_groups())
@@ -859,10 +989,10 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 	if entry_marker:
 		var inward = Vector2.ZERO
 		match entry_dir:
-			"East":  inward = Vector2(-200, 0)
-			"West":  inward = Vector2(200, 0)
-			"North": inward = Vector2(0, 200)
-			"South": inward = Vector2(0, -200)
+			"East":  inward = Vector2(-50, 0)
+			"West":  inward = Vector2(50, 0)
+			"North": inward = Vector2(0, 50)
+			"South": inward = Vector2(0, -50)
 		player.global_position = entry_marker.global_position + inward
 	else:
 		player.global_position = new_room.global_position
@@ -888,6 +1018,8 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 	is_transitioning = false
 
 
+# TRANSITION EDIT
+
 func _get_or_create_overlay() -> ColorRect:
 	# Reuse if already created
 	var existing = get_tree().get_first_node_in_group("transition_overlay")
@@ -906,6 +1038,14 @@ func _get_or_create_overlay() -> ColorRect:
 	rect.add_to_group("transition_overlay")
 	canvas.add_child(rect)
 	return rect
+
+
+
+
+
+
+
+
 
 
 
