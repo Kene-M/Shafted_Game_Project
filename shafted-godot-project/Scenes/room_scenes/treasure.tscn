@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cha1nv0n3hl5g"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_8yfu0"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="2_lrgvu"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="2_lrgvu"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="3_hhnfx"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_no7mn"]
 
@@ -78,9 +78,6 @@ position = Vector2(-1, -279)
 [node name="RedLightSkull14" parent="." unique_id=122869764 instance=ExtResource("3_hhnfx")]
 position = Vector2(-258, -5)
 
-[node name="Marker2D" type="Marker2D" parent="RedLightSkull14" unique_id=343210484]
-position = Vector2(-14, 5)
-
 [node name="RedLightSkull15" parent="." unique_id=1731650257 instance=ExtResource("3_hhnfx")]
 position = Vector2(249, -5)
 
@@ -101,3 +98,6 @@ position = Vector2(-63, 33)
 
 [node name="LightSource4" parent="." unique_id=879252636 instance=ExtResource("4_no7mn")]
 position = Vector2(33, 33)
+
+[node name="ExitWest" type="Marker2D" parent="." unique_id=343210484]
+position = Vector2(-274, 0)
