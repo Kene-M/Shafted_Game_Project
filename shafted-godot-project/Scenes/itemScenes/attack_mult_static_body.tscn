@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://gssq055s8nbt"]
+
+[ext_resource type="Script" uid="uid://brcpeee1rsyjw" path="res://attack_mult_aug_area_2d.gd" id="1_fohmm"]
+[ext_resource type="Texture2D" uid="uid://cj5bbp6r3oor5" path="res://Assets/Player/Augments/red_magic_circle.png" id="2_mpihl"]
+[ext_resource type="Texture2D" uid="uid://u4b71m0vyqpo" path="res://Assets/enemies/dummy/hitFX/HitFX1.png" id="3_1hjep"]
+[ext_resource type="Texture2D" uid="uid://bwii86d7qslls" path="res://Assets/enemies/dummy/hitFX/HitFX2.png" id="4_vbj80"]
+[ext_resource type="Texture2D" uid="uid://cms6pt6cdm5i6" path="res://Assets/enemies/dummy/hitFX/HitFX3.png" id="5_al2hs"]
+[ext_resource type="Texture2D" uid="uid://bpdeurc4n2ivi" path="res://Assets/enemies/dummy/hitFX/HitFX4.png" id="6_h4bxp"]
+[ext_resource type="Texture2D" uid="uid://bd1lfo5utd22i" path="res://Assets/enemies/dummy/hitFX/HitFX5.png" id="7_ry3me"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
+radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xas3k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1hjep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vbj80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_al2hs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h4bxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ry3me")
+}],
+"loop": true,
+"name": &"hit_fx",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rop36"]
+
+[node name="AttackMultStaticBody" type="StaticBody2D" unique_id=1357907023]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1555039958]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_fohmm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=361596257]
+shape = SubResource("CircleShape2D_iojf6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2108777459]
+z_index = 5
+position = Vector2(0.065, 0.14)
+scale = Vector2(1.21875, 1.1562501)
+texture = ExtResource("2_mpihl")
+
+[node name="HitFX" type="AnimatedSprite2D" parent="Sprite2D" unique_id=2055258389]
+position = Vector2(-0.05333352, -0.12108159)
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_xas3k")
+animation = &"hit_fx"
+autoplay = "hit_fx"
+frame_progress = 0.27069333
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=383991919]
+position = Vector2(-4.7683716e-07, 0)
+scale = Vector2(2.1093748, 1.9843752)
+sprite_frames = SubResource("SpriteFrames_rop36")
+frame_progress = 0.8638232
