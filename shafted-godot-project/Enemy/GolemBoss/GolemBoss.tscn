@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://dt3lgvw3ejjjv" path="res://Enemy/GolemBoss/golem_boss.gd" id="1_c1quy"]
 [ext_resource type="Texture2D" uid="uid://cq548h4bwldw2" path="res://Assets/enemies/Golems/Boss_Golem/Character_sheet.png" id="2_i4ssq"]
 [ext_resource type="PackedScene" uid="uid://cy4r0f0j4a50u" path="res://Enemy/GolemBoss/GolemProjectile.tscn" id="2_qyjpd"]
+[ext_resource type="Texture2D" uid="uid://cs5gyxxo3n81y" path="res://Assets/UI/UI_Hologram_Banner_01a_Boss_Health_Bar.png" id="4_5x52u"]
+[ext_resource type="Script" uid="uid://b71udw8jdfy6o" path="res://Enemy/GolemBoss/boss_health_fill_bar.gd" id="5_5x52u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_la17c"]
 atlas = ExtResource("2_i4ssq")
@@ -577,3 +579,36 @@ default_color = Color(0.023529412, 1, 1, 1)
 [node name="LaserRay" type="RayCast2D" parent="LaserPivot" unique_id=1292779525]
 enabled = false
 target_position = Vector2(2500, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1454633112]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=735608983]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 151.0
+offset_top = 21.0
+offset_right = 1072.0
+offset_bottom = 219.0
+
+[node name="BossHealthBar" type="TextureRect" parent="CanvasLayer/Control" unique_id=698302319]
+z_index = 6
+clip_contents = true
+layout_mode = 0
+offset_left = 187.0
+offset_top = 20.0
+offset_right = 719.0
+offset_bottom = 154.0
+size_flags_horizontal = 3
+texture = ExtResource("4_5x52u")
+
+[node name="BossHealthFillBar" type="ColorRect" parent="CanvasLayer/Control/BossHealthBar" unique_id=1820373031]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 34.0
+offset_right = 532.0
+offset_bottom = 101.0
+color = Color(0.513617, 0.0005715767, 0.00031313868, 1)
+script = ExtResource("5_5x52u")
+
+[connection signal="body_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_body_entered"]
