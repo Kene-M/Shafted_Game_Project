@@ -8,16 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="5_oayo1"]
 [ext_resource type="PackedScene" uid="uid://b33s8ohxyrgxk" path="res://Scenes/room_scenes/ud_hall_way.tscn" id="6_2ncwt"]
 [ext_resource type="PackedScene" uid="uid://cx3xgyf4nhugi" path="res://Scenes/room_scenes/up_deadend.tscn" id="6_dcg13"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_t2dsd"]
+[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_t2dsd"]
 [ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="6_wiy4m"]
 [ext_resource type="PackedScene" uid="uid://5645i6lkthp" path="res://Scenes/room_scenes/down_deadend.tscn" id="7_ejr60"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="7_kakgk"]
 [ext_resource type="PackedScene" uid="uid://b0a4l5dmmteuw" path="res://Scenes/room_scenes/right_deadend.tscn" id="8_6c05g"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="8_7gihb"]
 [ext_resource type="PackedScene" uid="uid://dv5vdtpyapowi" path="res://Scenes/room_scenes/left_dead_end.tscn" id="9_2ncwt"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="9_kvuhb"]
+[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="9_kvuhb"]
 [ext_resource type="PackedScene" uid="uid://cmky21psj8aj8" path="res://Scenes/room_scenes/left_dead_end2.tscn" id="10_jc83f"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="10_rwuqo"]
+[ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="10_rwuqo"]
 [ext_resource type="PackedScene" uid="uid://b2q8n4tccgeud" path="res://Scenes/room_scenes/boss_room.tscn" id="11_do7me"]
 [ext_resource type="PackedScene" uid="uid://c2j2s3xgli4cn" path="res://Scenes/room_scenes/left_up_room2.tscn" id="12_x63dv"]
 [ext_resource type="PackedScene" uid="uid://va2bkm4kt605" path="res://Scenes/room_scenes/left_up_room.tscn" id="13_xp6pk"]
@@ -38,6 +38,8 @@
 [ext_resource type="PackedScene" uid="uid://dypgq8t72cohr" path="res://Scenes/room_scenes/treasure2.tscn" id="28_82j8j"]
 [ext_resource type="PackedScene" uid="uid://dtdkso1pha2d4" path="res://Scenes/room_scenes/treasure3.tscn" id="29_0ai7a"]
 [ext_resource type="PackedScene" uid="uid://c52mdte2q5o5x" path="res://Scenes/room_scenes/treasure4.tscn" id="30_r4ygd"]
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="38_by8ou"]
+[ext_resource type="PackedScene" uid="uid://dueal3iqlrqdc" path="res://Enemy/Bomber/bomber.tscn" id="39_oayo1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7od5h"]
 texture = ExtResource("3_oejp5")
@@ -2142,6 +2144,7 @@ scene_treasure = ExtResource("27_5d0ks")
 scene_treasure2 = ExtResource("28_82j8j")
 scene_treasure3 = ExtResource("29_0ai7a")
 scene_treasure4 = ExtResource("30_r4ygd")
+enemy_scenes = Array[PackedScene]([ExtResource("38_by8ou"), ExtResource("39_oayo1")])
 boss_enemy_scene = ExtResource("6_wiy4m")
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]
