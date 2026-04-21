@@ -3,6 +3,10 @@ extends Node
 const PROGRESS_PATH = "user://player_progress.json"
 const RUN_PATH = "user://current_run.json"
 var is_loading_run: bool = false
+var WEAPON_DB = {
+	"Launcher": "res://Scripts/weaponScripts/weaponLogicScripts/launcher.gd",
+	"No Weapon": "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
+}
 
 # ============================================================
 # MAIN FUNCTIONS
@@ -88,16 +92,19 @@ func load_current_run():
 	# Restore basic stats
 	player.cur_health = data["current_health"]
 	player.resource_inv = data["run_resources"]
-	
-	#load player position
+
+	#load player position (uncomment if you want the location to change)
+	"""
 	if data.has("player_position"):
 		var pos = data["player_position"]
 		player.global_position = Vector2(pos["x"], pos["y"])
-	
+	"""
 	# Restore weapons
 	var weapons = data["equipped_weapons"]
 	player.melee_weapon = load_weapon_by_name(weapons[0])
 	player.ranged_weapon = load_weapon_by_name(weapons[1])
+	player._equip_weapon(player.melee_weapon)
+	player._equip_weapon(player.ranged_weapon)
 
 	# Restore augments
 	player.augments.clear()
@@ -176,8 +183,14 @@ func read_json(path):
 func load_weapon_by_name(name: String):
 	var w = WeaponResource.new()
 	w.weapon_name = name
-	return w
 
+	if WEAPON_DB.has(name):
+		w.weapon_script = WEAPON_DB[name]
+	else:
+		print("WARNING: Weapon not found in DB:", name)
+		w.weapon_script = WEAPON_DB["No Weapon"]
+
+	return w
 
 func load_augment_by_name(name: String):
 	var a = Augment.new()
