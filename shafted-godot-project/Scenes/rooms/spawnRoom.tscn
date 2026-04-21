@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://6800ia8nxotg" path="res://Scenes/weaponScenes/static_hammer.tscn" id="15_jstli"]
 [ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="16_4qw3y"]
 [ext_resource type="PackedScene" uid="uid://gssq055s8nbt" path="res://Scenes/itemScenes/attack_mult_static_body.tscn" id="17_16wuk"]
+[ext_resource type="PackedScene" uid="uid://8gpplekw5gym" path="res://Scenes/itemScenes/static_weapon_crafter_2d.tscn" id="18_h2mpr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -840,5 +841,8 @@ position = Vector2(-60, -44)
 
 [node name="AttackMultStaticBody" parent="." unique_id=1775141511 instance=ExtResource("17_16wuk")]
 position = Vector2(-78, 39)
+
+[node name="StaticWeaponCrafter2D" parent="." unique_id=951445219 instance=ExtResource("18_h2mpr")]
+position = Vector2(11, 54)
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

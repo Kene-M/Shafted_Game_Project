@@ -32,9 +32,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -231.0
-offset_top = -208.0
-offset_right = 206.5
-offset_bottom = 164.0
+offset_top = -290.0
+offset_right = 239.0
+offset_bottom = 223.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -48,6 +48,13 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer" unique_id=1675950845]
 layout_mode = 2
+
+[node name="ResumeGameButton" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1563179344]
+process_mode = 3
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 45
+text = "resume game"
 
 [node name="PlayGameButton" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=905535200]
 process_mode = 3
@@ -87,6 +94,7 @@ theme_override_fonts/font = ExtResource("3_kdnb7")
 theme_override_font_sizes/font_size = 45
 text = "exit"
 
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/ResumeGameButton" to="CanvasLayer/PanelContainer" method="_on_resum_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/PlayGameButton" to="CanvasLayer/PanelContainer" method="_on_home_screen_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/SaveGameButton" to="CanvasLayer/PanelContainer" method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/PanelContainer" method="_on_load_game_button_pressed"]
