@@ -2,11 +2,11 @@
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_jfgtw"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="2_fxa47"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_n8arl"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_1ksce"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="3_n8arl"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_1ksce"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="5_no88g"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="6_3jgqy"]
-[ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="7_fxa47"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="7_fxa47"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x7hr2"]
 texture = ExtResource("2_fxa47")
@@ -1599,7 +1599,7 @@ offset_right = 144.0
 offset_bottom = 512.0
 
 [node name="ExitNorth" type="Marker2D" parent="." unique_id=1730434702]
-position = Vector2(42, -691)
+position = Vector2(40, -695)
 
 [node name="ExitSouth" type="Marker2D" parent="." unique_id=448611251]
-position = Vector2(112, 511)
+position = Vector2(127, 511)

@@ -22,6 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://datvo53fy0r1r" path="res://Scenes/room_scenes/left_up_down_cave_2.tscn" id="19_r4ygd"]
 [ext_resource type="PackedScene" uid="uid://b2c6ol725hsjg" path="res://Scenes/room_scenes/left_right_up_67.tscn" id="20_qp1r6"]
 [ext_resource type="PackedScene" uid="uid://c2do3gy36wu2e" path="res://Scenes/room_scenes/left_right_up_down_loss.tscn" id="21_4sjju"]
+[ext_resource type="PackedScene" uid="uid://60eow8st8n8r" path="res://Scenes/room_scenes/up_down_right_groovin.tscn" id="22_x63dv"]
+[ext_resource type="PackedScene" uid="uid://dvfysn72a78a" path="res://Scenes/room_scenes/right_up_room2.tscn" id="23_xp6pk"]
+[ext_resource type="PackedScene" uid="uid://dkbu6f5waj4mq" path="res://Scenes/room_scenes/boss_room4.tscn" id="24_ev3u4"]
+[ext_resource type="PackedScene" uid="uid://dcxvjd0ma8w50" path="res://Scenes/room_scenes/boss_room3.tscn" id="25_iowg3"]
+[ext_resource type="PackedScene" uid="uid://bootgibxkqfmk" path="res://Scenes/room_scenes/boss_room2.tscn" id="26_5d0ks"]
 
 [node name="Node2D" type="Node2D" unique_id=56409940]
 script = ExtResource("1_iwqj7")
@@ -36,7 +41,7 @@ scene_right_deadend = ExtResource("8_6c05g")
 scene_left_dead_end = ExtResource("9_2ncwt")
 scene_left_dead_end2 = ExtResource("10_jc83f")
 scene_boss_room = ExtResource("11_do7me")
-scene_right_up_room = ExtResource("12_x63dv")
+scene_left_up_room2 = ExtResource("12_x63dv")
 scene_left_up_room = ExtResource("13_xp6pk")
 scene_right_down_room = ExtResource("14_ev3u4")
 scene_left_down_room = ExtResource("15_iowg3")
@@ -46,6 +51,11 @@ scene_left_up_down_cave1 = ExtResource("18_0ai7a")
 scene_left_up_down_cave_2 = ExtResource("19_r4ygd")
 scene_left_right_up_67 = ExtResource("20_qp1r6")
 scene_left_right_up_down_loss = ExtResource("21_4sjju")
+scene_up_down_right_groovin = ExtResource("22_x63dv")
+scene_right_up_room2 = ExtResource("23_xp6pk")
+scene_boss_room4 = ExtResource("24_ev3u4")
+scene_boss_room3 = ExtResource("25_iowg3")
+scene_boss_room2 = ExtResource("26_5d0ks")
 boss_enemy_scene = ExtResource("6_wiy4m")
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]
