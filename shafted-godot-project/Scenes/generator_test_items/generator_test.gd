@@ -39,10 +39,11 @@ var room_display_radius: float = 1500.0
 @export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
 # A vertical corridor connecting North and South only.
 @export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
+"""
 # Dedicated boss room. Used for any grid cell labelled "boss".
 # Leave null to fall back to scene_all_dirs.
 @export var scene_boss: PackedScene        # boss_room.tscn
-"""
+
 
 # ─────────────────────────────────────────────
 # ROOM SCENE REFERENCES — assign in Inspector
