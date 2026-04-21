@@ -1,0 +1,222 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/UI/minimap.gd" id="1_minimap"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.07, 0.07, 0.10, 0.90)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.5, 0.55, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.04, 0.04, 0.07, 0.85)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_legend"]
+bg_color = Color(0.07, 0.07, 0.10, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.45, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+; ── CanvasLayer — renders above all gameplay ──────────────────────────────
+[node name="MinimapCanvasLayer" type="CanvasLayer"]
+layer = 10
+
+; ── MinimapRoot: small top-right widget, holds the panel + script ─────────
+[node name="MinimapRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 165.0
+grow_horizontal = 0
+script = ExtResource("1_minimap")
+
+; ── Small panel ───────────────────────────────────────────────────────────
+[node name="MinimapPanel" type="Panel" parent="MinimapRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+; ── MiniGrid: clipped container where room ColorRects are placed ──────────
+[node name="MiniGrid" type="Control" parent="MinimapRoot/MinimapPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -18.0
+clip_contents = true
+mouse_filter = 2
+
+; ── Player dot: tiny red square that moves within MiniGrid ───────────────
+[node name="PlayerDot" type="ColorRect" parent="MinimapRoot/MinimapPanel/MiniGrid"]
+layout_mode = 0
+offset_right = 6.0
+offset_bottom = 6.0
+mouse_filter = 2
+color = Color(1, 0.2, 0.2, 1)
+z_index = 10
+visible = false
+
+; ── Hint label at bottom of panel ────────────────────────────────────────
+[node name="HintLabel" type="Label" parent="MinimapRoot/MinimapPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+text = "[M] full map"
+horizontal_alignment = 1
+
+; ── Transparent click zone covering the whole panel ───────────────────────
+[node name="ClickZone" type="Button" parent="MinimapRoot/MinimapPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+focus_mode = 0
+
+; ── Full map overlay — sibling of MinimapRoot, anchored to full viewport ──
+[node name="FullMapOverlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+visible = false
+
+; ── Dim backdrop ──────────────────────────────────────────────────────────
+[node name="DimBackground" type="Panel" parent="FullMapOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+
+; ── FullGrid: clipped container where full-map ColorRects are placed ──────
+[node name="FullGrid" type="Control" parent="FullMapOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+clip_contents = true
+mouse_filter = 2
+
+; ── Title ─────────────────────────────────────────────────────────────────
+[node name="TitleLabel" type="Label" parent="FullMapOverlay"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 18.0
+offset_right = 60.0
+offset_bottom = 42.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+text = "MAP"
+horizontal_alignment = 1
+
+; ── Close hint ────────────────────────────────────────────────────────────
+[node name="CloseHint" type="Label" parent="FullMapOverlay"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 42.0
+offset_right = 80.0
+offset_bottom = 58.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+text = "[M] or click minimap to close"
+horizontal_alignment = 1
+
+; ── Legend ────────────────────────────────────────────────────────────────
+[node name="Legend" type="Panel" parent="FullMapOverlay"]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -56.0
+offset_right = 165.0
+offset_bottom = 56.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_legend")
+
+[node name="LegendVBox" type="VBoxContainer" parent="FullMapOverlay/Legend"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="LegendStart" type="Label" parent="FullMapOverlay/Legend/LegendVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.25, 0.55, 1.0, 1)
+text = "■  Start"
+
+[node name="LegendNormal" type="Label" parent="FullMapOverlay/Legend/LegendVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "■  Room"
+
+[node name="LegendBoss" type="Label" parent="FullMapOverlay/Legend/LegendVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.80, 0.18, 0.18, 1)
+text = "■  Boss"
+
+[node name="LegendTreasure" type="Label" parent="FullMapOverlay/Legend/LegendVBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.90, 0.72, 0.10, 1)
+text = "■  Treasure"
+
+; ── Signal connections ─────────────────────────────────────────────────────
+[connection signal="pressed" from="MinimapRoot/MinimapPanel/ClickZone" to="MinimapRoot" method="_on_click_zone_pressed"]
