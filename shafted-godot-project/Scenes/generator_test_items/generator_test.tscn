@@ -1,19 +1,18 @@
 [gd_scene format=3 uid="uid://vu65iiqa1fw4"]
 
 [ext_resource type="Script" uid="uid://crlnlifroakyw" path="res://Scenes/generator_test_items/generator_test.gd" id="1_iwqj7"]
-[ext_resource type="PackedScene" uid="uid://cejggh7sqonh7" path="res://Scenes/rooms/first_room.tscn" id="2_wiy4m"]
-[ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/rooms/tri_connectl_lud.tscn" id="3_osax1"]
-[ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/rooms/lr_connector.tscn" id="4_do6ry"]
-[ext_resource type="PackedScene" uid="uid://cg4g2nvt1s0dq" path="res://Scenes/rooms/ud_hall_way.tscn" id="5_mv1hs"]
-[ext_resource type="PackedScene" uid="uid://b2q8n4tccgeud" path="res://Scenes/room_scenes/boss_room.tscn" id="6_osax1"]
-[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="6_wiy4m"]
+[ext_resource type="PackedScene" uid="uid://cejggh7sqonh7" path="res://Scenes/room_scenes/first_room.tscn" id="2_wiy4m"]
+[ext_resource type="PackedScene" uid="uid://ce845ag75t8l" path="res://Scenes/room_scenes/tri_connectl_lud.tscn" id="4_ejr60"]
+[ext_resource type="PackedScene" uid="uid://bhkrh5q24mpk5" path="res://Scenes/room_scenes/lr_connector.tscn" id="5_6c05g"]
+[ext_resource type="PackedScene" uid="uid://b33s8ohxyrgxk" path="res://Scenes/room_scenes/ud_hall_way.tscn" id="6_2ncwt"]
 [ext_resource type="PackedScene" uid="uid://cx3xgyf4nhugi" path="res://Scenes/room_scenes/up_deadend.tscn" id="6_dcg13"]
+[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="6_wiy4m"]
 [ext_resource type="PackedScene" uid="uid://5645i6lkthp" path="res://Scenes/room_scenes/down_deadend.tscn" id="7_ejr60"]
 [ext_resource type="PackedScene" uid="uid://b0a4l5dmmteuw" path="res://Scenes/room_scenes/right_deadend.tscn" id="8_6c05g"]
 [ext_resource type="PackedScene" uid="uid://dv5vdtpyapowi" path="res://Scenes/room_scenes/left_dead_end.tscn" id="9_2ncwt"]
 [ext_resource type="PackedScene" uid="uid://cmky21psj8aj8" path="res://Scenes/room_scenes/left_dead_end2.tscn" id="10_jc83f"]
 [ext_resource type="PackedScene" uid="uid://b2q8n4tccgeud" path="res://Scenes/room_scenes/boss_room.tscn" id="11_do7me"]
-[ext_resource type="PackedScene" uid="uid://c2j2s3xgli4cn" path="res://Scenes/room_scenes/right_up_room.tscn" id="12_x63dv"]
+[ext_resource type="PackedScene" uid="uid://c2j2s3xgli4cn" path="res://Scenes/room_scenes/left_up_room2.tscn" id="12_x63dv"]
 [ext_resource type="PackedScene" uid="uid://va2bkm4kt605" path="res://Scenes/room_scenes/left_up_room.tscn" id="13_xp6pk"]
 [ext_resource type="PackedScene" uid="uid://dv82tp0v5h77r" path="res://Scenes/room_scenes/right_down_room.tscn" id="14_ev3u4"]
 [ext_resource type="PackedScene" uid="uid://c7a1wkctoibje" path="res://Scenes/room_scenes/left_down_room.tscn" id="15_iowg3"]
@@ -26,12 +25,11 @@
 
 [node name="Node2D" type="Node2D" unique_id=56409940]
 script = ExtResource("1_iwqj7")
+scene_boss = ExtResource("11_do7me")
 scene_start = ExtResource("2_wiy4m")
-scene_all_dirs = ExtResource("3_osax1")
-scene_lr = ExtResource("4_do6ry")
-scene_ud = ExtResource("5_mv1hs")
-scene_boss = ExtResource("6_osax1")
-boss_enemy_scene = ExtResource("6_wiy4m")
+scene_all_dirs = ExtResource("4_ejr60")
+scene_lr = ExtResource("5_6c05g")
+scene_ud = ExtResource("6_2ncwt")
 scene_up_deadend = ExtResource("6_dcg13")
 scene_down_deadend = ExtResource("7_ejr60")
 scene_right_deadend = ExtResource("8_6c05g")
@@ -48,5 +46,6 @@ scene_left_up_down_cave1 = ExtResource("18_0ai7a")
 scene_left_up_down_cave_2 = ExtResource("19_r4ygd")
 scene_left_right_up_67 = ExtResource("20_qp1r6")
 scene_left_right_up_down_loss = ExtResource("21_4sjju")
+boss_enemy_scene = ExtResource("6_wiy4m")
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]

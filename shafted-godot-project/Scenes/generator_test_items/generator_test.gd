@@ -505,8 +505,9 @@ func _place_rooms():
 	
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
-	call_deferred("_spawn_boundary")
+	#call_deferred("_spawn_boundary")
 	# TRANSITION EDIT
+	Autoload.dungeon_generator = self
 	call_deferred("_setup_room_system")
 
 
@@ -912,6 +913,10 @@ func _setup_room_system() -> void:
 	
 	print("Room system ready. Start room visible, all triggers placed.")
 	emit_signal("dungeon_ready")
+	var minimap = get_tree().get_first_node_in_group("minimap")
+	if minimap:
+		minimap.on_dungeon_loaded()
+
 
 
 # TRANSITION EDIT
