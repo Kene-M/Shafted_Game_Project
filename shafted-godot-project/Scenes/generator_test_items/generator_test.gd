@@ -24,26 +24,11 @@ var generation_chance: int = 60
 # Acts as the minimum padding (in world units) added around the room bounding box.
 var room_display_radius: float = 1500.0
 
-"""
-# ─────────────────────────────────────────────
-# ROOM SCENE REFERENCES — assign in Inspector
-# Each exported variable holds a .tscn file for a specific corridor shape.
-# The generator picks the right scene based on which exits a room needs.
-# ─────────────────────────────────────────────
-# The starting room — has only a West exit (player enters from the east side of this room).
-@export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
-# A four-way room with exits in all cardinal directions (N/S/E/W).
-# Used as a fallback for any room shape that doesn't have a dedicated scene.
-@export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
-# A horizontal corridor connecting East and West only.
-@export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
-# A vertical corridor connecting North and South only.
-@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
-"""
+
+
 # Dedicated boss room. Used for any grid cell labelled "boss".
 # Leave null to fall back to scene_all_dirs.
 @export var scene_boss: PackedScene        # boss_room.tscn
-
 
 # ─────────────────────────────────────────────
 # ROOM SCENE REFERENCES — assign in Inspector
