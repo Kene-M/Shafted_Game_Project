@@ -505,7 +505,7 @@ func _place_rooms():
 	
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
-	call_deferred("_spawn_boundary")
+	#call_deferred("_spawn_boundary")
 	# TRANSITION EDIT
 	call_deferred("_setup_room_system")
 
