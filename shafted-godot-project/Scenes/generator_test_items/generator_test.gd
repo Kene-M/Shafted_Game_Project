@@ -623,7 +623,16 @@ func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 		# Snap formula: place the new room so its entry marker aligns with the neighbor's exit marker.
 		# new_room.position + our_marker.position == placed_neighbor.position + neighbor_marker.position
 		# → new_room.position = placed_neighbor.position + neighbor_marker.position - our_marker.position
-		return placed_neighbor.position + neighbor_marker.position - our_marker.position
+		
+		#COMMENT OUT FOR NOW - TESTING
+		# return placed_neighbor.position + neighbor_marker.position - our_marker.position
+		# THIS is the fix — temp add to tree so global_position resolves through all nesting
+		new_instance.position = Vector2.ZERO
+		add_child(new_instance)
+		var neighbor_global = neighbor_marker.global_position
+		var our_global = our_marker.global_position
+		remove_child(new_instance)
+		return neighbor_global - our_global
 
 	# No placed neighbor with matching markers found yet — caller should retry.
 	return null

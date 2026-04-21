@@ -9,7 +9,7 @@
 [ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="7_3r7sd"]
 [ext_resource type="Shader" path="res://Assets/Props/Resources/rocksDarken.gdshader" id="8_lub4x"]
 [ext_resource type="Texture2D" uid="uid://nlj7o8kiwdcb" path="res://Assets/Tilesets/whitebones.png" id="9_3r7sd"]
-[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="10_3r7sd"]
+[ext_resource type="PackedScene" path="res://Assets/Tilesets/rock_background.tscn" id="10_3r7sd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sam6c"]
 texture = ExtResource("2_h8g8c")
