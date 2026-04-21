@@ -859,10 +859,10 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 	if entry_marker:
 		var inward = Vector2.ZERO
 		match entry_dir:
-			"East":  inward = Vector2(-200, 0)
-			"West":  inward = Vector2(200, 0)
-			"North": inward = Vector2(0, 200)
-			"South": inward = Vector2(0, -200)
+			"East":  inward = Vector2(-250, 0)
+			"West":  inward = Vector2(250, 0)
+			"North": inward = Vector2(0, 250)
+			"South": inward = Vector2(0, -250)
 		player.global_position = entry_marker.global_position + inward
 	else:
 		player.global_position = new_room.global_position
