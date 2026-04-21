@@ -1,9 +1,10 @@
 [gd_scene format=4 uid="uid://cha1nv0n3hl5g"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_8yfu0"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="2_lrgvu"]
+[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="2_lrgvu"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="3_hhnfx"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_no7mn"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="5_s3hwm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hhnfx"]
 shader = ExtResource("2_lrgvu")
@@ -101,3 +102,5 @@ position = Vector2(33, 33)
 
 [node name="ExitWest" type="Marker2D" parent="." unique_id=343210484]
 position = Vector2(-274, 0)
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("5_s3hwm")]
