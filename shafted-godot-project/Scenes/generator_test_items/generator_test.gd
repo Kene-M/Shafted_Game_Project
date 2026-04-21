@@ -961,6 +961,15 @@ func _add_exit_triggers(grid_pos: Vector2i) -> void:
 		trigger.add_child(shape)
 		room.add_child(trigger)
 		trigger.global_position = marker.global_position
+		match dir_name:
+			"North":
+				trigger.global_position = Vector2(marker.global_position.x, marker.global_position.y+30)
+			"East":
+				trigger.global_position = Vector2(marker.global_position.x-30, marker.global_position.y)
+			"South":
+				trigger.global_position = Vector2(marker.global_position.x, marker.global_position.y-30)
+			"West":
+				trigger.global_position = Vector2(marker.global_position.x+30, marker.global_position.y)
 		
 		trigger.set_meta("from_grid", grid_pos)
 		trigger.set_meta("to_grid", neighbor_pos)
