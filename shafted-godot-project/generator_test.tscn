@@ -5,14 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://ynnqglcorp45" path="res://Scenes/rooms/lr_connector.tscn" id="3_46kxv"]
 [ext_resource type="PackedScene" uid="uid://cbv66v1y4x6u2" path="res://Scenes/rooms/tri_connectl_lud.tscn" id="3_xqshq"]
 [ext_resource type="PackedScene" uid="uid://cg4g2nvt1s0dq" path="res://Scenes/rooms/ud_hall_way.tscn" id="5_xqshq"]
-[ext_resource type="PackedScene" uid="uid://dueal3iqlrqdc" path="res://Enemy/Bomber/bomber.tscn" id="6_ljkim"]
-[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="7_dn3o5"]
-[ext_resource type="PackedScene" uid="uid://dljpxqtl5r8rb" path="res://Enemy/Flying/flying.tscn" id="8_vrrwc"]
-[ext_resource type="PackedScene" uid="uid://mt41mrpr8263" path="res://Enemy/Kamikaze/kamikaze.tscn" id="9_sd2tx"]
-[ext_resource type="PackedScene" uid="uid://ckd1ih2g30jdw" path="res://Enemy/Slug/slug.tscn" id="10_cwimr"]
-[ext_resource type="PackedScene" uid="uid://b03h8j8p660b4" path="res://Enemy/Egg/egg.tscn" id="11_vrrwc"]
-[ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="12_sd2tx"]
-[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="13_golem"]
+[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="6_78g35"]
+[ext_resource type="PackedScene" uid="uid://b2q8n4tccgeud" path="res://Scenes/room_scenes/boss_room.tscn" id="6_orne8"]
+[ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="7_ljkim"]
+[ext_resource type="PackedScene" uid="uid://mt41mrpr8263" path="res://Enemy/Kamikaze/kamikaze.tscn" id="8_dn3o5"]
+[ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="9_vrrwc"]
 
 [node name="Node2D" type="Node2D" unique_id=1383581756]
 script = ExtResource("1_hko6r")
@@ -20,6 +17,7 @@ scene_start = ExtResource("2_3ekj0")
 scene_all_dirs = ExtResource("3_xqshq")
 scene_lr = ExtResource("3_46kxv")
 scene_ud = ExtResource("5_xqshq")
-enemy_scenes = Array[PackedScene]([ExtResource("6_ljkim"), ExtResource("11_vrrwc"), ExtResource("8_vrrwc"), ExtResource("7_dn3o5"), ExtResource("9_sd2tx"), ExtResource("12_sd2tx"), ExtResource("10_cwimr")])
-boss_enemy_scene = ExtResource("13_golem")
+scene_boss = ExtResource("6_orne8")
+enemy_scenes = Array[PackedScene]([ExtResource("7_ljkim"), ExtResource("8_dn3o5"), ExtResource("9_vrrwc")])
+boss_enemy_scene = ExtResource("6_78g35")
 max_enemies_per_room = 10

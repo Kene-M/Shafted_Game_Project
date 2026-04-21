@@ -526,23 +526,11 @@ radius = 163.04907
 radius = 192.20822
 
 [node name="GolemBoss" type="CharacterBody2D" unique_id=1687667642]
+scale = Vector2(3, 3)
 collision_layer = 4
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("1_c1quy")
-speed = null
-melee_range = null
-ranged_range = null
-attack_cooldown = null
-melee_damage = null
-melee_hit_frame = null
-ranged_fire_frame = null
 projectile_scene = ExtResource("2_qyjpd")
-laser_damage_per_tick = null
-laser_tick_interval = null
-laser_sweep_duration = null
-laser_max_range = null
-laser_beam_width = null
-knockback_strength = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2131934116]
 sprite_frames = SubResource("SpriteFrames_tpuuj")
