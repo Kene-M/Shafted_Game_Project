@@ -4,7 +4,8 @@
 [ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="2_lrgvu"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="3_hhnfx"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_no7mn"]
-[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="5_s3hwm"]
+[ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="5_s3hwm"]
+[ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="6_qnt4i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hhnfx"]
 shader = ExtResource("2_lrgvu")
@@ -103,4 +104,7 @@ position = Vector2(33, 33)
 [node name="ExitWest" type="Marker2D" parent="." unique_id=343210484]
 position = Vector2(-274, 0)
 
-[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("5_s3hwm")]
+[node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("5_s3hwm")]
+
+[node name="StaticChest2D" parent="." unique_id=253011665 instance=ExtResource("6_qnt4i")]
+position = Vector2(242, 3)

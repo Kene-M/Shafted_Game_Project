@@ -40,6 +40,11 @@
 [ext_resource type="PackedScene" uid="uid://c52mdte2q5o5x" path="res://Scenes/room_scenes/treasure4.tscn" id="30_r4ygd"]
 [ext_resource type="PackedScene" uid="uid://cd582ememe5tr" path="res://Enemy/Grotto/grotto.tscn" id="38_by8ou"]
 [ext_resource type="PackedScene" uid="uid://dueal3iqlrqdc" path="res://Enemy/Bomber/bomber.tscn" id="39_oayo1"]
+[ext_resource type="PackedScene" uid="uid://b03h8j8p660b4" path="res://Enemy/Egg/egg.tscn" id="40_rwuqo"]
+[ext_resource type="PackedScene" uid="uid://dljpxqtl5r8rb" path="res://Enemy/Flying/flying.tscn" id="41_w4eet"]
+[ext_resource type="PackedScene" uid="uid://mt41mrpr8263" path="res://Enemy/Kamikaze/kamikaze.tscn" id="42_ltpgl"]
+[ext_resource type="PackedScene" uid="uid://d1umf61c3k16t" path="res://Enemy/Nester/nester.tscn" id="43_6bjan"]
+[ext_resource type="PackedScene" uid="uid://ckd1ih2g30jdw" path="res://Enemy/Slug/slug.tscn" id="44_dnw2g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7od5h"]
 texture = ExtResource("3_oejp5")
@@ -2144,7 +2149,7 @@ scene_treasure = ExtResource("27_5d0ks")
 scene_treasure2 = ExtResource("28_82j8j")
 scene_treasure3 = ExtResource("29_0ai7a")
 scene_treasure4 = ExtResource("30_r4ygd")
-enemy_scenes = Array[PackedScene]([ExtResource("38_by8ou"), ExtResource("39_oayo1")])
+enemy_scenes = Array[PackedScene]([ExtResource("38_by8ou"), ExtResource("39_oayo1"), ExtResource("40_rwuqo"), ExtResource("41_w4eet"), ExtResource("42_ltpgl"), ExtResource("43_6bjan"), ExtResource("44_dnw2g")])
 boss_enemy_scene = ExtResource("6_wiy4m")
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]
