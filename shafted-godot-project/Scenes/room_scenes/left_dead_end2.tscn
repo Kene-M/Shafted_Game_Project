@@ -4685,3 +4685,17 @@ tile_map_data = PackedByteArray("AAD+/wYAAQAAABAAAAD+/wcAAQAAABEAAAD+/wgAAQAAABI
 tile_set = SubResource("TileSet_v4ojx")
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("8_c18cn")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=78992559]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=2103068887]
+position = Vector2(347, 0)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=417162762]
+position = Vector2(-293, 0)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1648660828]
+position = Vector2(0, 313)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=1985146020]
+position = Vector2(190, -276)

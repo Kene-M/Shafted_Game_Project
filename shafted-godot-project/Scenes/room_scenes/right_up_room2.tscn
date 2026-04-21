@@ -1593,3 +1593,17 @@ offset_bottom = 480.0
 position = Vector2(352, 448)
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("6_fnd0q")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=757575689]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=850368384]
+position = Vector2(250, -169)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=2109668439]
+position = Vector2(69, 124)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=402503923]
+position = Vector2(-86, 292)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=1903385546]
+position = Vector2(-433, 425)

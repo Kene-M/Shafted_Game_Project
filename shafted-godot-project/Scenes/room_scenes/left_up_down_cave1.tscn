@@ -1604,3 +1604,17 @@ tile_set = ExtResource("1_x1e87")
 tile_set = SubResource("TileSet_hgaaf")
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("7_2d63s")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1327157929]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=961736763]
+position = Vector2(264, -197)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=832912743]
+position = Vector2(-307, 168)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1637054876]
+position = Vector2(77, 316)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=776790807]
+position = Vector2(-72, -262)

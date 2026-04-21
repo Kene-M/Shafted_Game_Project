@@ -1577,3 +1577,17 @@ position = Vector2(208, -206)
 position = Vector2(380, 640)
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("5_x7q1h")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=523777301]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=530258281]
+position = Vector2(347, 0)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=1388750049]
+position = Vector2(106, -195)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=515872734]
+position = Vector2(10, 183)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=1410657419]
+position = Vector2(263, 104)

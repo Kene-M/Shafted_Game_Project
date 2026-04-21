@@ -2151,5 +2151,7 @@ scene_treasure3 = ExtResource("29_0ai7a")
 scene_treasure4 = ExtResource("30_r4ygd")
 enemy_scenes = Array[PackedScene]([ExtResource("38_by8ou"), ExtResource("39_oayo1"), ExtResource("40_rwuqo"), ExtResource("41_w4eet"), ExtResource("42_ltpgl"), ExtResource("43_6bjan"), ExtResource("44_dnw2g")])
 boss_enemy_scene = ExtResource("6_wiy4m")
+min_enemies_per_room = 4
+max_enemies_per_room = 5
 
 [node name="OverviewCamera" type="Camera2D" parent="." unique_id=571913379]

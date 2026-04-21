@@ -105,3 +105,17 @@ offset_bottom = -262.0
 
 [node name="StaticChest2D" parent="." unique_id=253011665 instance=ExtResource("6_p7m3k")]
 position = Vector2(-2, 210)
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1802453463]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=454779015]
+position = Vector2(150, 8)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=1540720338]
+position = Vector2(-176, 19)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=787814688]
+position = Vector2(-3, 127)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=2028158636]
+position = Vector2(8, -190)

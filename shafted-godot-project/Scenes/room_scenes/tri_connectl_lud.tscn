@@ -2178,3 +2178,17 @@ offset_bottom = 640.0
 color = Color(0, 0, 0, 1)
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("9_m7eg8")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1900021142]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=244281737]
+position = Vector2(261, 66)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=1531536510]
+position = Vector2(-86, -90)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=847120772]
+position = Vector2(0, 295)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=942315412]
+position = Vector2(-81, 232)

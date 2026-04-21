@@ -108,3 +108,17 @@ position = Vector2(-274, 0)
 
 [node name="StaticChest2D" parent="." unique_id=253011665 instance=ExtResource("6_qnt4i")]
 position = Vector2(242, 3)
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=376377677]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=1342534464]
+position = Vector2(142, 6)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=360420445]
+position = Vector2(-119, 7)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1457247516]
+position = Vector2(6, 150)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=477374927]
+position = Vector2(8, -204)
