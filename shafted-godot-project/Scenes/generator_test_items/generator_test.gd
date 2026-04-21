@@ -58,7 +58,7 @@ var room_display_radius: float = 1500.0
 # Four-way room — all cardinal exits. Used as fallback for unmatched shapes.
 @export var scene_all_dirs: PackedScene                 # tri_connectl_lud.tscn        key: "East_North_South_West"
 # Horizontal corridor — East and West exits only.
-@export var scene_lr: PackedScene                       # lr_connector.tscn            key: "East_West" (variant 1)
+	@export var scene_lr: PackedScene                       # lr_connector.tscn            key: "East_West" (variant 1)
 # Vertical corridor — North and South exits only.
 @export var scene_ud: PackedScene                       # ud_hall_way.tscn             key: "North_South"
 

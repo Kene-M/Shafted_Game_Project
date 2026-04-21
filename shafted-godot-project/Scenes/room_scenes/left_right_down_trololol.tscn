@@ -1580,3 +1580,6 @@ position = Vector2(-528, -123)
 
 [node name="ExitEast" type="Marker2D" parent="." unique_id=509578014]
 position = Vector2(528, -98)
+
+[node name="ExitSouth" type="Marker2D" parent="." unique_id=1143014791]
+position = Vector2(290, 510)
