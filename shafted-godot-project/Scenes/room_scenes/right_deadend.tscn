@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="3_pel41"]
 [ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="4_ij7e6"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="5_gyxwa"]
-[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="6_pel41"]
+[ext_resource type="PackedScene" path="res://Assets/Tilesets/rock_background.tscn" id="6_pel41"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_drbev"]
 texture = ExtResource("3_pel41")

@@ -10,6 +10,10 @@ var player: CharacterBody2D = null
 var current_level: Node = null
 var pause_menu_scene:PackedScene = preload("res://Scenes/UI/pause_menu.tscn")
 var pause_menu: Control = null
+var bgm_player: AudioStreamPlayer = null
+var treasure_music_player: AudioStreamPlayer = null
+const DUNGEON_MUSIC = preload("res://Assets/audio/wetFart.mp3")
+const TREASURE_MUSIC = preload("res://Assets/audio/Sharfted.mp3")
 
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
@@ -98,7 +102,11 @@ func _load_dungeon() -> void:
 		player.global_position = current_level.get_player_spawn_position()
 	else:
 		player.global_position = Vector2.ZERO
+# Connect room change signal for music switching
+	if not current_level.room_changed.is_connected(_on_room_changed):
+		current_level.room_changed.connect(_on_room_changed)
 
+	_start_dungeon_music()
 
 func _clear_current_level() -> void:
 	if current_level:
@@ -109,3 +117,48 @@ func _clear_current_level() -> void:
 func _on_dungeon_entrance_entered(body: Node2D) -> void:
 	if body == player:
 		_load_dungeon()
+		
+func _start_dungeon_music() -> void:
+	# Stop treasure music if it was playing
+	if treasure_music_player and treasure_music_player.playing:
+		treasure_music_player.stop()
+
+	if bgm_player == null:
+		bgm_player = AudioStreamPlayer.new()
+		bgm_player.stream = DUNGEON_MUSIC
+		bgm_player.volume_db = 0.0
+		add_child(bgm_player)
+
+	if not bgm_player.playing:
+		bgm_player.play()
+
+
+func _start_treasure_music() -> void:
+	# Stop dungeon music if it was playing
+	if bgm_player and bgm_player.playing:
+		bgm_player.stop()
+
+	if treasure_music_player == null:
+		treasure_music_player = AudioStreamPlayer.new()
+		treasure_music_player.stream = TREASURE_MUSIC
+		treasure_music_player.volume_db = 0.0
+		add_child(treasure_music_player)
+
+	if not treasure_music_player.playing:
+		treasure_music_player.play()
+
+
+func _stop_all_music() -> void:
+	if bgm_player and bgm_player.playing:
+		bgm_player.stop()
+	if treasure_music_player and treasure_music_player.playing:
+		treasure_music_player.stop()
+
+
+func _on_room_changed(room_type: String) -> void:
+	match room_type:
+		"treasure":
+			_start_treasure_music()
+		_:
+			# Normal, boss, or any other room type — play dungeon music
+			_start_dungeon_music()

@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="8_u87g2"]
 [ext_resource type="PackedScene" uid="uid://fm7wb3bh125t" path="res://Scenes/itemScenes/vat_scene.tscn" id="9_7owe1"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="9_f0ecq"]
-[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="10_7owe1"]
+[ext_resource type="PackedScene" path="res://Assets/Tilesets/rock_background.tscn" id="10_7owe1"]
+[ext_resource type="PackedScene" uid="uid://qrrrh53bd1wb" path="res://Assets/audio/CalmMusic.tscn" id="11_l3fbt"]
 [ext_resource type="Script" uid="uid://6a7mtvca31cy" path="res://Scenes/UI/reset_button.gd" id="12_u87vg"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
 [ext_resource type="PackedScene" uid="uid://8gpplekw5gym" path="res://Scenes/itemScenes/static_weapon_crafter_2d.tscn" id="18_h2mpr"]
@@ -802,5 +803,7 @@ position = Vector2(-71, -97)
 position = Vector2(12, -97)
 
 [node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("10_7owe1")]
+
+[node name="AudioStreamPlayer2D" parent="." unique_id=217087102 instance=ExtResource("11_l3fbt")]
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

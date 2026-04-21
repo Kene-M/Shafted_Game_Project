@@ -117,7 +117,7 @@ var room_display_radius: float = 1500.0
 # How far enemies scatter around their spawn marker (pixels)
 @export var spawn_scatter_radius: float = 80.0
 signal dungeon_ready
-
+signal room_changed(room_type: String)
 # TRANSITION EDIT
 var current_room_pos: Vector2i = Vector2i(0, 0)
 var is_transitioning: bool = false
@@ -1030,6 +1030,8 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 		player.global_position = new_room.global_position
 	
 	current_room_pos = to_grid
+	var room_type: String = grid.get(to_grid, "normal")
+	emit_signal("room_changed", room_type)
 	
 		# Fade back in
 	var tween_in = create_tween()

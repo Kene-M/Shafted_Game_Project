@@ -23,7 +23,6 @@ config/icon="res://Assets/tilemaps/icon.svg"
 
 Autoload="*res://Scripts/globalScripts/autoload.gd"
 save_manager="*uid://dyksbvfkhdtpg"
-CalmMusic="*uid://qrrrh53bd1wb"
 
 [display]
 
