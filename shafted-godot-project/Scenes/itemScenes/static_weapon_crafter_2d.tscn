@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://8gpplekw5gym"]
+
+[ext_resource type="Script" uid="uid://dknfag6g1lahb" path="res://static_weapon_crafter_2d.gd" id="1_v3vvf"]
+[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/Props/nootnoot2.png" id="2_7rvgi"]
+[ext_resource type="Script" uid="uid://dwsiabjehfn8u" path="res://crafting_control.gd" id="2_rbwnn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jkg2x"]
+radius = 26.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkg2x"]
+atlas = ExtResource("2_7rvgi")
+region = Rect2(127.44457, 8.993666, 34.95124, 34.951225)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7rvgi"]
+font_size = 8
+
+[node name="StaticWeaponCrafter2D" type="StaticBody2D" unique_id=951445219]
+script = ExtResource("1_v3vvf")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1804089164]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=544480476]
+shape = SubResource("CircleShape2D_jkg2x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1290928130]
+texture = SubResource("AtlasTexture_jkg2x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1340431611]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1406115815]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 407.0
+offset_top = 281.0
+offset_right = 447.0
+offset_bottom = 321.0
+script = ExtResource("2_rbwnn")
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=251820]
+layout_mode = 0
+offset_left = -136.0
+offset_top = -56.0
+offset_right = 481.0
+offset_bottom = 296.0
+current_tab = 0
+
+[node name="Crafting" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=1095607921]
+layout_mode = 2
+columns = 6
+metadata/_tab_index = 0
+
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=377663140]
+z_index = 44
+layout_mode = 0
+offset_left = 447.0
+offset_top = -59.0
+offset_right = 475.0
+offset_bottom = -28.0
+text = "X"
+
+[node name="PlayerInvTree" type="Tree" parent="CanvasLayer/Control" unique_id=1389523097]
+layout_mode = 0
+offset_left = 487.0
+offset_top = -25.0
+offset_right = 643.0
+offset_bottom = 283.4231
+scale = Vector2(1, 1.04)
+
+[node name="Label" type="Label" parent="." unique_id=1415184152]
+visible = false
+offset_left = -39.0
+offset_top = -43.0
+offset_right = 50.0
+offset_bottom = -26.0
+text = "press (E) to open"
+label_settings = SubResource("LabelSettings_7rvgi")
+
+[connection signal="open_crafter" from="." to="CanvasLayer/Control" method="_on_static_weapon_crafter_2d_open_crafter"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="cell_selected" from="CanvasLayer/Control/TabContainer/Crafting" to="CanvasLayer/Control" method="_on_crafting_cell_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer/Control" method="_on_button_pressed"]
