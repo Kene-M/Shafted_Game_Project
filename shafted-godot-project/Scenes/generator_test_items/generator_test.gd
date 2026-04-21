@@ -24,27 +24,6 @@ var generation_chance: int = 60
 # Acts as the minimum padding (in world units) added around the room bounding box.
 var room_display_radius: float = 1500.0
 
-"""
-# ─────────────────────────────────────────────
-# ROOM SCENE REFERENCES — assign in Inspector
-# Each exported variable holds a .tscn file for a specific corridor shape.
-# The generator picks the right scene based on which exits a room needs.
-# ─────────────────────────────────────────────
-# The starting room — has only a West exit (player enters from the east side of this room).
-@export var scene_start: PackedScene       # first_room.tscn        exits: ExitWest only
-# A four-way room with exits in all cardinal directions (N/S/E/W).
-# Used as a fallback for any room shape that doesn't have a dedicated scene.
-@export var scene_all_dirs: PackedScene    # tri_connectl_lud.tscn   exits: ExitN/S/E/W
-# A horizontal corridor connecting East and West only.
-@export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
-# A vertical corridor connecting North and South only.
-@export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
-"""
-# Dedicated boss room. Used for any grid cell labelled "boss".
-# Leave null to fall back to scene_all_dirs.
-@export var scene_boss: PackedScene        # boss_room.tscn
-
-
 # ─────────────────────────────────────────────
 # ROOM SCENE REFERENCES — assign in Inspector
 # Each exported variable holds a .tscn file for a specific corridor shape.
@@ -78,7 +57,7 @@ var room_display_radius: float = 1500.0
 
 # ── NEW CORNER ROOMS ──
 # Corner room with North and West exits — variant 1.
-@export var scene_right_up_room: PackedScene            # right_up_room.tscn           key: "North_West" (variant 1)
+@export var scene_left_up_room2: PackedScene            # left_up_room2.tscn           key: "North_West" (variant 1)         # right_up_room.tscn           key: "North_West" (variant 1)
 # Corner room with North and West exits — variant 2.
 @export var scene_left_up_room: PackedScene             # left_up_room.tscn            key: "North_West" (variant 2)
 # Corner room with East and South exits.
@@ -86,11 +65,12 @@ var room_display_radius: float = 1500.0
 # Corner room with West and South exits.
 @export var scene_left_down_room: PackedScene           # left_down_room.tscn          key: "West_South"
 
+
 # ── NEW CORRIDOR / MULTI-EXIT ROOMS ──
 # Horizontal-style corridor — East and West exits, variant 2.
 @export var scene_right_up_doown_groovin: PackedScene   # right_up_doown_groovin.tscn  key: "East_West" (variant 2)
-# Horizontal-style corridor — East and West exits, variant 3.
-@export var scene_left_right_down_trololol: PackedScene # left_right_down_trololol.tscn key: "East_West" (variant 3)
+# Three-way room — East, South, and West exits.
+@export var scene_left_right_down_trololol: PackedScene # left_right_down_trololol.tscn key: "East_South_West"
 # Three-way room — North, South, and West exits — variant 1.
 @export var scene_left_up_down_cave1: PackedScene       # left_up_down_cave1.tscn      key: "North_South_West" (variant 1)
 # Three-way room — North, South, and West exits — variant 2.
@@ -100,6 +80,29 @@ var room_display_radius: float = 1500.0
 # Four-way room — all cardinal exits, variant 2.
 @export var scene_left_right_up_down_loss: PackedScene  # left_right_up_down_loss.tscn key: "East_North_South_West" (variant 2)
 
+# ── NEW ROOMS ──
+# Three-way room — East, North, and South exits.
+@export var scene_up_down_right_groovin: PackedScene    # up_down_right_groovin.tscn   key: "East_North_South"
+# Corner room — East and North exits.
+@export var scene_right_up_room2: PackedScene           # right_up_room2.tscn          key: "East_North"
+# Boss room variant — South exit only.
+@export var scene_boss_room4: PackedScene               # boss_room4.tscn              key: "South" (boss variant)
+# Boss room variant — North exit only.
+@export var scene_boss_room3: PackedScene               # boss_room3.tscn              key: "North" (boss variant)
+# Boss room variant — East exit only.
+@export var scene_boss_room2: PackedScene               # boss_room2.tscn              key: "East" (boss variant)
+
+# ── TREASURE ROOM VARIANTS ──
+# Treasure rooms are always dead ends — one variant per approach direction.
+# The treasure room picker selects based on which single exit the grid position needs.
+# Treasure room approached from the East (player enters from East, room opens West).
+@export var scene_treasure: PackedScene                 # treasure.tscn                key: "West" (treasure variant)
+# Treasure room approached from the West (player enters from West, room opens East).
+@export var scene_treasure2: PackedScene                # treasure.tscn2               key: "East" (treasure variant)
+# Treasure room approached from the North (player enters from North, room opens South).
+@export var scene_treasure3: PackedScene                # treasure.tscn3               key: "South" (treasure variant)
+# Treasure room approached from the South (player enters from South, room opens North).
+@export var scene_treasure4: PackedScene                # treasure.tscn4               key: "North" (treasure variant)
 
 # ─────────────────────────────────────────────
 # ENEMY SCENES — assign in Inspector
@@ -156,17 +159,6 @@ const OPPOSITE = {
 # Populated in _ready() after the @export variables are set by the Inspector.
 var scene_map: Dictionary = {}
 
-"""
-# Declares which exit directions each scene key supports.
-# The key is a sorted, underscore-joined string of the exit names the scene provides.
-# This is used to match a room's required connections to the right scene.
-var scene_exits: Dictionary = {
-	"West":                  ["West"],
-	"East_West":             ["East", "West"],
-	"North_South":           ["North", "South"],
-	"East_North_South_West": ["East", "North", "South", "West"]
-}
-"""
 # Declares which exit directions each scene key supports.
 # Keys are sorted, underscore-joined strings of exit direction names.
 # Used by the walk to verify a neighbor can connect back before expanding.
@@ -176,11 +168,14 @@ var scene_exits: Dictionary = {
 	"South":                 ["South"],
 	"East":                  ["East"],
 	"West":                  ["West"],
+	"East_North":            ["East", "North"],
 	"East_South":            ["East", "South"],
 	"East_West":             ["East", "West"],
 	"North_South":           ["North", "South"],
 	"North_West":            ["North", "West"],
 	"West_South":            ["South", "West"],
+	"East_North_South":      ["East", "North", "South"],
+	"East_South_West":       ["East", "South", "West"],
 	"North_East_West":       ["East", "North", "West"],
 	"North_South_West":      ["North", "South", "West"],
 	"East_North_South_West": ["East", "North", "South", "West"]
@@ -197,30 +192,29 @@ func _ready():
 	# Wire up the scene_map now that @export references are available.
 	# Each key matches a possible _get_connection_key() result so _pick_best_scene()
 	# can look up the right PackedScene directly.
-	"""
-	scene_map["West"]                  = scene_start
-	scene_map["East_West"]             = scene_lr
-	scene_map["North_South"]           = scene_ud
-	scene_map["East_North_South_West"] = scene_all_dirs
-	"""
+
 	# ── Single-scene keys — one exact scene per combination ──
 	scene_map["North_South"]      = scene_ud
 	scene_map["East_South"]       = scene_right_down_room
 	scene_map["North_East_West"]  = scene_left_right_up_67
 	scene_map["West_South"]       = scene_left_down_room
+	scene_map["East_North"]       = scene_right_up_room2
+	scene_map["East_North_South"] = scene_up_down_right_groovin
+	scene_map["East_South_West"]  = scene_left_right_down_trololol
 
 	# ── Multi-variant keys — multiple scenes share the same exit combination.
 	# _pick_best_scene() will randomly select from the pool each time,
 	# giving visual variety across runs without any extra logic at the call site.
 	# Each pool is stored as an Array under the same key used by _get_connection_key().
-	scene_map["West"]                  = [scene_start, scene_right_deadend]
-	scene_map["East"]                  = [scene_left_dead_end, scene_left_dead_end2]
-	scene_map["North"]                 = [scene_down_deadend]
-	scene_map["South"]                 = [scene_up_deadend]
-	scene_map["North_West"]            = [scene_right_up_room, scene_left_up_room]
-	scene_map["East_West"]             = [scene_lr, scene_right_up_doown_groovin, scene_left_right_down_trololol]
+	scene_map["West"]                  = [scene_start, scene_right_deadend] # boss_room/treasure handled via boss override
+	scene_map["East"]                  = [scene_left_dead_end, scene_left_dead_end2] # boss_room2/treasure handled via boss override
+	scene_map["North"]                 = [scene_down_deadend] # boss_room3/treasure handled via boss override
+	scene_map["South"]                 = [scene_up_deadend] # boss_room4/treasure handled via boss override
+	scene_map["North_West"]            = [scene_right_up_room2, scene_left_up_room]
+	scene_map["East_West"]             = [scene_lr, scene_right_up_doown_groovin]
 	scene_map["North_South_West"]      = [scene_left_up_down_cave1, scene_left_up_down_cave_2]
 	scene_map["East_North_South_West"] = [scene_all_dirs, scene_left_right_up_down_loss]
+	
 
 	# Keep regenerating until a valid layout is produced.
 	# "Valid" means: enough rooms AND at least two dead ends for boss/treasure.
@@ -429,15 +423,23 @@ func _place_rooms():
 		# Convert the exit list to a sorted, underscore-joined key for scene lookup.
 		var key = _get_connection_key(exits)
 
-# Choose the appropriate PackedScene for this room's connection shape.
+		# Choose the appropriate PackedScene for this room's connection shape.
 		var packed: PackedScene
 		if grid_pos == Vector2i(0, 0):
 			# The start room always uses its dedicated scene, regardless of computed exits.
 			packed = scene_start
-		elif grid[grid_pos] == "boss" and scene_boss != null:
-			# Dedicated boss room overrides shape-matching — boss_room.tscn must carry
-			# its own ExitN/S/E/W markers so it can snap from whichever side approaches.
-			packed = scene_boss
+		elif grid[grid_pos] == "boss":
+			# Boss rooms use a dedicated scene matched to their exit direction.
+			# Each boss variant covers one dead-end direction so snapping works correctly.
+			# Falls back to _pick_best_scene if no boss variant is assigned for this key.
+			var boss_packed = _pick_boss_scene(key)
+			packed = boss_packed if boss_packed != null else _pick_best_scene(key, exits)
+		elif grid[grid_pos] == "treasure":
+			# Treasure rooms use a dedicated scene matched to their exit direction.
+			# Each treasure variant covers one dead-end direction so snapping works correctly.
+			# Falls back to _pick_best_scene if no treasure variant is assigned for this key.
+			var treasure_packed = _pick_treasure_scene(key)
+			packed = treasure_packed if treasure_packed != null else _pick_best_scene(key, exits)
 		else:
 			packed = _pick_best_scene(key, exits)
 
@@ -506,8 +508,8 @@ func _place_rooms():
 	print("------------------------------------------------------------")
 	call_deferred("_spawn_enemies")
 	#call_deferred("_spawn_boundary")
-	# TRANSITION EDIT
 	Autoload.dungeon_generator = self
+	# TRANSITION EDIT
 	call_deferred("_setup_room_system")
 
 
@@ -574,6 +576,7 @@ func _spawn_enemies() -> void:
 				enemy.setup(base)
 			else:
 				enemy.global_position = base
+				
 # Computes the world-space position for a new room by snapping its entry marker
 # to the exit marker of the nearest already-placed neighbor.
 #
@@ -823,21 +826,7 @@ func _print_map():
 # HELPERS
 # Small, single-purpose functions that keep the steps above readable.
 # ─────────────────────────────────────────────
-"""
-# Selects the best-matching PackedScene for a room based on its connection key.
-# If no exact match exists, falls back to the all-directions scene — this handles
-# any shape the current scene library doesn't have a dedicated room for.
-# Dead-end rooms currently get the four-way scene (open doorways on all sides)
-# until dedicated dead-end scenes are built and registered.
-func _pick_best_scene(key: String, exits: Array) -> PackedScene:
-	if scene_map.has(key):
-		return scene_map[key]
 
-	if scene_map.has("East_North_South_West"):
-		return scene_map["East_North_South_West"]
-
-	return null
-"""
 # Selects a PackedScene for a room based on its connection key.
 # scene_map values may be a single PackedScene OR an Array of PackedScenes
 # (for keys where multiple room variants share the same exit combination).
@@ -861,7 +850,30 @@ func _pick_best_scene(key: String, exits: Array) -> PackedScene:
 			return fallback
 	return null
 	
+
+# Returns the appropriate boss room scene for a given connection key.
+# Boss rooms are always dead ends so keys will always be single-direction.
+# Returns null if no boss variant is assigned for that direction — caller falls back
+# to normal scene selection in that case.
+func _pick_boss_scene(key: String) -> PackedScene:
+	match key:
+		"West":  return scene_boss_room   # boss_room.tscn
+		"South": return scene_boss_room4  # boss_room4.tscn
+		"North": return scene_boss_room3  # boss_room3.tscn
+		"East":  return scene_boss_room2  # boss_room2.tscn
+	return null
 	
+# Returns the appropriate treasure room scene for a given connection key.
+# Treasure rooms are always dead ends so keys will always be single-direction.
+# Returns null if no treasure variant is assigned for that direction — caller falls back
+# to normal scene selection in that case.
+func _pick_treasure_scene(key: String) -> PackedScene:
+	match key:
+		"West":  return scene_treasure    # treasure.tscn
+		"East":  return scene_treasure2   # treasure.tscn2
+		"South": return scene_treasure3   # treasure.tscn3
+		"North": return scene_treasure4   # treasure.tscn4
+	return null
 
 # Returns which directions from grid_pos lead to another occupied grid cell.
 # This directly represents which exits the room at that position must have.
@@ -896,7 +908,6 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 # ROOM VISIBILITY + EXIT TRIGGERS
 # ─────────────────────────────────────────────
 # TRANSITION EDIT
-
 func _setup_room_system() -> void:
 	# Hide all rooms except the start room
 	for grid_pos in placed_rooms.keys():
@@ -1045,7 +1056,6 @@ func _get_or_create_overlay() -> ColorRect:
 	rect.add_to_group("transition_overlay")
 	canvas.add_child(rect)
 	return rect
-
 
 
 

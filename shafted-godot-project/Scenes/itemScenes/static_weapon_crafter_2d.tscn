@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8gpplekw5gym"]
 
 [ext_resource type="Script" uid="uid://dknfag6g1lahb" path="res://static_weapon_crafter_2d.gd" id="1_v3vvf"]
-[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/Props/nootnoot2.png" id="2_7rvgi"]
+[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/tilemaps/nootnoot2.png" id="2_7rvgi"]
 [ext_resource type="Script" uid="uid://dwsiabjehfn8u" path="res://crafting_control.gd" id="2_rbwnn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jkg2x"]
@@ -71,10 +71,10 @@ scale = Vector2(1, 1.04)
 
 [node name="Label" type="Label" parent="." unique_id=1415184152]
 visible = false
-offset_left = -39.0
-offset_top = -43.0
-offset_right = 50.0
-offset_bottom = -26.0
+offset_left = -37.0
+offset_top = 27.0
+offset_right = 52.0
+offset_bottom = 44.0
 text = "press (E) to open"
 label_settings = SubResource("LabelSettings_7rvgi")
 

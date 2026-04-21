@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://dgsie3f0raai3"]
 
-[ext_resource type="Texture2D" uid="uid://iso37b7hbu1m" path="res://Assets/Props/Brick2-1.jpg" id="1_8kkda"]
 [ext_resource type="Script" uid="uid://ecp2qeimypv3" path="res://Scenes/itemScenes/static_augment_vendor_2d.gd" id="1_g1rcx"]
+[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/tilemaps/nootnoot2.png" id="2_qv4mr"]
 [ext_resource type="Script" uid="uid://ducmo55604f20" path="res://Scenes/itemScenes/vendor_control.gd" id="3_qv4mr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8owb"]
 radius = 26.019224
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3emr"]
+atlas = ExtResource("2_qv4mr")
+region = Rect2(60.95014, 9.673729, 31.225822, 32.818974)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qv4mr"]
 font_size = 8
@@ -20,15 +24,16 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_i8owb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1290868704]
-scale = Vector2(0.010561339, 0.011718745)
-texture = ExtResource("1_8kkda")
+position = Vector2(-1.1920929e-07, 1.1920929e-07)
+scale = Vector2(1.1668842, 1.1030273)
+texture = SubResource("AtlasTexture_q3emr")
 
 [node name="Label" type="Label" parent="." unique_id=86862769]
 visible = false
-offset_left = -48.0
-offset_top = -18.0
-offset_right = 41.0
-offset_bottom = -1.0
+offset_left = -28.0
+offset_top = 28.0
+offset_right = 61.0
+offset_bottom = 45.0
 text = "press (E) to open"
 label_settings = SubResource("LabelSettings_qv4mr")
 
