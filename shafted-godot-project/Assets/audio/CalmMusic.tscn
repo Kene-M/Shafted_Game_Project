@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://qrrrh53bd1wb"]
+
+[ext_resource type="AudioStream" uid="uid://c77e8rnu4g3f7" path="res://Assets/audio/Sharfted.mp3" id="1_hrvne"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" unique_id=217087102]
+stream = ExtResource("1_hrvne")
+autoplay = true
