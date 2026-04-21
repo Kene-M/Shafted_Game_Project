@@ -4,6 +4,7 @@ extends Control
 @onready var save_btn: Button = $VBoxContainer/SaveGameButton
 @onready var load_btn: Button = $VBoxContainer/LoadGameButton
 @onready var exit_btn: Button = $VBoxContainer/ExitButton
+@onready var rsm_btn: Button = $VBoxContainer/ResumeGameButton
 
 func _ready() -> void:
 	visible = false
@@ -40,3 +41,6 @@ func _on_load_game_button_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_resum_button_pressed() -> void:
+	toggle_pause()
