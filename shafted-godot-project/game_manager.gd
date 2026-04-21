@@ -10,6 +10,7 @@ var player: CharacterBody2D = null
 var current_level: Node = null
 var pause_menu_scene:PackedScene = preload("res://Scenes/UI/pause_menu.tscn")
 var pause_menu: Control = null
+@onready var loading_ui = $LoadingScreen
 
 func _ready() -> void:
 	# Spawn the player once — it persists across all levels
@@ -108,4 +109,16 @@ func _clear_current_level() -> void:
 
 func _on_dungeon_entrance_entered(body: Node2D) -> void:
 	if body == player:
-		_load_dungeon()
+		await _load_dungeon_with_loading()
+		
+func _load_dungeon_with_loading() -> void:
+	loading_ui.show_loading()
+
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	await _load_dungeon()
+
+	await get_tree().process_frame
+
+	loading_ui.hide_loading()
