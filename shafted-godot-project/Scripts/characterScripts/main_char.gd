@@ -225,7 +225,15 @@ func remove_augment(aug: Augment):
 	augments.erase(aug)
 	_modify_augment_vals(aug, true)
 	
-
+func add_weapon(weapon: WeaponResource):
+	if weapon.weapon_type == "Ranged":
+		ranged_weapon = weapon
+		ranged_weapons.append(weapon)
+		_equip_weapon(ranged_weapon)
+	else:
+		melee_weapon = weapon
+		melee_weapons.append(weapon)
+		_equip_weapon(melee_weapon)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	$AnimatedSprite2D.play("default")

@@ -18,6 +18,8 @@ func _ready() -> void:
 	print("Player groups after instantiate: ", player.get_groups())
 	player.max_dash_ticks = 50
 	player.dash_speed = 1000
+	# Give player enough resources for crafting tests
+	player.resource_inv = [5,5,5,5,5]
 	Autoload.main_char = player
 	add_child(player)
 
@@ -38,7 +40,7 @@ func _ready() -> void:
 	var cam = player.find_child("Camera2D", true, false)
 	if cam:
 		cam.make_current()
-		cam.zoom = Vector2(0.8, 0.8)
+		cam.zoom = Vector2(1, 1)
 
 	var loading := save_manager.is_loading_run
 	if loading:

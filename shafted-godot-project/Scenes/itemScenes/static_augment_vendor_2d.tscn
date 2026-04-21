@@ -42,10 +42,10 @@ anchor_left = 0.24300002
 anchor_top = 0.076000005
 anchor_right = 0.24300002
 anchor_bottom = 0.076000005
-offset_left = 95.73999
-offset_top = 210.61002
-offset_right = 95.73999
-offset_bottom = 210.61002
+offset_left = 95.95999
+offset_top = 211.07999
+offset_right = 95.95999
+offset_bottom = 211.07999
 script = ExtResource("3_qv4mr")
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control" unique_id=172370792]
@@ -53,8 +53,8 @@ z_index = 1100
 layout_mode = 0
 offset_left = -136.0
 offset_top = -56.0
-offset_right = 480.66498
-offset_bottom = 295.84
+offset_right = 481.0
+offset_bottom = 296.0
 current_tab = 0
 
 [node name="BuyTree" type="Tree" parent="CanvasLayer/Control/TabContainer" unique_id=1098603136]
