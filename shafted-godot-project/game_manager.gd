@@ -38,7 +38,7 @@ func _ready() -> void:
 	var cam = player.find_child("Camera2D", true, false)
 	if cam:
 		cam.make_current()
-		cam.zoom = Vector2(1, 1)
+		cam.zoom = Vector2(0.8, 0.8)
 
 	var loading := save_manager.is_loading_run
 	if loading:
@@ -55,6 +55,7 @@ func _load_spawn_room(is_loading: bool) -> void:
 
 	current_level = spawn_room_scene.instantiate()
 	add_child(current_level)
+	
 
 	# Move player on top
 	move_child(player, get_child_count() - 1)
@@ -74,11 +75,16 @@ func _load_spawn_room(is_loading: bool) -> void:
 
 
 func _load_dungeon() -> void:
+	print("DUNGEON LOADED")
 	_clear_current_level()
 
 	current_level = generator_scene.instantiate()
 	add_child(current_level)
 	move_child(player, get_child_count() - 1)
+	
+	var children = current_level.get_children()
+	for i in children:
+		print("CHILD TEST:", i.name)
 
 	# The generator needs a reference to the player so it can position them
 	# Wait one frame for the generator's _ready to finish placing rooms

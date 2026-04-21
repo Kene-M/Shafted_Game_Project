@@ -24,7 +24,8 @@ func _create_augments():
 	var aug_args = [
 			["AttackUp", rng.randi_range(5,20), AugType.Type.ATKADD, [3,2,0,0,0], "res://Assets/Player/Augments/AttackUpAugment.png"], 
 			["HealthUp", rng.randi_range(50,200), AugType.Type.HPADD, [2,1,1,0,0], "res://Assets/Player/Augments/HealthUpAugment.png"],
-			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD, [2,2,0,0,0], "res://Assets/Player/Augments/SpeedUpAugment.png"]
+			["SpeedUp", rng.randi_range(15,45), AugType.Type.SPDADD, [2,2,0,0,0], "res://Assets/Player/Augments/SpeedUpAugment.png"],
+			["AttackMult", randf_range(0.2, 0.7), AugType.Type.ATKMULT, [3,3,1,0,0], "res://Assets/Player/Augments/AttackUpAugment.png" ]
 		]
 	var tree = $TabContainer/BuyTree
 	var root = tree.create_item()
