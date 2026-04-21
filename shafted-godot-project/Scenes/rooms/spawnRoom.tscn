@@ -737,7 +737,7 @@ tile_set = SubResource("TileSet_dxdr5")
 
 [node name="spawnpoint" type="Marker2D" parent="." unique_id=1430244145]
 z_index = 3
-position = Vector2(-14, -58)
+position = Vector2(0.115, -0.055)
 
 [node name="backdrop" type="TileMapLayer" parent="." unique_id=385562485]
 modulate = Color(0.400698, 0.400698, 0.400698, 1)
