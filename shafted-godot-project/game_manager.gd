@@ -23,7 +23,7 @@ func _ready() -> void:
 	player.max_dash_ticks = 50
 	player.dash_speed = 1000
 	# Give player enough resources for crafting tests
-	player.resource_inv = [5,5,5,5,5]
+	player.resource_inv = [20,20,20,20,20]
 	Autoload.main_char = player
 	add_child(player)
 

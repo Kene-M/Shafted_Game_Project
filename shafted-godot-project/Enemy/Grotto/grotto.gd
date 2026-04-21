@@ -180,7 +180,7 @@ func _die() -> void:
 	var rec_paths = [
 		"res://Scenes/itemScenes/resource_1.tscn",
 		"res://Scenes/itemScenes/resource_2.tscn",
-		"res://Scenes/itemScenes/resource_3.tscn",
+		"res://Scenes/itemScenes/ resource_3.tscn",
 		"res://Scenes/itemScenes/resource_4.tscn",
 		"res://Scenes/itemScenes/resource_5.tscn"
 	]

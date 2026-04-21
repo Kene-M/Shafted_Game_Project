@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b03h8j8p660b4"]
+[gd_scene format=3 uid="uid://b03h8j8p660b4"]
 
 [ext_resource type="Script" uid="uid://dnu6ohmlrqkfv" path="res://Enemy/Egg/egg.gd" id="1_mujnc"]
 [ext_resource type="Texture2D" uid="uid://buf07qnlkxi0f" path="res://Assets/enemies/Monster Pack/Monster2Pack.png" id="2_i218y"]
@@ -204,7 +204,7 @@ radius = 64.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wo1ps"]
 radius = 121.198
 
-[node name="egg" type="CharacterBody2D"]
+[node name="egg" type="CharacterBody2D" unique_id=227733778]
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 7
@@ -212,37 +212,37 @@ script = ExtResource("1_mujnc")
 hatched_enemy = ExtResource("2_ryvhh")
 hatch_time = 5.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1519310518]
 sprite_frames = SubResource("SpriteFrames_te2ip")
 animation = &"egg_destory"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293228388]
 shape = SubResource("CircleShape2D_wtjll")
 
-[node name="Navigation" type="Node2D" parent="."]
+[node name="Navigation" type="Node2D" parent="." unique_id=1701996099]
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation" unique_id=190594608]
 debug_enabled = true
 
-[node name="RecalculateTimer" type="Timer" parent="Navigation"]
+[node name="RecalculateTimer" type="Timer" parent="Navigation" unique_id=1821360132]
 wait_time = 0.1
 autostart = true
 
-[node name="Aggro" type="Node2D" parent="."]
+[node name="Aggro" type="Node2D" parent="." unique_id=1781209752]
 
-[node name="AggroRange" type="Area2D" parent="Aggro"]
+[node name="AggroRange" type="Area2D" parent="Aggro" unique_id=529828]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange" unique_id=1381553330]
 shape = SubResource("CircleShape2D_h8chw")
 debug_color = Color(0.912486, 0.173641, 0.592982, 0.419608)
 
-[node name="DeAggroRange" type="Area2D" parent="Aggro"]
+[node name="DeAggroRange" type="Area2D" parent="Aggro" unique_id=386077715]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" unique_id=1869660385]
 shape = SubResource("CircleShape2D_wo1ps")
 
-[node name="HatchTimer" type="Timer" parent="."]
+[node name="HatchTimer" type="Timer" parent="." unique_id=803902935]
