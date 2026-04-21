@@ -1517,7 +1517,6 @@ tile_map_data = PackedByteArray("AADY/xcAAAAKAAwAAADZ/xcAAAALAAwAAADa/xcAAAALAAw
 tile_set = ExtResource("1_jwku2")
 
 [node name="WallMoss" type="TileMapLayer" parent="Wall/Wallside" unique_id=1110044632]
-top_level = true
 z_index = 1
 tile_set = ExtResource("1_jwku2")
 
