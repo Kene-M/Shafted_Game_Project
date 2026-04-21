@@ -13,11 +13,11 @@
 
 [node name="Node2D" type="Node2D" unique_id=1383581756]
 script = ExtResource("1_hko6r")
+scene_boss = ExtResource("6_orne8")
 scene_start = ExtResource("2_3ekj0")
 scene_all_dirs = ExtResource("3_xqshq")
 scene_lr = ExtResource("3_46kxv")
 scene_ud = ExtResource("5_xqshq")
-scene_boss = ExtResource("6_orne8")
 enemy_scenes = Array[PackedScene]([ExtResource("7_ljkim"), ExtResource("8_dn3o5"), ExtResource("9_vrrwc")])
 boss_enemy_scene = ExtResource("6_78g35")
 max_enemies_per_room = 10
