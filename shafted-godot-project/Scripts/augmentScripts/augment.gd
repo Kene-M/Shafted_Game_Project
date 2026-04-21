@@ -2,5 +2,6 @@ class_name Augment extends Resource
 
 var type: AugType.Type
 var aug_name: String
-var data: int
+var data: float
 var price: Array = [0,0,0,0,0]
+var resource: String

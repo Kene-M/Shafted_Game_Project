@@ -11,6 +11,10 @@ func _on_new_game_pressed() -> void:
 	print("New Game pressed")
 	get_tree().change_scene_to_file(GAME_SCENE)
 
+func _on_load_game_pressed() -> void:
+	save_manager.is_loading_run = true
+	get_tree().change_scene_to_file(GAME_SCENE)
+
 func _on_options_pressed() -> void:
 	pass  # hook up options menu later
 

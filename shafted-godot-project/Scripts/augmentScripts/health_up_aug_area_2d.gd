@@ -8,3 +8,4 @@ func _ready():
 	aug.data = 100
 	aug.type = AugType.Type.HPADD
 	aug.price = [2,1,1,0,0]
+	aug.resource = "res://Assets/Player/Augments/HealthUpAugment.png" 

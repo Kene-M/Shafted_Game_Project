@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u6vxo5vtvax0"
-path="res://.godot/imported/orange_reticle.png-a99e5db8befefc4ca98900b2abefe241.ctex"
+uid="uid://dx33munjsl7kp"
+path="res://.godot/imported/UI_Hologram_Banner_01a.png-5cfb88b532a00080df54a1dae3b2b4c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Props/orange_reticle.png"
-dest_files=["res://.godot/imported/orange_reticle.png-a99e5db8befefc4ca98900b2abefe241.ctex"]
+source_file="res://Assets/UI/UI_Hologram_Banner_01a.png"
+dest_files=["res://.godot/imported/UI_Hologram_Banner_01a.png-5cfb88b532a00080df54a1dae3b2b4c4.ctex"]
 
 [params]
 

@@ -1,10 +1,38 @@
-[gd_scene load_steps=0 format=3 uid="uid://css63x018tguw"]
+[gd_scene format=3 uid="uid://css63x018tguw"]
 
 [ext_resource type="Script" uid="uid://kpkwnkv0dbgo" path="res://Scripts/augmentScripts/health_up_aug_area_2d.gd" id="1_ehqqf"]
-[ext_resource type="Texture2D" uid="uid://bxr4cxnoma4rb" path="res://Assets/Player/Augments/HealthUpAugment.png" id="2_ehqqf"]
+[ext_resource type="Texture2D" uid="uid://dsfx5j23gjor" path="res://Assets/Player/Augments/HealthUpAugment.png" id="2_ehqqf"]
+[ext_resource type="Texture2D" uid="uid://u4b71m0vyqpo" path="res://Assets/enemies/dummy/hitFX/HitFX1.png" id="3_3g314"]
+[ext_resource type="Texture2D" uid="uid://bwii86d7qslls" path="res://Assets/enemies/dummy/hitFX/HitFX2.png" id="4_i2k7r"]
+[ext_resource type="Texture2D" uid="uid://cms6pt6cdm5i6" path="res://Assets/enemies/dummy/hitFX/HitFX3.png" id="5_24v0v"]
+[ext_resource type="Texture2D" uid="uid://bpdeurc4n2ivi" path="res://Assets/enemies/dummy/hitFX/HitFX4.png" id="6_75vx7"]
+[ext_resource type="Texture2D" uid="uid://bd1lfo5utd22i" path="res://Assets/enemies/dummy/hitFX/HitFX5.png" id="7_fl2ws"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iojf6"]
 radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4qr8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3g314")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i2k7r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_24v0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_75vx7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fl2ws")
+}],
+"loop": true,
+"name": &"hit_fx",
+"speed": 8.0
+}]
 
 [node name="HealthUpStaticBody" type="StaticBody2D" unique_id=45848608]
 
@@ -17,4 +45,13 @@ script = ExtResource("1_ehqqf")
 shape = SubResource("CircleShape2D_iojf6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1938788342]
+z_index = 5
+scale = Vector2(1.33, 1.33)
 texture = ExtResource("2_ehqqf")
+
+[node name="HitFX" type="AnimatedSprite2D" parent="Sprite2D" unique_id=1104061492]
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_p4qr8")
+animation = &"hit_fx"
+autoplay = "hit_fx"
+frame_progress = 0.91639966

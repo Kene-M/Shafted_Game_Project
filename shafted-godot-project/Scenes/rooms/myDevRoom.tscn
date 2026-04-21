@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c83vxy3ryxame" path="res://Scenes/weaponScenes/static_spear.tscn" id="11_rootm"]
 [ext_resource type="PackedScene" uid="uid://cw40oi4rdyrsr" path="res://Scenes/characterScenes/main_char.tscn" id="12_upwsl"]
 [ext_resource type="Script" uid="uid://uhcxqjbk8are" path="res://Scripts/controlScripts/save_demo_ui.gd" id="13_mxu00"]
+[ext_resource type="PackedScene" uid="uid://bt0uwbrtt02r4" path="res://Enemy/GolemBoss/GolemBoss.tscn" id="14_p1qt8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_mnm0p")
@@ -841,6 +842,8 @@ text = "Load"
 [node name="hp" type="Button" parent="VBoxContainer" unique_id=594269425]
 layout_mode = 2
 text = "-10hp"
+
+[node name="GolemBoss" parent="." unique_id=1687667642 instance=ExtResource("14_p1qt8")]
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/Save" to="VBoxContainer" method="_on_save_pressed"]

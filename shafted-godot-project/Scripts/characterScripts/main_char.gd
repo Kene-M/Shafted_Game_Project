@@ -32,6 +32,7 @@ extends CharacterBody2D
 signal update_speed(speed: Vector2)
 signal fire_projectile(direction: Vector2, augment_vals: Dictionary)
 signal dash_changed(max_tick: float, tick: float)
+signal health_changed(max_health: float, cur_health: float)
 
 func _equip_weapon(weapon: WeaponResource):
 	var weapon_node = $Weapon
@@ -43,6 +44,8 @@ func _ready() -> void:
 	add_to_group("player")
 	$AnimatedSprite2D.play("default")
 	max_health = augment_vals[AugType.Type.HPADD]
+	if not save_manager.is_loading_run:
+		cur_health = max_health
 	var no_weapon = WeaponResource.new()
 	no_weapon.weapon_name = "No Weapon"
 	no_weapon.weapon_script = "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
@@ -184,6 +187,8 @@ func _physics_process(delta):
 func take_damage(damage: float, source_position: Vector2 = Vector2.ZERO):
 	cur_health -= damage
 	$TempHealthBar.size = Vector2((cur_health / 10), $TempHealthBar.size.y)
+	print("MAX: ", max_health, "CUR: ", cur_health)
+	health_changed.emit(max_health, cur_health)
 	#Knockback logic (written by Dhruv)
 	if source_position != Vector2.ZERO:
 		var direction = (global_position - source_position).normalized()

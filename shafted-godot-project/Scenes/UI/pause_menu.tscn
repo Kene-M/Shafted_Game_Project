@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://c7cchvf3xoq3n" path="res://Scenes/UI/DefaultTheme.tres" id="1_r2i2h"]
 [ext_resource type="Texture2D" uid="uid://b1kxksyjocg4p" path="res://Assets/UI/label.PNG" id="2_oykix"]
 [ext_resource type="FontFile" uid="uid://b4h3dngnlbcwx" path="res://Assets/UI/Cyberphont 2.0.ttf" id="3_kdnb7"]
+[ext_resource type="Script" uid="uid://d2b8f6vnjmon5" path="res://Scripts/controlScripts/pause_menu.gd" id="3_oykix"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_702e2"]
 texture = ExtResource("2_oykix")
@@ -20,12 +21,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=187440614]
-layout_mode = 0
-offset_right = 1440.0
-offset_bottom = 900.0
-color = Color(0.20784314, 0.20392157, 0.30980393, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1306701854]
 layer = 10
@@ -46,6 +41,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_r2i2h")
 theme_override_styles/panel = SubResource("StyleBoxTexture_702e2")
+script = ExtResource("3_oykix")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer" unique_id=441861950]
 layout_mode = 2
@@ -59,7 +55,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_kdnb7")
 theme_override_font_sizes/font_size = 45
-text = "play game"
+text = "home screen"
 
 [node name="SaveGameButton" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=2023191479]
 process_mode = 3
@@ -69,15 +65,15 @@ theme_override_fonts/font = ExtResource("3_kdnb7")
 theme_override_font_sizes/font_size = 45
 text = "save game"
 
-[node name="CreditsButton" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1347499468]
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=1347499468]
 process_mode = 3
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_kdnb7")
 theme_override_font_sizes/font_size = 45
-text = "credits"
+text = "load game"
 
-[node name="Control" type="Control" parent="CanvasLayer/PanelContainer/VBoxContainer/CreditsButton" unique_id=1332879499]
+[node name="Control" type="Control" parent="CanvasLayer/PanelContainer/VBoxContainer/LoadGameButton" unique_id=1332879499]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
@@ -90,3 +86,8 @@ size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_kdnb7")
 theme_override_font_sizes/font_size = 45
 text = "exit"
+
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/PlayGameButton" to="CanvasLayer/PanelContainer" method="_on_home_screen_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/SaveGameButton" to="CanvasLayer/PanelContainer" method="_on_save_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/PanelContainer" method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/ExitButton" to="CanvasLayer/PanelContainer" method="_on_exit_button_pressed"]
