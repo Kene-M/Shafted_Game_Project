@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c7top2b42d40m" path="res://Scenes/rooms/spawnRoom.tscn" id="2_3dryh"]
 [ext_resource type="PackedScene" uid="uid://vu65iiqa1fw4" path="res://Scenes/generator_test_items/generator_test.tscn" id="3_wowpa"]
 [ext_resource type="PackedScene" uid="uid://dta6jdsg0qjyj" path="res://Scenes/UI/pause_menu.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://c0yda3gorpj2l" path="res://Scenes/UI/LoadingScreen.tscn" id="5_wowpa"]
 
 [node name="Game" type="Node2D" unique_id=641626127]
 script = ExtResource("1_wrm1d")
@@ -11,3 +12,6 @@ spawn_room_scene = ExtResource("2_3dryh")
 generator_scene = ExtResource("3_wowpa")
 
 [node name="PauseMenu" parent="." unique_id=1328656161 instance=ExtResource("4_3dryh")]
+
+[node name="LoadingScreen" parent="." unique_id=1365854876 instance=ExtResource("5_wowpa")]
+visible = false

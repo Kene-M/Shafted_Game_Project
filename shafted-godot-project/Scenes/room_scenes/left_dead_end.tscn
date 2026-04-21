@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dv5vdtpyapowi"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_36fxl"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="2_v1wvp"]
 
 [node name="left_deadEnd" type="Node2D" unique_id=1851324950]
 
@@ -22,3 +23,19 @@ tile_set = ExtResource("1_36fxl")
 
 [node name="ExitEast" type="Marker2D" parent="." unique_id=1548934907]
 position = Vector2(639, 0)
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("2_v1wvp")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1239381906]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=938243580]
+position = Vector2(117, 60)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=532352065]
+position = Vector2(-91, -130)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1364093760]
+position = Vector2(-359, 45)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=958243974]
+position = Vector2(-135, -2)

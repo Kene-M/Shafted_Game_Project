@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_sfre1"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="3_r8t2w"]
 [ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="4_vrvwr"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="5_vrvwr"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="6_qre20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vrvwr"]
@@ -1602,3 +1603,19 @@ offset_top = -273.0
 offset_right = 640.0
 offset_bottom = -135.0
 color = Color(0, 0, 0, 1)
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("5_vrvwr")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1593825570]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=2058935393]
+position = Vector2(347, 0)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=2112123227]
+position = Vector2(-293, 0)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1244070605]
+position = Vector2(114, 447)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=735185018]
+position = Vector2(-195, -376)

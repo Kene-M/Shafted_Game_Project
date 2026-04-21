@@ -244,6 +244,17 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		knockback_velocity = direction * knockback_strength
 
 	if current_health <= 0:
+		var rec_paths = [
+			"res://Scenes/itemScenes/resource_1.tscn",
+			"res://Scenes/itemScenes/resource_2.tscn",
+			"res://Scenes/itemScenes/ resource_3.tscn",
+			"res://Scenes/itemScenes/resource_4.tscn",
+			"res://Scenes/itemScenes/resource_5.tscn"
+		]
+		var resource = load(rec_paths.pick_random())
+		var resource_inst = resource.instantiate()
+		get_parent().add_child(resource_inst)
+		resource_inst.global_position = global_position
 		is_dead = true
 		velocity = Vector2.ZERO
 		current_state = State.IDLE

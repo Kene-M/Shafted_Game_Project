@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 ## Mecha-stone Golem boss.
 ## State flow:
-##   APPEAR -> IDLE -> (MELEE | RANGED | BLOCK | ARMOR_BUFF | LASER_STRAIGHT | LASER_CAST) -> IDLE -> DEATH
+##   APPEAR -> IDLE -> (MELEE | RANGED | BLOCK | ARMOR_BUFF | LASER_CAST) -> IDLE -> DEATH
 ##
 ## Attack pattern by distance:
 ##   CLOSE  (≤ melee_range)      → charge & melee, occasional block
@@ -17,15 +17,15 @@ extends CharacterBody2D
 # ─── Movement ───
 @export var speed: float = 80.0
 @export var melee_range: float = 140.0
-@export var charge_range: float = 400.0    # distance at which boss prefers to charge into melee
+@export var charge_range: float = 400.0
 @export var ranged_range: float = 700.0
 @onready var nav_agent: NavigationAgent2D = $Navigation/NavigationAgent2D
 
 # ─── Attack timing / tuning ───
 @export var attack_cooldown: float = 2.2
 @export var melee_damage: float = 25.0
-@export var melee_hit_frame: int = 5         # 0-indexed; frame the punch lands
-@export var ranged_fire_frame: int = 6       # 0-indexed; frame the projectile spawns
+@export var melee_hit_frame: int = 5
+@export var ranged_fire_frame: int = 6
 @export var projectile_scene: PackedScene
 
 # ─── Laser attack ───
@@ -34,6 +34,9 @@ extends CharacterBody2D
 @export var laser_sweep_duration: float = 4.0
 @export var laser_max_range: float = 2500.0
 @export var laser_beam_width: float = 14.0
+@export var laser_straight_interval_min: float = 8.0   # straight laser fires every 8–11 s
+@export var laser_straight_interval_max: float = 11.0
+@export var laser_sweep_pre_delay: float = 2.0         # huddle time before sweep beam fires
 
 # ─── Health / defense ───
 @export var knockback_strength: float = 0.0
@@ -47,6 +50,11 @@ var _armor_buff_66_done: bool = false
 var _armor_buff_33_done: bool = false
 var _armor_stacks: int = 0
 
+# HP-gated spin lasers — fire once each at 70 / 50 / 20 % HP
+var _spin_laser_70_done: bool = false
+var _spin_laser_50_done: bool = false
+var _spin_laser_20_done: bool = false
+
 # ─── Internal state ───
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var laser_pivot: Node2D = $LaserPivot
@@ -59,20 +67,23 @@ var target_node: Node2D = null
 var home_pos: Vector2 = Vector2.ZERO
 
 var attack_timer: float = 0.0
+var _laser_straight_timer: float = 8.0
 var _has_hit_this_swing: bool = false
 var _has_fired_this_ranged: bool = false
 
-# Laser runtime — shared between straight and sweep modes
+# Laser runtime
 var _laser_active: bool = false
-var _laser_is_sweep: bool = false          # true = full spin, false = straight shot
+var _laser_is_sweep: bool = false
 var _laser_elapsed: float = 0.0
 var _laser_tick_accum: float = 0.0
 var _laser_direction_sign: float = 1.0
 var _laser_start_angle: float = 0.0
+var _laser_sweep_delay_remaining: float = 0.0   # pre-delay countdown before sweep beam fires
 
 enum State { APPEAR, IDLE, WALK, MELEE, RANGED, BLOCK, ARMOR_BUFF, LASER_CAST, LASER_SWEEP, HIT, DEATH }
 var current_state: State = State.APPEAR
 
+signal health_changed(max_health: float, cur_health: float)
 
 func _ready() -> void:
 	nav_agent.path_desired_distance = 8
@@ -129,13 +140,22 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
-	# Laser sweep (or straight) runs its own updater
+	# Laser sweep runs its own updater (handles both delay and beam)
 	if current_state == State.LASER_SWEEP:
 		velocity = Vector2.ZERO
 		_update_laser(delta)
 		return
 
 	attack_timer -= delta
+
+	# Straight laser fires on its own independent randomized timer
+	if target_node != null:
+		_laser_straight_timer -= delta
+		if _laser_straight_timer <= 0.0:
+			_laser_straight_timer = randf_range(laser_straight_interval_min, laser_straight_interval_max)
+			_laser_is_sweep = false
+			_set_state(State.LASER_CAST)
+			return
 
 	if target_node == null:
 		_set_state(State.IDLE)
@@ -150,10 +170,6 @@ func _physics_process(delta: float) -> void:
 			_set_state(attack)
 			return
 
-	# Movement logic:
-	# - Within melee range: stand and wait for next attack window
-	# - Within charge range: walk toward player aggressively to get into melee
-	# - Beyond charge range: stand still (ranged / laser attacks handle this range)
 	if dist <= melee_range:
 		velocity = Vector2.ZERO
 		_set_state(State.IDLE)
@@ -166,8 +182,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _choose_attack(dist: float) -> int:
-	# HP-gated armor buffs fire exactly once at each threshold, top priority.
 	var hp_frac := current_health / max_health
+
+	# HP-gated armor buffs — top priority
 	if hp_frac <= 0.33 and not _armor_buff_33_done:
 		_armor_buff_33_done = true
 		return State.ARMOR_BUFF
@@ -175,38 +192,39 @@ func _choose_attack(dist: float) -> int:
 		_armor_buff_66_done = true
 		return State.ARMOR_BUFF
 
-	# ── CLOSE: charge already brought us here, now swing ──
+	# HP-gated spin lasers — fire once each at 70 / 50 / 20 % HP
+	if hp_frac <= 0.20 and not _spin_laser_20_done:
+		_spin_laser_20_done = true
+		_laser_is_sweep = true
+		return State.LASER_CAST
+	if hp_frac <= 0.50 and not _spin_laser_50_done:
+		_spin_laser_50_done = true
+		_laser_is_sweep = true
+		return State.LASER_CAST
+	if hp_frac <= 0.70 and not _spin_laser_70_done:
+		_spin_laser_70_done = true
+		_laser_is_sweep = true
+		return State.LASER_CAST
+
+	# ── CLOSE ──
 	if dist <= melee_range:
 		if randf() < 0.15:
 			return State.BLOCK
 		return State.MELEE
 
-	# ── MEDIUM: prefer to keep charging (handled in physics loop),
-	#    but occasionally throw a ranged shot instead of purely chasing ──
+	# ── MEDIUM ──
 	if dist <= charge_range:
-		var roll := randf()
-		if roll < 0.25 and dist <= ranged_range:
-			return State.RANGED        # quick shot before closing
-		# Otherwise return IDLE so physics loop keeps walking
+		if randf() < 0.25 and dist <= ranged_range:
+			return State.RANGED
 		return State.IDLE
 
-	# ── FAR: ranged or laser, very rare spin ──
+	# ── FAR ──
 	if dist <= ranged_range:
-		var roll := randf()
-		if roll < 0.08:
-			# Rare spin laser — telegraph with laser_cast then full sweep
-			_laser_is_sweep = true
-			return State.LASER_CAST
-		elif roll < 0.55:
-			# Straight laser beam aimed at player
-			_laser_is_sweep = false
-			return State.LASER_CAST
-		elif roll < 0.85:
+		if randf() < 0.65:
 			return State.RANGED
 		else:
 			return State.BLOCK
 
-	# Out of all ranges — just block/wait
 	return State.BLOCK
 
 
@@ -222,14 +240,12 @@ func _move_along_nav() -> void:
 
 
 func _update_facing(horizontal_dir: float) -> void:
-	# FIX: sprite default faces LEFT, so flip_h = false means facing left.
-	# When player is to the RIGHT (horizontal_dir > 0), we flip to face right.
 	if horizontal_dir < 0:
 		facing_right = true
-		sprite.flip_h = true    # flipped = facing right
+		sprite.flip_h = true
 	elif horizontal_dir > 0:
 		facing_right = false
-		sprite.flip_h = false   # not flipped = facing left (default)
+		sprite.flip_h = false
 
 
 # ─────────────────────────────────────────────────────────────
@@ -263,18 +279,23 @@ func _set_state(new_state: int) -> void:
 			sprite.play("sheild_cast")
 		State.LASER_CAST:
 			velocity = Vector2.ZERO
-			# Play the cast wind-up. On finish, _on_sprite_animation_finished
-			# will transition to LASER_SWEEP which starts the actual beam.
 			sprite.play("laser_cast")
 		State.LASER_SWEEP:
 			velocity = Vector2.ZERO
-			# Hold on the last frame of "immune" for the entire laser duration.
-			# We set loop=false and pause on frame 0 after playing one cycle.
-			sprite.play("immune")
-			sprite.set_frame_and_progress(sprite.sprite_frames.get_frame_count("immune") - 1, 1.0)
-			sprite.pause()
+			# Freeze on the last frame of immune (huddled pose).
+			# sprite.stop() prevents animation_finished from firing during the laser.
+			sprite.stop()
+			sprite.animation = &"immune"
+			sprite.frame = sprite.sprite_frames.get_frame_count("immune") - 1
 			incoming_damage_mult = 0.25
-			_begin_laser()
+			if _laser_is_sweep:
+				# Huddle for pre-delay seconds, then _update_laser calls _begin_laser
+				_laser_sweep_delay_remaining = laser_sweep_pre_delay
+				_laser_active = false
+			else:
+				# Straight laser: no delay, fire immediately
+				_laser_sweep_delay_remaining = 0.0
+				_begin_laser()
 		State.HIT:
 			velocity = Vector2.ZERO
 			if sprite.sprite_frames and sprite.sprite_frames.has_animation("hit"):
@@ -309,8 +330,10 @@ func _on_sprite_animation_finished() -> void:
 			attack_timer = attack_cooldown
 			_resume_after_attack()
 		&"immune":
-			# Block finishes normally. Laser sweep holds the last frame via pause()
-			# so animation_finished only fires for block, not during laser.
+			# sprite.stop() is used during LASER_SWEEP so animation_finished
+			# will not fire then. This branch only runs for BLOCK.
+			if current_state == State.LASER_SWEEP:
+				return  # safety guard
 			if current_state == State.BLOCK:
 				incoming_damage_mult = 1.0
 				attack_timer = attack_cooldown * 0.5
@@ -320,7 +343,6 @@ func _on_sprite_animation_finished() -> void:
 			attack_timer = attack_cooldown
 			_resume_after_attack()
 		&"laser_cast":
-			# laser_cast wind-up done — begin the actual beam
 			_set_state(State.LASER_SWEEP)
 		&"death":
 			queue_free()
@@ -387,14 +409,24 @@ func _begin_laser() -> void:
 
 
 func _update_laser(delta: float) -> void:
+	# ── Sweep pre-delay: boss stays huddled before the beam fires ──
+	if _laser_sweep_delay_remaining > 0.0:
+		_laser_sweep_delay_remaining -= delta
+		if _laser_sweep_delay_remaining <= 0.0:
+			_laser_sweep_delay_remaining = 0.0
+			_begin_laser()
+		return  # don't run beam logic until delay is done
+
+	if not _laser_active:
+		return
+
+	# ── Active beam ──
 	_laser_elapsed += delta
 
 	if _laser_is_sweep:
-		# Full 360° rotation over laser_sweep_duration
 		var t: float = clamp(_laser_elapsed / laser_sweep_duration, 0.0, 1.0)
 		laser_pivot.rotation = _laser_start_angle + _laser_direction_sign * TAU * t
 	else:
-		# Straight beam — keep aimed at player, slight tracking
 		if target_node:
 			var target_angle := (target_node.global_position - global_position).angle()
 			laser_pivot.rotation = lerp_angle(laser_pivot.rotation, target_angle, delta * 3.0)
@@ -421,12 +453,11 @@ func _update_laser(delta: float) -> void:
 func _try_laser_damage(beam_end_local: Vector2) -> void:
 	if target_node == null:
 		return
-	# Point-to-segment test in pivot-local space.
 	var player_local: Vector2 = laser_pivot.to_local(target_node.global_position)
 	var seg_start := Vector2.ZERO
 	var seg_end := beam_end_local
 	var closest := Geometry2D.get_closest_point_to_segment(player_local, seg_start, seg_end)
-	var hit_radius: float = laser_beam_width * 0.5 + 16.0   # + player half-size fudge
+	var hit_radius: float = laser_beam_width * 0.5 + 16.0
 	if player_local.distance_to(closest) <= hit_radius:
 		if target_node.has_method("take_damage"):
 			target_node.take_damage(laser_damage_per_tick, global_position)
@@ -438,9 +469,7 @@ func _end_laser() -> void:
 	laser_line.points = PackedVector2Array()
 	laser_ray.enabled = false
 	incoming_damage_mult = 1.0
-	# Longer cooldown after the big spin; shorter after a quick straight beam
 	attack_timer = attack_cooldown * (2.0 if _laser_is_sweep else 1.2)
-	# Resume sprite so idle plays again
 	sprite.play("idle")
 	current_state = State.IDLE
 	_set_state(State.IDLE)
@@ -467,7 +496,6 @@ func _on_aggro_range_area_entered(area: Area2D) -> void:
 
 
 func _on_de_aggro_range_area_exited(area: Area2D) -> void:
-	# Boss never loses aggro once engaged; intentionally empty.
 	pass
 
 
@@ -480,7 +508,6 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		return
 
 	var final_amount: float = amount * incoming_damage_mult
-	# Each armor stack shaves 25% more.
 	if _armor_stacks > 0:
 		final_amount *= pow(0.75, float(_armor_stacks))
 
@@ -489,6 +516,7 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		return
 
 	current_health -= final_amount
+	health_changed.emit(max_health, current_health)
 	_show_damage_number(final_amount, is_crit)
 
 	if source_position != Vector2.ZERO and knockback_strength > 0.0:
@@ -499,7 +527,6 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		_die()
 		return
 
-	# Don't interrupt big moves.
 	if current_state in [State.MELEE, State.RANGED, State.LASER_CAST, State.LASER_SWEEP,
 						 State.ARMOR_BUFF, State.BLOCK, State.APPEAR, State.DEATH]:
 		return
@@ -556,3 +583,8 @@ func _play_anim_or_fallback(anim_name: String, fallback: String = "idle") -> voi
 		sprite.play(anim_name)
 	elif sprite.sprite_frames and sprite.sprite_frames.has_animation(fallback):
 		sprite.play(fallback)
+
+
+func _on_aggro_range_body_entered(body: Node2D) -> void:
+	if body.name == "MainChar":
+		$CanvasLayer/Control.visible = true

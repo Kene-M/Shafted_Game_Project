@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_hgaaf"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="5_lo58y"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="6_2d63s"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="7_2d63s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hgaaf"]
 shader = ExtResource("3_m1mix")
@@ -1601,3 +1602,19 @@ tile_set = ExtResource("1_x1e87")
 
 [node name="mystery" type="TileMapLayer" parent="Moss/Props" unique_id=1832547463]
 tile_set = SubResource("TileSet_hgaaf")
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("7_2d63s")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=1327157929]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=961736763]
+position = Vector2(264, -197)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=832912743]
+position = Vector2(-307, 168)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1637054876]
+position = Vector2(77, 316)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=776790807]
+position = Vector2(-72, -262)

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dkbu6f5waj4mq"]
 
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_i6she"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="2_0sujk"]
 
 [node name="BossRoom" type="Node2D" unique_id=200744822]
 
@@ -22,3 +23,5 @@ tile_set = ExtResource("1_i6she")
 
 [node name="ExitSouth" type="Marker2D" parent="." unique_id=82848800]
 position = Vector2(0, 447)
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("2_0sujk")]

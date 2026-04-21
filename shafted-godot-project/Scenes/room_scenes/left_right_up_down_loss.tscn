@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="4_psokb"]
 [ext_resource type="Shader" uid="uid://tqup6hytficj" path="res://Assets/Props/Resources/fadeSouth.gdshader" id="5_psokb"]
 [ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_ehu4v"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="7_0jt5d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jf0vv"]
 texture = ExtResource("2_2ovtw")
@@ -1634,3 +1635,19 @@ position = Vector2(991, 85)
 
 [node name="ExitSouth" type="Marker2D" parent="." unique_id=69546242]
 position = Vector2(312, 1055)
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("7_0jt5d")]
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=49290579]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=1529075305]
+position = Vector2(347, 0)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=1710279980]
+position = Vector2(-334, 74)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=846743624]
+position = Vector2(-764, 566)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=1047602926]
+position = Vector2(-802, -270)

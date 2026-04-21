@@ -3,7 +3,9 @@
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_wjjed"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="3_h4inc"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_aap7a"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeWest.gdshader" id="4_wjjed"]
+[ext_resource type="Shader" uid="uid://dk4t6lln01s6i" path="res://Assets/Props/Resources/fadeWest.gdshader" id="4_wjjed"]
+[ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="5_r8wu7"]
+[ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="6_h4inc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8wu7"]
 shader = ExtResource("4_wjjed")
@@ -101,3 +103,22 @@ offset_bottom = 32.0
 
 [node name="ExitEast" type="Marker2D" parent="." unique_id=1144948365]
 position = Vector2(274, 0)
+
+[node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("5_r8wu7")]
+
+[node name="StaticChest2D" parent="." unique_id=253011665 instance=ExtResource("6_h4inc")]
+position = Vector2(-241, 2)
+
+[node name="EnemySpawns" type="Node2D" parent="." unique_id=676295769]
+
+[node name="Spawn1" type="Marker2D" parent="EnemySpawns" unique_id=1908555654]
+position = Vector2(150, 4)
+
+[node name="Spawn2" type="Marker2D" parent="EnemySpawns" unique_id=1725949461]
+position = Vector2(-2, -149)
+
+[node name="Spawn3" type="Marker2D" parent="EnemySpawns" unique_id=1699345875]
+position = Vector2(-10, 144)
+
+[node name="Spawn4" type="Marker2D" parent="EnemySpawns" unique_id=563409243]
+position = Vector2(-156, 3)

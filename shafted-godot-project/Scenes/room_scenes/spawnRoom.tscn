@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/tilemaps/nootnoot2.png" id="6_d528l"]
 [ext_resource type="Script" uid="uid://cmc6qs8o6nns2" path="res://Scripts/characterScripts/planterRobo.gd" id="7_sue6a"]
 [ext_resource type="Texture2D" uid="uid://d2k01l2a2yyay" path="res://Assets/spriteSheetEnemy/Planter Bot Blue.png" id="8_stylq"]
+[ext_resource type="PackedScene" uid="uid://bwct2d8sbpfwb" path="res://Assets/Tilesets/rock_background.tscn" id="9_l47vm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
 texture = ExtResource("1_t13yj")
@@ -1134,3 +1135,5 @@ tile_set = SubResource("TileSet_w8y8n")
 z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAAAGAAIAAAD3//z/AAAGAAMAAAADAAUAAAAGAAMAAAAJAAUAAAAIAAEAAAAJAPr/AAAIAAEAAAD2//r/AAAIAAEAAAD2/wUAAAAIAAEAAAA=")
 tile_set = SubResource("TileSet_b01wm")
+
+[node name="RockBackground" parent="." unique_id=1264063454 instance=ExtResource("9_l47vm")]

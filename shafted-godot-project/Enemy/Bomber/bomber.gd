@@ -116,6 +116,17 @@ func _set_state(new_state: State) -> void:
 			sprite.play("explosion")
 			_do_explosion_damage()  # deal damage immediately when explosion starts
 		State.DEATH:
+			var rec_paths = [
+				"res://Scenes/itemScenes/resource_1.tscn",
+				"res://Scenes/itemScenes/resource_2.tscn",
+				"res://Scenes/itemScenes/ resource_3.tscn",
+				"res://Scenes/itemScenes/resource_4.tscn",
+				"res://Scenes/itemScenes/resource_5.tscn"
+			]
+			var resource = load(rec_paths.pick_random())
+			var resource_inst = resource.instantiate()
+			get_parent().add_child(resource_inst)
+			resource_inst.global_position = global_position
 			velocity = Vector2.ZERO
 			sprite.speed_scale = 1.0
 			sprite.play("death")
