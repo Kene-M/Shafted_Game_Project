@@ -19,7 +19,9 @@ func _ready() -> void:
 
 func _create_weapons():
 	var weapon_args = [
+			["Rifle", "res://Scripts/weaponScripts/weaponLogicScripts/gun.gd", [2,2,1,0,0], "Ranged"],
 			["Shotgun", "res://Scripts/weaponScripts/weaponLogicScripts/shotgun.gd", [3,2,1,1,0], "Ranged"],
+			["Sword", "res://Scripts/weaponScripts/weaponLogicScripts/sword.gd", [2,3,1,0,0], "Melee"],
 			["Spear", "res://Scripts/weaponScripts/weaponLogicScripts/spear.gd", [2,2,2,0,0], "Melee"]
 		]
 	var tree = $TabContainer/Crafting

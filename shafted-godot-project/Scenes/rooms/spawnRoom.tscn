@@ -5,18 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://orcxjfg15jvy" path="res://Assets/tilemaps/2_Industrial_Tileset_1B_Background.png" id="3_lty1r"]
 [ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="8_u87g2"]
 [ext_resource type="PackedScene" uid="uid://d1mtguww1whd6" path="res://Enemy/Dummy/dps_dummy.tscn" id="9_f0ecq"]
-[ext_resource type="PackedScene" uid="uid://c4q1w3s5mk1uu" path="res://Scenes/itemScenes/resource_1.tscn" id="10_7owe1"]
-[ext_resource type="PackedScene" uid="uid://da8giqygsdxm6" path="res://Scenes/weaponScenes/static_sword.tscn" id="10_oagid"]
-[ext_resource type="PackedScene" uid="uid://hnfmgpuit1nv" path="res://Scenes/itemScenes/resource_2.tscn" id="11_l3fbt"]
-[ext_resource type="PackedScene" uid="uid://c83vxy3ryxame" path="res://Scenes/weaponScenes/static_spear.tscn" id="12_u1jld"]
 [ext_resource type="Script" uid="uid://6a7mtvca31cy" path="res://Scenes/UI/reset_button.gd" id="12_u87vg"]
-[ext_resource type="PackedScene" uid="uid://cb763t5t5kah2" path="res://Scenes/weaponScenes/static_weapon.tscn" id="12_um6xd"]
 [ext_resource type="PackedScene" uid="uid://clbxutlus034p" path="res://Scenes/itemScenes/static_chest_2d.tscn" id="12_w8muy"]
-[ext_resource type="PackedScene" uid="uid://d3t1k7i55040j" path="res://Scenes/weaponScenes/static_launcher.tscn" id="13_um6xd"]
-[ext_resource type="PackedScene" uid="uid://msdrq45ugub1" path="res://Scenes/weaponScenes/static_shotgun.tscn" id="14_7uwhw"]
-[ext_resource type="PackedScene" uid="uid://6800ia8nxotg" path="res://Scenes/weaponScenes/static_hammer.tscn" id="15_jstli"]
-[ext_resource type="PackedScene" uid="uid://c12bugc78mp5k" path="res://Scenes/itemScenes/attack_up_static_body.tscn" id="16_4qw3y"]
-[ext_resource type="PackedScene" uid="uid://gssq055s8nbt" path="res://Scenes/itemScenes/attack_mult_static_body.tscn" id="17_16wuk"]
 [ext_resource type="PackedScene" uid="uid://8gpplekw5gym" path="res://Scenes/itemScenes/static_weapon_crafter_2d.tscn" id="18_h2mpr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fmn"]
@@ -773,11 +763,8 @@ z_index = 1
 tile_map_data = PackedByteArray("AAD4/wUAAAAGAAIAAAD3//z/AAAGAAMAAAADAAUAAAAGAAMAAAAJAAUAAAAIAAEAAAAJAPr/AAAIAAEAAAD2//r/AAAIAAEAAAD2/wUAAAAIAAEAAAA=")
 tile_set = SubResource("TileSet_b01wm")
 
-[node name="StaticSword" parent="." unique_id=1848321416 instance=ExtResource("10_oagid")]
-position = Vector2(124, -63)
-
 [node name="StaticChest2D" parent="." unique_id=1773636658 instance=ExtResource("12_w8muy")]
-position = Vector2(126, 55)
+position = Vector2(-100, -71)
 collision_mask = 2
 
 [node name="Button" type="Button" parent="." unique_id=746108131]
@@ -798,51 +785,12 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_esb8d")
 
 [node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("8_u87g2")]
-position = Vector2(64, 54)
+position = Vector2(63, -72)
 
 [node name="StaticBody2D" parent="." unique_id=1260572324 instance=ExtResource("9_f0ecq")]
-position = Vector2(-107, -49)
-
-[node name="StaticBody2D2" parent="." unique_id=181014022 instance=ExtResource("10_7owe1")]
-position = Vector2(-97, 9)
-
-[node name="StaticBody2D3" parent="." unique_id=23776741 instance=ExtResource("10_7owe1")]
-position = Vector2(-76, -78)
-
-[node name="StaticBody2D4" parent="." unique_id=1037361730 instance=ExtResource("10_7owe1")]
-position = Vector2(-46, -78)
-
-[node name="StaticBody2D5" parent="." unique_id=499709857 instance=ExtResource("11_l3fbt")]
-position = Vector2(-137, 15)
-
-[node name="StaticBody2D6" parent="." unique_id=1847804087 instance=ExtResource("11_l3fbt")]
-position = Vector2(-113, 31)
-
-[node name="StaticBody2D7" parent="." unique_id=749084602 instance=ExtResource("11_l3fbt")]
-position = Vector2(-138, 44)
-
-[node name="StaticSpear" parent="." unique_id=650535001 instance=ExtResource("12_u1jld")]
-position = Vector2(62, -73)
-
-[node name="StaticWeapon" parent="." unique_id=1771989361 instance=ExtResource("12_um6xd")]
-position = Vector2(131, -7)
-
-[node name="StaticLauncher" parent="." unique_id=524716989 instance=ExtResource("13_um6xd")]
-position = Vector2(70, -23)
-
-[node name="StaticShotgun" parent="." unique_id=1575903012 instance=ExtResource("14_7uwhw")]
-position = Vector2(6, -68)
-
-[node name="StaticHammer" parent="." unique_id=1509081610 instance=ExtResource("15_jstli")]
-position = Vector2(-32, 71)
-
-[node name="AttackUpStaticBody" parent="." unique_id=1357907023 instance=ExtResource("16_4qw3y")]
-position = Vector2(-60, -44)
-
-[node name="AttackMultStaticBody" parent="." unique_id=1775141511 instance=ExtResource("17_16wuk")]
-position = Vector2(-78, 39)
+position = Vector2(117, 33)
 
 [node name="StaticWeaponCrafter2D" parent="." unique_id=951445219 instance=ExtResource("18_h2mpr")]
-position = Vector2(11, 54)
+position = Vector2(-19, -71)
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://clbxutlus034p"]
 
 [ext_resource type="Script" uid="uid://cb8bxy17vvf0a" path="res://Scenes/itemScenes/static_chest_2d.gd" id="1_8802d"]
-[ext_resource type="Texture2D" uid="uid://dhb458ri45e2g" path="res://Assets/Props/chess.png" id="1_e7ju4"]
+[ext_resource type="Texture2D" uid="uid://h6d0tl6oqkn3" path="res://Assets/Props/nootnoot2.png" id="2_8802d"]
 [ext_resource type="Script" uid="uid://dflfvjdsn303k" path="res://Scripts/control.gd" id="3_8802d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wp4hf"]
 radius = 24.5153
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epsig"]
+atlas = ExtResource("2_8802d")
+region = Rect2(62.68273, 85.73604, 17.20607, 28.358147)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8802d"]
 font_size = 8
@@ -20,16 +24,16 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_wp4hf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1005021120]
-position = Vector2(2, 2.00002)
-scale = Vector2(0.0423026, 0.0375521)
-texture = ExtResource("1_e7ju4")
+position = Vector2(-2.3841858e-07, 0)
+scale = Vector2(1.5289353, 1.361837)
+texture = SubResource("AtlasTexture_epsig")
 
 [node name="Label" type="Label" parent="." unique_id=1581677379]
 visible = false
-offset_left = -48.0
-offset_top = -18.0
-offset_right = 41.0
-offset_bottom = -1.0
+offset_left = -29.0
+offset_top = 27.0
+offset_right = 60.0
+offset_bottom = 44.0
 text = "press (E) to open"
 label_settings = SubResource("LabelSettings_8802d")
 

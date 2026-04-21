@@ -285,6 +285,7 @@ offset_bottom = 44.435
 text = "\"E\" to interact"
 
 [node name="TempHealthBar" type="ColorRect" parent="." unique_id=1963051858]
+visible = false
 z_index = 420
 offset_left = -50.0
 offset_top = -40.0
@@ -303,6 +304,7 @@ offset_bottom = 6.0
 color = Color(0.20871, 0.20871, 0.20871, 1)
 
 [node name="temp_vel_label" type="Label" parent="." unique_id=611955854]
+visible = false
 offset_left = -130.0
 offset_top = -84.0
 offset_right = 6.0
@@ -313,6 +315,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TempHealthNum" type="Label" parent="." unique_id=1873707026]
+visible = false
 offset_left = -20.0
 offset_top = -73.0
 offset_right = 20.0
