@@ -911,7 +911,8 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 func _setup_room_system() -> void:
 	# Hide all rooms except the start room
 	for grid_pos in placed_rooms.keys():
-		placed_rooms[grid_pos].visible = (grid_pos == Vector2i(0, 0))
+		_set_room_active(placed_rooms[grid_pos], grid_pos == Vector2i(0, 0))
+		#placed_rooms[grid_pos].visible = (grid_pos == Vector2i(0, 0))
 	
 	# Spawn exit triggers on every placed room
 	for grid_pos in placed_rooms.keys():
@@ -995,10 +996,14 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 	tween_out.tween_property(overlay, "color:a", 1.0, 0.35)
 	await tween_out.finished
 	
-	# Swap room visibility
-	placed_rooms[current_room_pos].visible = false
+	## Swap room visibility
+	#placed_rooms[current_room_pos].visible = false
+	#var new_room = placed_rooms[to_grid]
+	#new_room.visible = true
+	# Swap rooms — deactivate old, activate new
+	_set_room_active(placed_rooms[current_room_pos], false)
 	var new_room = placed_rooms[to_grid]
-	new_room.visible = true
+	_set_room_active(new_room, true)
 	
 	# Reposition player at the entry side of the new room
 	var entry_dir = OPPOSITE[came_from_direction]
@@ -1057,6 +1062,24 @@ func _get_or_create_overlay() -> ColorRect:
 	canvas.add_child(rect)
 	return rect
 
+func _set_room_active(room: Node2D, active: bool) -> void:
+	# Show/hide visuals
+	room.visible = active
+	
+	# Enable/disable all TileMapLayer collision
+	for child in room.find_children("*", "TileMapLayer", true, false):
+		child.collision_enabled = active
+	
+	# Enable/disable all enemies
+	for child in room.find_children("*", "CharacterBody2D", true, false):
+		child.process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+	
+	# Enable/disable all Area2D except exit triggers (those are managed separately)
+	for child in room.find_children("*", "Area2D", true, false):
+		if child.name.begins_with("ExitTrigger_"):
+			continue
+		child.monitoring = active
+		child.monitorable = active
 
 
 
