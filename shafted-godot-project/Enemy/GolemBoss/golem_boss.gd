@@ -73,6 +73,7 @@ var _laser_start_angle: float = 0.0
 enum State { APPEAR, IDLE, WALK, MELEE, RANGED, BLOCK, ARMOR_BUFF, LASER_CAST, LASER_SWEEP, HIT, DEATH }
 var current_state: State = State.APPEAR
 
+signal health_changed(max_health: float, cur_health: float)
 
 func _ready() -> void:
 	nav_agent.path_desired_distance = 8
@@ -489,6 +490,7 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		return
 
 	current_health -= final_amount
+	health_changed.emit(max_health, current_health)
 	_show_damage_number(final_amount, is_crit)
 
 	if source_position != Vector2.ZERO and knockback_strength > 0.0:
@@ -556,3 +558,8 @@ func _play_anim_or_fallback(anim_name: String, fallback: String = "idle") -> voi
 		sprite.play(anim_name)
 	elif sprite.sprite_frames and sprite.sprite_frames.has_animation(fallback):
 		sprite.play(fallback)
+
+
+func _on_aggro_range_body_entered(body: Node2D) -> void:
+	if body.name == "MainChar":
+		$CanvasLayer/Control.visible = true
