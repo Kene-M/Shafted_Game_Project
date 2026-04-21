@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://d1umf61c3k16t"]
+[gd_scene format=3 uid="uid://d1umf61c3k16t"]
 
 [ext_resource type="Script" uid="uid://c15uoqkfghb3u" path="res://Enemy/Nester/nester.gd" id="1_f6m2e"]
 [ext_resource type="Texture2D" uid="uid://yfowra0hednm" path="res://Assets/enemies/Monster Pack/Monster3Pack.png" id="1_p5whj"]
@@ -415,12 +415,12 @@ animations = [{
 radius = 19.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8co83"]
-radius = 64.0
+radius = 154.49596
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_csxni"]
-radius = 121.198
+radius = 175.64737
 
-[node name="nester" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
+[node name="nester" type="CharacterBody2D" unique_id=799941515 node_paths=PackedStringArray("nav_agent")]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_f6m2e")
@@ -428,35 +428,35 @@ nav_agent = NodePath("Navigation/NavigationAgent2D")
 knockback_strength = 100.0
 hatched_egg = ExtResource("2_8co83")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1162477590]
 sprite_frames = SubResource("SpriteFrames_fbms1")
 animation = &"walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=831595626]
 shape = SubResource("CircleShape2D_f6m2e")
 
-[node name="Navigation" type="Node2D" parent="."]
+[node name="Navigation" type="Node2D" parent="." unique_id=1772940201]
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation" unique_id=442066876]
 debug_enabled = true
 
-[node name="RecalculateTimer" type="Timer" parent="Navigation"]
+[node name="RecalculateTimer" type="Timer" parent="Navigation" unique_id=1679469269]
 wait_time = 0.1
 autostart = true
 
-[node name="Aggro" type="Node2D" parent="."]
+[node name="Aggro" type="Node2D" parent="." unique_id=1017062915]
 
-[node name="AggroRange" type="Area2D" parent="Aggro"]
+[node name="AggroRange" type="Area2D" parent="Aggro" unique_id=2073827824]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange" unique_id=853544330]
 shape = SubResource("CircleShape2D_8co83")
 debug_color = Color(0.912486, 0.173641, 0.592982, 0.419608)
 
-[node name="DeAggroRange" type="Area2D" parent="Aggro"]
+[node name="DeAggroRange" type="Area2D" parent="Aggro" unique_id=428037221]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" unique_id=314572211]
 shape = SubResource("CircleShape2D_csxni")

@@ -38,12 +38,17 @@ var room_display_radius: float = 1500.0
 @export var scene_lr: PackedScene          # lr_connector.tscn       exits: ExitEast/West
 # A vertical corridor connecting North and South only.
 @export var scene_ud: PackedScene          # ud_hall_way.tscn       exits: ExitNorth/South
+# Dedicated boss room. Used for any grid cell labelled "boss".
+# Leave null to fall back to scene_all_dirs.
+@export var scene_boss: PackedScene        # boss_room.tscn
 
 # ─────────────────────────────────────────────
 # ENEMY SCENES — assign in Inspector
 # ─────────────────────────────────────────────
 
 @export var enemy_scenes: Array[PackedScene] = []
+# Dedicated boss enemy. If set, this is the ONLY enemy spawned in boss rooms.
+@export var boss_enemy_scene: PackedScene
 @export var min_enemies_per_room: int = 1
 @export var max_enemies_per_room: int = 3
 
@@ -140,23 +145,6 @@ func _ready():
 ## Called by game_manager to know where to put the player
 func get_player_spawn_position() -> Vector2:
 	return player_spawn_pos
-	# Diagnostic loop: confirm which Exit markers each scene actually exposes at runtime.
-	# This catches mismatches between scene_exits declarations and real scene contents.
-	for key in scene_map.keys():
-		var inst = scene_map[key].instantiate()
-		var found = []
-		for dir in ["North", "South", "East", "West"]:
-			if inst.find_child("Exit" + dir, true, false) != null:
-				found.append(dir)
-		print("Scene '", key, "' markers found: ", found)
-		inst.free()
-
-	# Instantiate and position every room node in world space.
-	_place_rooms()
-
-	# Defer camera setup until after all room nodes have finished processing
-	# their _ready() callbacks — prevents a one-frame stale bounding box.
-	_setup_overview_camera.call_deferred()
 
 
 # ─────────────────────────────────────────────
@@ -340,11 +328,15 @@ func _place_rooms():
 		# Convert the exit list to a sorted, underscore-joined key for scene lookup.
 		var key = _get_connection_key(exits)
 
-		# Choose the appropriate PackedScene for this room's connection shape.
+# Choose the appropriate PackedScene for this room's connection shape.
 		var packed: PackedScene
 		if grid_pos == Vector2i(0, 0):
 			# The start room always uses its dedicated scene, regardless of computed exits.
 			packed = scene_start
+		elif grid[grid_pos] == "boss" and scene_boss != null:
+			# Dedicated boss room overrides shape-matching — boss_room.tscn must carry
+			# its own ExitN/S/E/W markers so it can snap from whichever side approaches.
+			packed = scene_boss
 		else:
 			packed = _pick_best_scene(key, exits)
 
@@ -424,7 +416,7 @@ func _place_rooms():
 # Replace your entire _spawn_enemies() function with this:
 
 func _spawn_enemies() -> void:
-	if enemy_scenes.size() == 0:
+	if enemy_scenes.size() == 0 and boss_enemy_scene == null:
 		return
 
 	for grid_pos in placed_rooms.keys():
@@ -447,15 +439,26 @@ func _spawn_enemies() -> void:
 		if spawn_points.size() == 0:
 			spawn_points.append(room.global_position)
 
-		# Boss rooms use all spawn points, normal rooms use min/max range
-		var enemy_count: int
+		# Boss room: spawn exactly one boss, skip the normal pool.
 		if is_boss:
-			enemy_count = spawn_points.size()
-		else:
-			enemy_count = mini(
-				randi_range(min_enemies_per_room, max_enemies_per_room),
-				spawn_points.size()
-			)
+			if boss_enemy_scene == null:
+				continue
+			var boss = boss_enemy_scene.instantiate()
+			room.add_child(boss)
+			if boss.has_method("setup"):
+				boss.setup(spawn_points[0])
+			else:
+				boss.global_position = spawn_points[0]
+			continue
+
+		# Normal rooms: pull from enemy_scenes pool, one per spawn point up to max.
+		if enemy_scenes.size() == 0:
+			continue
+
+		var enemy_count: int = mini(
+			randi_range(min_enemies_per_room, max_enemies_per_room),
+			spawn_points.size()
+		)
 
 		spawn_points.shuffle()
 
@@ -464,12 +467,10 @@ func _spawn_enemies() -> void:
 			var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]
 			var enemy = enemy_scene.instantiate()
 			room.add_child(enemy)
-			# setup() sets both global_position AND home_pos correctly after add_child
 			if enemy.has_method("setup"):
 				enemy.setup(base)
 			else:
 				enemy.global_position = base
-
 # Computes the world-space position for a new room by snapping its entry marker
 # to the exit marker of the nearest already-placed neighbor.
 #
