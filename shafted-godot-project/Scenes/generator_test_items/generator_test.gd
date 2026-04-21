@@ -453,8 +453,8 @@ func _place_rooms():
 
 		if grid_pos == Vector2i(0, 0):
 			# The start room is the anchor for the entire dungeon — place it at the world origin.
-			add_child(room_instance)
 			room_instance.position = Vector2.ZERO
+			add_child(room_instance)
 			print("Room at [0,0] (START): instantiated at ", room_instance.position)
 		else:
 			# Calculate the world position by snapping this room's entry marker
@@ -477,8 +477,8 @@ func _place_rooms():
 				continue
 
 			# Anchor found — add to the scene and snap into position.
-			add_child(room_instance)
 			room_instance.position = snapped_pos
+			add_child(room_instance)
 			print("Room at ", grid_pos, " (", grid[grid_pos], "): instantiated at ", room_instance.position)
 
 		# Mark this grid position as done and register the instance for future anchoring.
