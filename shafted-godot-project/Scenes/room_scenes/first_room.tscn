@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="3_mepkt"]
 [ext_resource type="Texture2D" uid="uid://p3eerxv31xg" path="res://Assets/Tilesets/rocks.png" id="3_r5hv7"]
 [ext_resource type="Texture2D" uid="uid://b1j2uuw282y7s" path="res://Assets/Tilesets/s4m_ur4i_dark_metroidvania_1.2_biomes.png" id="4_wqdid"]
-[ext_resource type="Shader" uid="uid://d4nd5v8sreci8" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_lub4x"]
-[ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="7_3r7sd"]
-[ext_resource type="Shader" uid="uid://c454x8dmgxkbx" path="res://Assets/Props/Resources/rocksDarken.gdshader" id="8_lub4x"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeEast.gdshader" id="6_lub4x"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="7_3r7sd"]
+[ext_resource type="Shader" path="res://Assets/Props/Resources/rocksDarken.gdshader" id="8_lub4x"]
 [ext_resource type="Texture2D" uid="uid://nlj7o8kiwdcb" path="res://Assets/Tilesets/whitebones.png" id="9_3r7sd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sam6c"]

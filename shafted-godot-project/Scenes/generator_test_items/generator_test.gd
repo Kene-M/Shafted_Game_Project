@@ -63,7 +63,7 @@ var room_display_radius: float = 1500.0
 # Corner room with East and South exits.
 @export var scene_right_down_room: PackedScene          # right_down_room.tscn         key: "East_South"
 # Corner room with West and South exits.
-@export var scene_left_down_room: PackedScene           # left_down_room.tscn          key: "West_South"
+@export var scene_left_down_room: PackedScene           # left_down_room.tscn          key: "South_West"
 
 
 # ── NEW CORRIDOR / MULTI-EXIT ROOMS ──
@@ -76,7 +76,7 @@ var room_display_radius: float = 1500.0
 # Three-way room — North, South, and West exits — variant 2.
 @export var scene_left_up_down_cave_2: PackedScene      # left_up_down_cave_2.tscn     key: "North_South_West" (variant 2)
 # Three-way room — North, East, and West exits.
-@export var scene_left_right_up_67: PackedScene         # left_right_up_67.tscn        key: "North_East_West"
+@export var scene_left_right_up_67: PackedScene         # left_right_up_67.tscn        key: "East_North_West"
 # Four-way room — all cardinal exits, variant 2.
 @export var scene_left_right_up_down_loss: PackedScene  # left_right_up_down_loss.tscn key: "East_North_South_West" (variant 2)
 
@@ -173,10 +173,10 @@ var scene_exits: Dictionary = {
 	"East_West":             ["East", "West"],
 	"North_South":           ["North", "South"],
 	"North_West":            ["North", "West"],
-	"West_South":            ["South", "West"],
+	"South_West":            ["South", "West"],
 	"East_North_South":      ["East", "North", "South"],
 	"East_South_West":       ["East", "South", "West"],
-	"North_East_West":       ["East", "North", "West"],
+	"East_North_West":       ["East", "North", "West"],
 	"North_South_West":      ["North", "South", "West"],
 	"East_North_South_West": ["East", "North", "South", "West"]
 }
@@ -196,8 +196,8 @@ func _ready():
 	# ── Single-scene keys — one exact scene per combination ──
 	scene_map["North_South"]      = scene_ud
 	scene_map["East_South"]       = scene_right_down_room
-	scene_map["North_East_West"]  = scene_left_right_up_67
-	scene_map["West_South"]       = scene_left_down_room
+	scene_map["East_North_West"]  = scene_left_right_up_67
+	scene_map["South_West"]       = scene_left_down_room
 	scene_map["East_North"]       = scene_right_up_room2
 	scene_map["East_North_South"] = scene_up_down_right_groovin
 	scene_map["East_South_West"]  = scene_left_right_down_trololol
@@ -206,11 +206,11 @@ func _ready():
 	# _pick_best_scene() will randomly select from the pool each time,
 	# giving visual variety across runs without any extra logic at the call site.
 	# Each pool is stored as an Array under the same key used by _get_connection_key().
-	scene_map["West"]                  = [scene_start, scene_right_deadend] # boss_room/treasure handled via boss override
+	scene_map["West"]                  = [scene_right_deadend] # boss_room/treasure handled via boss override
 	scene_map["East"]                  = [scene_left_dead_end, scene_left_dead_end2] # boss_room2/treasure handled via boss override
 	scene_map["North"]                 = [scene_down_deadend] # boss_room3/treasure handled via boss override
 	scene_map["South"]                 = [scene_up_deadend] # boss_room4/treasure handled via boss override
-	scene_map["North_West"]            = [scene_right_up_room2, scene_left_up_room]
+	scene_map["North_West"]            = [scene_left_up_room2, scene_left_up_room]
 	scene_map["East_West"]             = [scene_lr, scene_right_up_doown_groovin]
 	scene_map["North_South_West"]      = [scene_left_up_down_cave1, scene_left_up_down_cave_2]
 	scene_map["East_North_South_West"] = [scene_all_dirs, scene_left_right_up_down_loss]
@@ -336,7 +336,8 @@ func _get_valid_open_neighbors(pos: Vector2i) -> Array:
 func _get_possible_exits_for_pos(pos: Vector2i) -> Array:
 	if pos == Vector2i(0, 0):
 		# The start room's exits are fixed by its scene definition — West only.
-		return scene_exits.get("West", [])
+		#return scene_exits.get("West", [])
+		return ["West"]  # Start room can only expand West
 
 	# For all other rooms, any direction is fair game as long as a scene supports it.
 	var possible = []
@@ -422,6 +423,9 @@ func _place_rooms():
 
 		# Convert the exit list to a sorted, underscore-joined key for scene lookup.
 		var key = _get_connection_key(exits)
+		
+		#DEBUG - Check the Output panel for any MISSING MARKER line
+		print("Grid ", grid_pos, " type=", grid[grid_pos], " exits=", exits, " key=", key)
 
 		# Choose the appropriate PackedScene for this room's connection shape.
 		var packed: PackedScene
@@ -605,6 +609,13 @@ func _calculate_position(grid_pos: Vector2i, new_instance: Node2D) -> Variant:
 		var neighbor_marker = placed_neighbor.find_child(neighbor_exit_name, true, false)
 		var our_marker      = new_instance.find_child(our_entry_name, true, false)
 
+		#DEBUG
+		if neighbor_marker == null:
+			print("MISSING MARKER: ", neighbor_exit_name, " on room at ", neighbor_grid_pos)
+		if our_marker == null:
+			print("MISSING MARKER: ", our_entry_name, " on new instance for ", grid_pos)
+		#
+		
 		# If either marker is missing (scene mismatch or naming error), try another neighbor.
 		if neighbor_marker == null or our_marker == null:
 			continue
@@ -841,6 +852,10 @@ func _pick_best_scene(key: String, exits: Array) -> PackedScene:
 		# Otherwise it's a direct PackedScene reference
 		if entry is PackedScene:
 			return entry
+			
+	# For debugging
+	print("No scene match for key: %s | exits: %s" % [key, exits])
+	
 	# No exact match — fall back to the all-directions pool
 	if scene_map.has("East_North_South_West"):
 		var fallback = scene_map["East_North_South_West"]
@@ -908,6 +923,7 @@ func _count_room_neighbors(pos: Vector2i) -> int:
 # ROOM VISIBILITY + EXIT TRIGGERS
 # ─────────────────────────────────────────────
 # TRANSITION EDIT
+
 func _setup_room_system() -> void:
 	# Hide all rooms except the start room
 	for grid_pos in placed_rooms.keys():
@@ -1056,7 +1072,6 @@ func _get_or_create_overlay() -> ColorRect:
 	rect.add_to_group("transition_overlay")
 	canvas.add_child(rect)
 	return rect
-
 
 
 
