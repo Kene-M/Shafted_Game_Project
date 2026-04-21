@@ -3,7 +3,8 @@
 [ext_resource type="TileSet" uid="uid://ciq50xscy2coc" path="res://Assets/Tilesets/master_tile_set.tres" id="1_wjjed"]
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="3_h4inc"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="4_aap7a"]
-[ext_resource type="Shader" path="res://Assets/Props/Resources/fadeWest.gdshader" id="4_wjjed"]
+[ext_resource type="Shader" uid="uid://dk4t6lln01s6i" path="res://Assets/Props/Resources/fadeWest.gdshader" id="4_wjjed"]
+[ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="5_r8wu7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8wu7"]
 shader = ExtResource("4_wjjed")
@@ -101,3 +102,5 @@ offset_bottom = 32.0
 
 [node name="ExitEast" type="Marker2D" parent="." unique_id=1144948365]
 position = Vector2(274, 0)
+
+[node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("5_r8wu7")]

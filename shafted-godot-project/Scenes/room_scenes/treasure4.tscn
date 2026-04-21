@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://khisjfa624de" path="res://Scenes/itemScenes/redLightSkull.tscn" id="2_l6rbw"]
 [ext_resource type="PackedScene" uid="uid://cfybgpc4f3jjh" path="res://Scenes/itemScenes/lightSource.tscn" id="3_p7m3k"]
 [ext_resource type="Shader" uid="uid://bynwpron6b8v1" path="res://Assets/Props/Resources/fadeNorth.gdshader" id="4_alu2i"]
+[ext_resource type="PackedScene" uid="uid://dgsie3f0raai3" path="res://Scenes/itemScenes/static_augment_vendor_2d.tscn" id="5_l6rbw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_taesd"]
 shader = ExtResource("4_alu2i")
@@ -98,3 +99,5 @@ offset_left = -32.0
 offset_top = -279.0
 offset_right = 32.0
 offset_bottom = -262.0
+
+[node name="StaticAugmentVendor2D" parent="." unique_id=1769651019 instance=ExtResource("5_l6rbw")]
