@@ -3,10 +3,6 @@ extends Node
 const PROGRESS_PATH = "user://player_progress.json"
 const RUN_PATH = "user://current_run.json"
 var is_loading_run: bool = false
-var WEAPON_DB = {
-	"Launcher": "res://Scripts/weaponScripts/weaponLogicScripts/launcher.gd",
-	"No Weapon": "res://Scripts/weaponScripts/weaponLogicScripts/no_weapon.gd"
-}
 
 # ============================================================
 # MAIN FUNCTIONS
@@ -59,11 +55,25 @@ func save_current_run():
 		},
 
 		"equipped_weapons": [
-			player.melee_weapon.weapon_name,
-			player.ranged_weapon.weapon_name
-		],
+	{
+		"name": player.melee_weapon.weapon_name,
+		"script": player.melee_weapon.weapon_script
+	},
+	{
+		"name": player.ranged_weapon.weapon_name,
+		"script": player.ranged_weapon.weapon_script
+	}
+],
 
-		"current_skills": player.augments.map(func(a): return a.name),
+	"current_skills": player.augments.map(func(a):
+		return {
+			"name": a.aug_name,
+			"type": a.type,
+			"data": a.data,
+			"price": a.price,
+			"resource": a.resource
+		}
+	),
 
 		"run_resources": player.resource_inv,
 
@@ -99,17 +109,23 @@ func load_current_run():
 		var pos = data["player_position"]
 		player.global_position = Vector2(pos["x"], pos["y"])
 	"""
+	
 	# Restore weapons
 	var weapons = data["equipped_weapons"]
-	player.melee_weapon = load_weapon_by_name(weapons[0])
-	player.ranged_weapon = load_weapon_by_name(weapons[1])
+	player.melee_weapon = load_weapon_from_data(weapons[0])
+	player.ranged_weapon = load_weapon_from_data(weapons[1])
+	# IMPORTANT: actually equip it
 	player._equip_weapon(player.melee_weapon)
-	player._equip_weapon(player.ranged_weapon)
 
 	# Restore augments
 	player.augments.clear()
-	for aug_name in data["current_skills"]:
-		player.augments.append(load_augment_by_name(aug_name))
+
+	for aug_data in data["current_skills"]:
+		var aug = load_augment_from_data(aug_data)
+		player.augments.append(aug)
+
+	# IMPORTANT: reapply stat effects
+		player._modify_augment_vals(aug, false)
 
 	if player.has_node("TempHealthBar"):
 		var bar = player.get_node("TempHealthBar")
@@ -152,6 +168,21 @@ func load_progression():
 # HELPERS
 # ============================================================
 
+func load_augment_from_data(data: Dictionary) -> Augment:
+	var a = Augment.new()
+	a.aug_name = data["name"]
+	a.type = data["type"]
+	a.data = data["data"]
+	a.price = data["price"]
+	a.resource = data["resource"]
+	return a
+	
+func load_weapon_from_data(data: Dictionary) -> WeaponResource:
+	var w = WeaponResource.new()
+	w.weapon_name = data["name"]
+	w.weapon_script = data["script"]
+	return w
+
 func write_json(path, data):
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
@@ -174,25 +205,3 @@ func read_json(path):
 	file.close()
 
 	return JSON.parse_string(text)
-
-
-# ============================================================
-# TEMP LOOKUP SYSTEM
-# ============================================================
-
-func load_weapon_by_name(name: String):
-	var w = WeaponResource.new()
-	w.weapon_name = name
-
-	if WEAPON_DB.has(name):
-		w.weapon_script = WEAPON_DB[name]
-	else:
-		print("WARNING: Weapon not found in DB:", name)
-		w.weapon_script = WEAPON_DB["No Weapon"]
-
-	return w
-
-func load_augment_by_name(name: String):
-	var a = Augment.new()
-	a.name = name
-	return a
