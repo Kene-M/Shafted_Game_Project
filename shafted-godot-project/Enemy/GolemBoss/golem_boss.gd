@@ -516,6 +516,7 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		return
 
 	current_health -= final_amount
+	AudioManager.play_golem_hit(global_position)
 	health_changed.emit(max_health, current_health)
 	_show_damage_number(final_amount, is_crit)
 

@@ -13,10 +13,17 @@ const ENEMY_HIT_SOUNDS: Array[AudioStream] = [
 	preload("res://Assets/audio/sfx/enemies/enemy_hit_03.wav"),
 ]
 const ENEMY_DEATH_SOUND: AudioStream = preload("res://Assets/audio/sfx/enemies/enemy_death.wav")
+# --- Boss Golem hit SFX ---
+const GOLEM_HIT_SOUNDS: Array[AudioStream] = [
+	preload("res://Assets/audio/sfx/boss/golem_hit_01.wav"),
+	preload("res://Assets/audio/sfx/boss/golem_hit_02.wav"),
+	preload("res://Assets/audio/sfx/boss/golem_hit_03.wav"),
+]
 
+var _last_golem_hit_index: int = -1
 # --- Configuration ---
 const PITCH_VARIANCE: float = 0.1   # ±10% pitch randomization
-const POOL_SIZE: int = 16            # concurrent SFX cap (plenty for a roguelike)
+const POOL_SIZE: int = 16            # concurrent SFX cap 
 
 # --- Internal state ---
 var _player_pool: Array[AudioStreamPlayer2D] = []
@@ -68,6 +75,22 @@ func play_enemy_death(world_position: Vector2) -> void:
 
 	var player := _get_available_player()
 	player.stream = ENEMY_DEATH_SOUND
+	player.global_position = world_position
+	player.pitch_scale = 1.0 + randf_range(-PITCH_VARIANCE, PITCH_VARIANCE)
+	player.play()
+
+func play_golem_hit(world_position: Vector2) -> void:
+	if GOLEM_HIT_SOUNDS.is_empty():
+	
+		return
+
+	var index := randi() % GOLEM_HIT_SOUNDS.size()
+	if index == _last_golem_hit_index and GOLEM_HIT_SOUNDS.size() > 1:
+		index = (index + 1) % GOLEM_HIT_SOUNDS.size()
+	_last_golem_hit_index = index
+
+	var player := _get_available_player()
+	player.stream = GOLEM_HIT_SOUNDS[index]
 	player.global_position = world_position
 	player.pitch_scale = 1.0 + randf_range(-PITCH_VARIANCE, PITCH_VARIANCE)
 	player.play()

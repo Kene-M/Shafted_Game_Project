@@ -453,7 +453,8 @@ func _place_rooms():
 				" — no valid scene for key '", key, "'")
 			visited[grid_pos] = true
 			continue
-
+		
+		
 		# Instantiate the scene so we can query its exit marker positions.
 		var room_instance = packed.instantiate()
 
