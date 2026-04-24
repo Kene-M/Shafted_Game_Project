@@ -190,8 +190,10 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		
 
 	if current_health <= 0:
+		AudioManager.play_enemy_death(global_position)
 		_die()
 	else:
+		AudioManager.play_enemy_hit(global_position)
 		is_hitting = true
 		current_state = State.IDLE
 		_set_state(State.HIT)

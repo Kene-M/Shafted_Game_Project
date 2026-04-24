@@ -53,7 +53,7 @@ func _ready() -> void:
 	aggro.area_entered.connect(_on_aggro_range_area_entered)
 	deaggro.area_exited.connect(_on_de_aggro_range_area_exited)
 
-	sprite.play("lay_prepare")
+	sprite.play("prepare_lay")
 
 
 func setup(spawn_pos: Vector2) -> void:
@@ -301,7 +301,10 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		current_health -= amount
 		_show_damage_number(amount, is_crit)
 		if current_health <= 0:
+			AudioManager.play_enemy_death(global_position)
 			_die()
+		else:
+			AudioManager.play_enemy_hit(global_position)
 		return
 
 	current_health -= amount
@@ -312,6 +315,7 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		knockback_velocity = direction * knockback_strength
 
 	if current_health <= 0:
+		AudioManager.play_enemy_death(global_position)  
 		_die()
 		return
 
@@ -320,6 +324,7 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 		is_frightened = true
 		_pick_flee_target()
 
+	AudioManager.play_enemy_hit(global_position)  
 	current_state = State.IDLE
 	_set_state(State.FRIGHT)
 

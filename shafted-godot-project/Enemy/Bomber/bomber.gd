@@ -176,12 +176,15 @@ func take_damage(amount: float, is_crit: bool = false, source_position: Vector2 
 
 	current_health -= amount
 	_show_damage_number(amount, is_crit)
+	if current_health > 0:                                   # ADD
+		AudioManager.play_enemy_hit(global_position)
 
 	if source_position != Vector2.ZERO:
 		var direction: Vector2 = (global_position - source_position).normalized()
 		knockback_velocity = direction * knockback_strength
 
 	if current_health <= 0:
+		AudioManager.play_enemy_death(global_position) 
 		is_dead = true
 		velocity = Vector2.ZERO
 		current_state = State.WALK

@@ -23,6 +23,7 @@ config/icon="res://Assets/tilemaps/icon.svg"
 
 Autoload="*res://Scripts/globalScripts/autoload.gd"
 save_manager="*uid://dyksbvfkhdtpg"
+AudioManager="*uid://ps4ju6crrqsr"
 
 [display]
 
