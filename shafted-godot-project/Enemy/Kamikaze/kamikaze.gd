@@ -154,12 +154,12 @@ func _set_state(new_state: State) -> void:
 			sprite.play("fly")
 		State.DROP_BOMB:
 			velocity = Vector2.ZERO
-			sprite.speed_scale = 1.0
+			sprite.speed_scale = 2.0
 			sprite.play("idle")
 			_drop_bomb()
 		State.EXPLOSION:
 			velocity = Vector2.ZERO
-			sprite.speed_scale = 1.0
+			sprite.speed_scale = 2.0
 			if shadow_node:
 				shadow_node.visible = false
 			sprite.play("explosion")

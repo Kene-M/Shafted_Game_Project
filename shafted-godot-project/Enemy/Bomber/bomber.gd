@@ -114,6 +114,7 @@ func _set_state(new_state: State) -> void:
 			velocity = Vector2.ZERO
 			sprite.speed_scale = 1.0
 			sprite.play("explosion")
+			AudioManager.play_explosion(global_position)
 			_do_explosion_damage()  # deal damage immediately when explosion starts
 		State.DEATH:
 			var rec_paths = [

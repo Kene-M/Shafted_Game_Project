@@ -86,6 +86,10 @@ var _laser_start_angle: float = 0.0
 var _laser_sweep_delay_remaining: float = 0.0   # pre-delay countdown before sweep beam fires
 var _laser_current_length: float = 0.0          # how far the visible beam has traveled
 var _laser_sound_player: AudioStreamPlayer2D = null
+var _laser_charge_player: AudioStreamPlayer2D = null
+# Tracks how long the laser_cast anim has been looping — used for straight laser
+# so we wait the full 3 s before transitioning to LASER_SWEEP.
+var _laser_charge_timer: float = 0.0
 
 enum State { APPEAR, IDLE, WALK, MELEE, RANGED, BLOCK, ARMOR_BUFF, LASER_CAST, LASER_SWEEP, HIT, DEATH }
 var current_state: State = State.APPEAR
@@ -141,10 +145,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		knockback_velocity = Vector2.ZERO
 
-	# Hard-lock states — animation plays out, no movement
+	# Hard-lock states — animation plays out, no movement.
+	# LASER_CAST is handled here too: we tick the charge timer and transition
+	# to LASER_SWEEP ourselves instead of relying on animation_finished, so
+	# the laser_cast animation can loop freely for the full 3 seconds.
 	if current_state in [State.APPEAR, State.MELEE, State.RANGED, State.BLOCK,
 						 State.ARMOR_BUFF, State.LASER_CAST, State.HIT, State.DEATH]:
 		velocity = Vector2.ZERO
+		if current_state == State.LASER_CAST:
+			_laser_charge_timer -= delta
+			if _laser_charge_timer <= 0.0:
+				_set_state(State.LASER_SWEEP)
 		return
 
 	# Laser sweep runs its own updater (handles both delay and beam)
@@ -286,7 +297,13 @@ func _set_state(new_state: int) -> void:
 			sprite.play("sheild_cast")
 		State.LASER_CAST:
 			velocity = Vector2.ZERO
+			# Start a 3 s countdown — _physics_process ticks this down and
+			# transitions to LASER_SWEEP when it hits zero. This lets the
+			# laser_cast animation loop freely for the full charge duration
+			# without depending on animation_finished.
+			_laser_charge_timer = 2.0
 			sprite.play("laser_cast")
+			_laser_charge_player = AudioManager.play_golem_laser_charge(global_position)
 		State.LASER_SWEEP:
 			velocity = Vector2.ZERO
 			# Freeze on the last frame of immune (huddled pose).
@@ -296,11 +313,12 @@ func _set_state(new_state: int) -> void:
 			sprite.frame = sprite.sprite_frames.get_frame_count("immune") - 1
 			incoming_damage_mult = 0.25
 			if _laser_is_sweep:
-				# Huddle for pre-delay seconds, then _update_laser calls _begin_laser
+				# Sweep: huddle for pre-delay seconds, then _update_laser calls _begin_laser.
+				# The charge audio started in LASER_CAST naturally covers this window.
 				_laser_sweep_delay_remaining = laser_sweep_pre_delay
 				_laser_active = false
 			else:
-				# Straight laser: no delay, fire immediately
+				# Straight: charge already played its full 3 s in LASER_CAST — fire immediately.
 				_laser_sweep_delay_remaining = 0.0
 				_begin_laser()
 		State.HIT:
@@ -345,12 +363,17 @@ func _on_sprite_animation_finished() -> void:
 				incoming_damage_mult = 1.0
 				attack_timer = attack_cooldown * 0.5
 				_resume_after_attack()
+		&"laser_cast":
+			# Do NOT transition here. The charge timer in _physics_process
+			# controls when we move to LASER_SWEEP. Since laser_cast has
+			# looping enabled in SpriteFrames this signal fires at the end
+			# of every loop — we intentionally ignore it so the animation
+			# keeps playing until the timer expires.
+			pass
 		&"sheild_cast":
 			_armor_stacks += 1
 			attack_timer = attack_cooldown
 			_resume_after_attack()
-		&"laser_cast":
-			_set_state(State.LASER_SWEEP)
 		&"death":
 			queue_free()
 		&"hit":
@@ -398,6 +421,11 @@ func _fire_projectile() -> void:
 # ─────────────────────────────────────────────────────────────
 
 func _begin_laser() -> void:
+	# Stop charge audio — beam fires now
+	if _laser_charge_player and _laser_charge_player.playing:
+		_laser_charge_player.stop()
+	_laser_charge_player = null
+
 	_laser_active = true
 	_laser_elapsed = 0.0
 	_laser_tick_accum = 0.0
@@ -457,8 +485,6 @@ func _update_laser(delta: float) -> void:
 
 	# Travel: extend the visible beam outward at laser_travel_speed,
 	# clamped to whatever the raycast says is reachable this frame.
-	# (If the wall moves closer mid-sweep, the visible beam snaps back so it
-	# never pokes through geometry.)
 	_laser_current_length = min(_laser_current_length + laser_travel_speed * delta, max_length)
 
 	var visible_end_local := Vector2(_laser_current_length, 0)
@@ -467,8 +493,7 @@ func _update_laser(delta: float) -> void:
 	laser_glow.points = pts
 	laser_core.points = pts
 
-	# Damage only along the *visible* beam — if it hasn't traveled to the player
-	# yet, the player isn't hit. Telegraph + fairness in one.
+	# Damage only along the *visible* beam — fairness in one.
 	_laser_tick_accum += delta
 	if _laser_tick_accum >= laser_tick_interval:
 		_laser_tick_accum = 0.0
@@ -587,6 +612,9 @@ func _die() -> void:
 	_laser_active = false
 	_hide_laser_visuals()
 	AudioManager.stop_golem_laser(_laser_sound_player)
+	if _laser_charge_player and _laser_charge_player.playing:
+		_laser_charge_player.stop()
+	_laser_charge_player = null
 	laser_ray.enabled = false
 	if current_state == State.LASER_SWEEP:
 		sprite.play("idle")

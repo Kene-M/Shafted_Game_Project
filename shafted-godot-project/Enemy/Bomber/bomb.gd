@@ -61,7 +61,7 @@ func _explode() -> void:
 		var body = result["collider"]
 		if body.has_method("take_damage"):
 			body.take_damage(explosion_damage, false, global_position)
-
+	AudioManager.play_explosion(global_position)
 	sprite.play("explosion")
 
 

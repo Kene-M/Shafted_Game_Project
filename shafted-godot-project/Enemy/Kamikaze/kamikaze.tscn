@@ -369,6 +369,7 @@ collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_cnyf5")
 bomb_scene = ExtResource("2_u7jsy")
+bomb_cooldown = 1.5
 bomb_spawn_offset = Vector2(0, 30)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1974980654]

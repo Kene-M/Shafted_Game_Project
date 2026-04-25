@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1mhahbkrk4sa"]
+[gd_scene format=3 uid="uid://c1mhahbkrk4sa"]
 
 [ext_resource type="Texture2D" uid="uid://cyo3fwn0anjtb" path="res://Assets/enemies/Monster Pack/Monster6Pack.png" id="1_hyu3a"]
 [ext_resource type="Script" uid="uid://xiuh3qhqb2bq" path="res://Enemy/Bomber/bomb.gd" id="1_nwuvl"]
@@ -91,7 +91,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"explosion",
-"speed": 8.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -111,16 +111,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Bomb" type="RigidBody2D"]
+[node name="Bomb" type="RigidBody2D" unique_id=172875753]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_nwuvl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=571440982]
 position = Vector2(-1, 18)
 shape = SubResource("CircleShape2D_nwuvl")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1331045620]
 sprite_frames = SubResource("SpriteFrames_l25d8")
 animation = &"explosion"
 frame_progress = 0.22488193

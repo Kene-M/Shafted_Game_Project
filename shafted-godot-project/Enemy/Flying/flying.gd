@@ -232,6 +232,7 @@ func _set_state(new_state: State) -> void:
 			sprite.speed_scale = 1.0
 			sprite.modulate = Color.WHITE  # clear any flash tint
 			sprite.play("death_explosion")
+			AudioManager.play_explosion(global_position) 
 
 
 func _on_frame_changed() -> void:

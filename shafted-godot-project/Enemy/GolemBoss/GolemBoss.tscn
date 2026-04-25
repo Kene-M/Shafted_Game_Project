@@ -420,9 +420,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ok8as")
 }],
-"loop": false,
+"loop": true,
 "name": &"laser_cast",
-"speed": 10.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -535,13 +535,16 @@ script = ExtResource("1_c1quy")
 projectile_scene = ExtResource("2_qyjpd")
 laser_sweep_duration = 3.6
 laser_beam_width = 3.0
+laser_sweep_pre_delay = 1.0
 laser_travel_speed = 800.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2131934116]
 sprite_frames = SubResource("SpriteFrames_tpuuj")
 animation = &"laser_cast"
+frame_progress = 0.40784445
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2145238347]
+visible = false
 shape = SubResource("CircleShape2D_bruvl")
 
 [node name="Navigation" type="Node2D" parent="." unique_id=1395756759]
@@ -554,6 +557,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="Aggro" type="Node2D" parent="." unique_id=1833319773]
+visible = false
 
 [node name="AggroRange" type="Area2D" parent="Aggro" unique_id=533362135]
 collision_layer = 0

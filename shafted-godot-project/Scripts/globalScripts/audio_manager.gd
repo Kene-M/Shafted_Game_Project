@@ -21,6 +21,8 @@ const GOLEM_HIT_SOUNDS: Array[AudioStream] = [
 ]
 # --- Boss Golem laser SFX (sustained ~4s sound) ---
 const GOLEM_LASER_SOUND: AudioStream = preload("res://Assets/audio/sfx/boss/golem_laser.wav")
+const EXPLOSION_SOUND: AudioStream = preload("res://Assets/audio/sfx/enemies/explosion.wav")
+const GOLEM_LASER_CHARGE_SOUND: AudioStream = preload("res://Assets/audio/sfx/boss/laser_charge.wav")
 
 var _last_golem_hit_index: int = -1
 # --- Configuration ---
@@ -81,6 +83,15 @@ func play_enemy_death(world_position: Vector2) -> void:
 	player.pitch_scale = 1.0 + randf_range(-PITCH_VARIANCE, PITCH_VARIANCE)
 	player.play()
 
+func play_explosion(world_position: Vector2) -> void:
+	if EXPLOSION_SOUND == null:
+		return
+	var player := _get_available_player()
+	player.stream = EXPLOSION_SOUND
+	player.global_position = world_position
+	player.pitch_scale = 1.0 + randf_range(-PITCH_VARIANCE, PITCH_VARIANCE)
+	player.play()
+
 func play_golem_hit(world_position: Vector2) -> void:
 	if GOLEM_HIT_SOUNDS.is_empty():
 	
@@ -108,6 +119,16 @@ func play_golem_laser(world_position: Vector2) -> AudioStreamPlayer2D:
 
 	var player := _get_available_player()
 	player.stream = GOLEM_LASER_SOUND
+	player.global_position = world_position
+	player.pitch_scale = 1.0
+	player.play()
+	return player
+	
+func play_golem_laser_charge(world_position: Vector2) -> AudioStreamPlayer2D:
+	if GOLEM_LASER_CHARGE_SOUND == null:
+		return null
+	var player := _get_available_player()
+	player.stream = GOLEM_LASER_CHARGE_SOUND
 	player.global_position = world_position
 	player.pitch_scale = 1.0
 	player.play()
