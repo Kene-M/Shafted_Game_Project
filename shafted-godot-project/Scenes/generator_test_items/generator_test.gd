@@ -1022,28 +1022,27 @@ func _on_exit_triggered(body: Node2D, trigger: Area2D) -> void:
 
 
 func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void:
-	#is_transitioning = true
+	is_transitioning = true
 	var player = Autoload.main_char
-	var overlay = _get_or_create_overlay()
 	
-	# Fade out
+	# Disable ALL triggers immediately before doing anything
+	for room in placed_rooms.values():
+		for child in room.get_children():
+			if child.name.begins_with("ExitTrigger_"):
+				child.monitoring = false
+	
+	var overlay = _get_or_create_overlay()
 	var tween_out = create_tween()
 	tween_out.tween_property(overlay, "color:a", 1.0, 0.35)
 	await tween_out.finished
 	
-	## Swap room visibility
-	#placed_rooms[current_room_pos].visible = false
-	#var new_room = placed_rooms[to_grid]
-	#new_room.visible = true
-	# Swap rooms — deactivate old, activate new
 	_set_room_active(placed_rooms[current_room_pos], false)
 	var new_room = placed_rooms[to_grid]
 	_set_room_active(new_room, true)
 	
-	# Reposition player at the entry side of the new room
+	# Reposition player
 	var entry_dir = OPPOSITE[came_from_direction]
 	var entry_marker = new_room.find_child("Exit" + entry_dir, true, false)
-	
 	if entry_marker:
 		var inward = Vector2.ZERO
 		match entry_dir:
@@ -1056,21 +1055,14 @@ func _transition_to_room(to_grid: Vector2i, came_from_direction: String) -> void
 		player.global_position = new_room.global_position
 	
 	current_room_pos = to_grid
-	var room_type: String = grid.get(to_grid, "normal")
-	emit_signal("room_changed", room_type)
+	emit_signal("room_changed", grid.get(to_grid, "normal"))
 	
-		# Fade back in
 	var tween_in = create_tween()
 	tween_in.tween_property(overlay, "color:a", 0.0, 0.35)
 	await tween_in.finished
 	
-	# Briefly disable triggers in new room to prevent immediate re-trigger
-	for child in new_room.get_children():
-		if child.name.begins_with("ExitTrigger_"):
-			child.set_deferred("monitoring", false)
-	
-	await get_tree().create_timer(0.5).timeout
-	
+	# Only re-enable triggers in the NEW current room, with a small delay
+	await get_tree().create_timer(0.3).timeout
 	for child in new_room.get_children():
 		if child.name.begins_with("ExitTrigger_"):
 			child.set_deferred("monitoring", true)
@@ -1100,18 +1092,16 @@ func _get_or_create_overlay() -> ColorRect:
 	return rect
 
 func _set_room_active(room: Node2D, active: bool) -> void:
-	# Show/hide visuals
 	room.visible = active
-	
-	# Enable/disable all TileMapLayer collision
 	for child in room.find_children("*", "TileMapLayer", true, false):
 		child.collision_enabled = active
-	
-	# Enable/disable all enemies
 	for child in room.find_children("*", "CharacterBody2D", true, false):
 		child.process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
-	
-	# Enable/disable all Area2D except exit triggers (those are managed separately)
+		# Reset nav agent when deactivating so they don't resume a stale path
+		if not active:
+			var agent = child.get_node_or_null("Navigation/NavigationAgent2D")
+			if agent:
+				agent.target_position = child.global_position  # idle in place
 	for child in room.find_children("*", "Area2D", true, false):
 		if child.name.begins_with("ExitTrigger_"):
 			continue

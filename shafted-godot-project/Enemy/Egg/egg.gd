@@ -48,7 +48,11 @@ func _hatch() -> void:
 	if hatched_enemy:
 		var enemy = hatched_enemy.instantiate()
 		get_parent().add_child(enemy)
-		enemy.global_position = global_position  # must be after add_child so parent offset is applied
+		# Use setup() so home_pos is set correctly at the hatch location
+		if enemy.has_method("setup"):
+			enemy.setup(global_position)
+		else:
+			enemy.global_position = global_position
 	queue_free()
 
 func _show_damage_number(amount: float, is_crit: bool = false) -> void:

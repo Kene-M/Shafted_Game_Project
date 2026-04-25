@@ -29,7 +29,6 @@ var current_state: State = State.IDLE
 func _ready():
 	nav_agent.path_desired_distance = 4
 	nav_agent.target_desired_distance = 4
-	home_pos = global_position  # ← add this line
 	sprite.animation_finished.connect(_on_sprite_animation_finished)
 	sprite.frame_changed.connect(_on_frame_changed)
 	var recalc_timer: Timer = $Navigation/RecalculateTimer
@@ -38,6 +37,10 @@ func _ready():
 	recalc_timer.timeout.connect(_on_recalculate_timer_timeout)
 	recalc_timer.start()
 	sprite.play("idle")
+	
+func setup(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	home_pos = spawn_pos
 
 
 func _physics_process(delta):
@@ -63,6 +66,8 @@ func _physics_process(delta):
 			if current_state != State.HIT:
 				_set_state(State.ATTACK)
 			return
+			
+	
 
 	if nav_agent.is_navigation_finished():
 		if current_state != State.HIT:
