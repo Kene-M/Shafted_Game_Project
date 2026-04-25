@@ -19,6 +19,8 @@ const GOLEM_HIT_SOUNDS: Array[AudioStream] = [
 	preload("res://Assets/audio/sfx/boss/golem_hit_02.wav"),
 	preload("res://Assets/audio/sfx/boss/golem_hit_03.wav"),
 ]
+# --- Boss Golem laser SFX (sustained ~4s sound) ---
+const GOLEM_LASER_SOUND: AudioStream = preload("res://Assets/audio/sfx/boss/golem_laser.wav")
 
 var _last_golem_hit_index: int = -1
 # --- Configuration ---
@@ -94,3 +96,28 @@ func play_golem_hit(world_position: Vector2) -> void:
 	player.global_position = world_position
 	player.pitch_scale = 1.0 + randf_range(-PITCH_VARIANCE, PITCH_VARIANCE)
 	player.play()
+
+
+# Play the golem laser sound at the given world position.
+# Returns the player so the caller can stop it early (e.g. on death,
+# or when the shorter straight laser ends before the 4s sound finishes).
+# Pitch is locked to 1.0 — no jitter on sustained sounds, it sounds wobbly.
+func play_golem_laser(world_position: Vector2) -> AudioStreamPlayer2D:
+	if GOLEM_LASER_SOUND == null:
+		return null
+
+	var player := _get_available_player()
+	player.stream = GOLEM_LASER_SOUND
+	player.global_position = world_position
+	player.pitch_scale = 1.0
+	player.play()
+	return player
+
+
+# Stop a sustained sound early. Safe to call with null or with a player
+# that's no longer playing — both no-op.
+func stop_golem_laser(player: AudioStreamPlayer2D) -> void:
+	if player == null:
+		return
+	if player.playing:
+		player.stop()

@@ -37,6 +37,9 @@ extends CharacterBody2D
 @export var laser_straight_interval_min: float = 8.0   # straight laser fires every 8–11 s
 @export var laser_straight_interval_max: float = 11.0
 @export var laser_sweep_pre_delay: float = 2.0         # huddle time before sweep beam fires
+@export var laser_travel_speed: float = 4000.0         # px/sec the beam extends from origin
+@export var laser_glow_width_mult: float = 3.0         # outer halo width = body width * this
+@export var laser_core_width_mult: float = 0.4         # core width = body width * this
 
 # ─── Health / defense ───
 @export var knockback_strength: float = 0.0
@@ -59,6 +62,8 @@ var _spin_laser_20_done: bool = false
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var laser_pivot: Node2D = $LaserPivot
 @onready var laser_line: Line2D = $LaserPivot/LaserLine
+@onready var laser_glow: Line2D = $LaserPivot/LaserGlow
+@onready var laser_core: Line2D = $LaserPivot/LaserCore
 @onready var laser_ray: RayCast2D = $LaserPivot/LaserRay
 
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -79,6 +84,8 @@ var _laser_tick_accum: float = 0.0
 var _laser_direction_sign: float = 1.0
 var _laser_start_angle: float = 0.0
 var _laser_sweep_delay_remaining: float = 0.0   # pre-delay countdown before sweep beam fires
+var _laser_current_length: float = 0.0          # how far the visible beam has traveled
+var _laser_sound_player: AudioStreamPlayer2D = null
 
 enum State { APPEAR, IDLE, WALK, MELEE, RANGED, BLOCK, ARMOR_BUFF, LASER_CAST, LASER_SWEEP, HIT, DEATH }
 var current_state: State = State.APPEAR
@@ -103,7 +110,7 @@ func _ready() -> void:
 	if not deaggro.area_exited.is_connected(_on_de_aggro_range_area_exited):
 		deaggro.area_exited.connect(_on_de_aggro_range_area_exited)
 
-	laser_line.visible = false
+	_hide_laser_visuals()
 	laser_ray.enabled = false
 
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("appear"):
@@ -394,6 +401,7 @@ func _begin_laser() -> void:
 	_laser_active = true
 	_laser_elapsed = 0.0
 	_laser_tick_accum = 0.0
+	_laser_current_length = 0.0   # beam starts at zero length and grows outward
 	_laser_direction_sign = -1.0 if randf() < 0.5 else 1.0
 
 	if target_node:
@@ -402,10 +410,16 @@ func _begin_laser() -> void:
 		_laser_start_angle = 0.0
 
 	laser_pivot.rotation = _laser_start_angle
-	laser_line.visible = true
+
+	# Apply widths from the beam_width export so all three layers stay proportional.
+	laser_line.width = laser_beam_width
+	laser_glow.width = laser_beam_width * laser_glow_width_mult
+	laser_core.width = laser_beam_width * laser_core_width_mult
+
+	_show_laser_visuals()
 	laser_ray.enabled = true
 	laser_ray.target_position = Vector2(laser_max_range, 0)
-	laser_line.width = laser_beam_width
+	_laser_sound_player = AudioManager.play_golem_laser(global_position)
 
 
 func _update_laser(delta: float) -> void:
@@ -431,19 +445,34 @@ func _update_laser(delta: float) -> void:
 			var target_angle := (target_node.global_position - global_position).angle()
 			laser_pivot.rotation = lerp_angle(laser_pivot.rotation, target_angle, delta * 3.0)
 
+	# Raycast from the muzzle gives us the maximum end the beam could reach this frame.
 	laser_ray.force_raycast_update()
-	var beam_end_local: Vector2
+	var max_end_local: Vector2
 	if laser_ray.is_colliding():
-		beam_end_local = laser_pivot.to_local(laser_ray.get_collision_point())
+		max_end_local = laser_pivot.to_local(laser_ray.get_collision_point())
 	else:
-		beam_end_local = Vector2(laser_max_range, 0)
+		max_end_local = Vector2(laser_max_range, 0)
 
-	laser_line.points = PackedVector2Array([Vector2.ZERO, beam_end_local])
+	var max_length: float = max(max_end_local.x, 0.0)
 
+	# Travel: extend the visible beam outward at laser_travel_speed,
+	# clamped to whatever the raycast says is reachable this frame.
+	# (If the wall moves closer mid-sweep, the visible beam snaps back so it
+	# never pokes through geometry.)
+	_laser_current_length = min(_laser_current_length + laser_travel_speed * delta, max_length)
+
+	var visible_end_local := Vector2(_laser_current_length, 0)
+	var pts := PackedVector2Array([Vector2.ZERO, visible_end_local])
+	laser_line.points = pts
+	laser_glow.points = pts
+	laser_core.points = pts
+
+	# Damage only along the *visible* beam — if it hasn't traveled to the player
+	# yet, the player isn't hit. Telegraph + fairness in one.
 	_laser_tick_accum += delta
 	if _laser_tick_accum >= laser_tick_interval:
 		_laser_tick_accum = 0.0
-		_try_laser_damage(beam_end_local)
+		_try_laser_damage(visible_end_local)
 
 	var duration := laser_sweep_duration if _laser_is_sweep else laser_sweep_duration * 0.4
 	if _laser_elapsed >= duration:
@@ -465,14 +494,30 @@ func _try_laser_damage(beam_end_local: Vector2) -> void:
 
 func _end_laser() -> void:
 	_laser_active = false
-	laser_line.visible = false
-	laser_line.points = PackedVector2Array()
+	_laser_current_length = 0.0
+	_hide_laser_visuals()
+	AudioManager.stop_golem_laser(_laser_sound_player)
 	laser_ray.enabled = false
 	incoming_damage_mult = 1.0
 	attack_timer = attack_cooldown * (2.0 if _laser_is_sweep else 1.2)
 	sprite.play("idle")
 	current_state = State.IDLE
 	_set_state(State.IDLE)
+
+
+func _show_laser_visuals() -> void:
+	laser_line.visible = true
+	laser_glow.visible = true
+	laser_core.visible = true
+
+
+func _hide_laser_visuals() -> void:
+	laser_line.visible = false
+	laser_glow.visible = false
+	laser_core.visible = false
+	laser_line.points = PackedVector2Array()
+	laser_glow.points = PackedVector2Array()
+	laser_core.points = PackedVector2Array()
 
 
 # ─────────────────────────────────────────────────────────────
@@ -540,7 +585,8 @@ func _die() -> void:
 	is_dead = true
 	velocity = Vector2.ZERO
 	_laser_active = false
-	laser_line.visible = false
+	_hide_laser_visuals()
+	AudioManager.stop_golem_laser(_laser_sound_player)
 	laser_ray.enabled = false
 	if current_state == State.LASER_SWEEP:
 		sprite.play("idle")

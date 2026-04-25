@@ -533,6 +533,9 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_c1quy")
 projectile_scene = ExtResource("2_qyjpd")
+laser_sweep_duration = 3.6
+laser_beam_width = 3.0
+laser_travel_speed = 800.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2131934116]
 sprite_frames = SubResource("SpriteFrames_tpuuj")
@@ -570,11 +573,37 @@ position = Vector2(-10, -37)
 shape = SubResource("CircleShape2D_ea8ll")
 
 [node name="LaserPivot" type="Node2D" parent="." unique_id=1728897185]
+position = Vector2(5.666667, -15.666667)
+
+[node name="LaserGlow" type="Line2D" parent="LaserPivot" unique_id=2034507596]
+visible = false
+texture_filter = 1
+width = 42.0
+default_color = Color(0.024, 1, 1.004, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
 
 [node name="LaserLine" type="Line2D" parent="LaserPivot" unique_id=978086949]
 visible = false
-width = 14.0
+texture_filter = 1
+width = 18.0
 default_color = Color(0.023529412, 1, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
+
+[node name="LaserCore" type="Line2D" parent="LaserPivot" unique_id=286003987]
+visible = false
+texture_filter = 1
+width = 6.0
+default_color = Color(0.023529412, 1, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
 
 [node name="LaserRay" type="RayCast2D" parent="LaserPivot" unique_id=1292779525]
 enabled = false
