@@ -2,6 +2,8 @@
 
 A 2D top-down dungeon crawler built in **Godot 4.6** using **GDScript**. Players fight through procedurally generated dungeons, collect weapons, craft gear, and take on a golem boss to complete a run.
 
+**Demo**: https://www.youtube.com/watch?v=CR2xvLAT4G8
+
 ---
 
 ## Team
