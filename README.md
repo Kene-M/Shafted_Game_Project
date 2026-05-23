@@ -5,7 +5,7 @@ A 2D top-down dungeon crawler built in **Godot 4.6** using **GDScript**. Players
 ---
 
 ## Team
-**Team Name**: _Shafted_
+**Team Name**: _Capstoners_
 
 **Group Members**: Kene Maduabum, Isaiah Shavers, Borui Zhang, Blade Hagman, Quinn McCollister, Dhruv Bhakta
 
