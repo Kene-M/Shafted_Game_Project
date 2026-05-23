@@ -70,7 +70,7 @@ shafted-godot-project/
 
 ## How to Run
 
-1. **Install Godot 4.6** from https://godotengine.org/download](https://godotengine.org/download/archive/4.6.2-stable/. Make sure you grab the standard (non-Mono/.NET) build unless you intend to use C# features.
+1. **Install Godot 4.6** from https://godotengine.org/download/archive/4.6.2-stable/. Make sure you grab the standard (non-Mono/.NET) build unless you intend to use C# features.
 2. **Open the project** — launch Godot, click **Import**, and navigate to `shafted-godot-project/project.godot`.
 3. **Press F5** (or the Play button) to run from the Start Menu scene. The engine will import assets on first launch, which may take a moment.
 
